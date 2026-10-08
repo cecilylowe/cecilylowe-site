@@ -982,3 +982,40 @@ body.plain { font-size: 16.5px; }
   .plain .work.narrow figure { width: 70%; margin-left: auto; }
   .plain .work + .work { margin-top: 3rem; }
 }
+
+/* ---------- Work v4, after architecture.yale.edu ---------- */
+/* highlight cards on a 12-column grid, newest first; pictures whole, each a link */
+.plain main.page.cards {
+  max-width: none; padding: 4.75rem 1.5rem 3.5rem;
+  display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 1.5rem; row-gap: 3.5rem;
+  align-items: start;
+}
+.plain .card { min-width: 0; }
+.plain .card .pic { display: block; }
+.plain .card .pic img { display: block; width: 100%; height: auto; transition: opacity 160ms; }
+.plain .card .pic:hover img { opacity: 0.85; }
+.plain .card .kicker { margin: 0.9rem 0 0.35rem; font-size: 12.5px; letter-spacing: 0.04em; text-transform: uppercase; color: #111; }
+.plain .card h2 { margin: 0; font: inherit; font-size: 1.55em; line-height: 1.12; letter-spacing: -0.02em; font-weight: 500; text-wrap: balance; }
+.plain .card h2 a { color: inherit; text-decoration: none; }
+.plain .card h2 a:hover { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.12em; }
+.plain .card .desc { margin: 0.6rem 0 0; max-width: 36em; }
+.plain .card .src { margin: 0.6rem 0 0; font-size: 13px; }
+.plain .card .src a { color: inherit; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.15em; }
+/* placement: the newest teaching card leads, large; the Marshall Plan card is the smallest */
+.plain .c-ypei { grid-column: 1 / span 7; }
+.plain .c-gas { grid-column: 8 / span 5; }
+.plain .c-marshall { grid-column: 1 / span 3; }
+.plain .c-nsf { grid-column: 4 / span 3; }
+.plain .c-nsf .pic img { width: 62%; }
+.plain .c-pra { grid-column: 7 / span 6; }
+.plain .c-marshall h2, .plain .c-nsf h2 { font-size: 1.3em; }
+@media (max-width: 900px) {
+  .plain .c-ypei, .plain .c-gas, .plain .c-pra { grid-column: 1 / -1; }
+  .plain .c-marshall { grid-column: 1 / span 6; }
+  .plain .c-nsf { grid-column: 7 / span 6; }
+}
+@media (max-width: 560px) {
+  .plain main.page.cards { padding-top: 1.5rem; row-gap: 2.5rem; }
+  .plain .card { grid-column: 1 / -1 !important; }
+  .plain .c-marshall .pic img { width: 75%; }
+}
