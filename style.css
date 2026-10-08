@@ -725,3 +725,6 @@ body.plain.nl { display: flex; flex-direction: column; min-height: 100vh; min-he
 .plain.nl main.page.signup { position: relative; padding-bottom: calc(0.85rem + env(safe-area-inset-bottom, 0px)); }
 .plain.nl .signup .note { position: absolute; left: 0; right: 0; bottom: calc(100% - 0.15rem); margin: 0; min-height: 0; text-align: center; }
 .plain.nl .planet:has(+ .signup) { padding-bottom: 2.25rem; }
+
+/* ?: keep the name and the menu visible while locked, so you can always leave; box stays dead centre */
+body.plain.locked .bar { display: flex; }
