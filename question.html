@@ -32,8 +32,8 @@
 <main class="page gate">
   <form class="news" id="gate" novalidate>
     <label for="pw" class="sr">Password</label>
-    <input id="pw" name="password" type="password" placeholder="Password" autocomplete="current-password" autocapitalize="none" spellcheck="false" required>
-    <button type="submit">Enter</button>
+    <input id="pw" name="password" type="password" placeholder="Password" aria-label="Password, then press Enter" autocomplete="current-password" autocapitalize="none" spellcheck="false" required>
+    <button type="submit" class="sr" tabindex="-1">Enter</button>
   </form>
   <p class="note" aria-live="polite"></p>
 </main>

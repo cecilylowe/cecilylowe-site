@@ -788,3 +788,19 @@ body.plain { font-size: 17px; }
    slightly wider text column */
 .plain .bar nav { gap: 2.5rem; }
 @media (min-width: 721px) { .plain .about { grid-template-columns: minmax(0, 1fr) minmax(30rem, 30%); } }
+
+/* boxes v5 (2026-10-08): a single line instead of a box, no visible button, press Enter.
+   Same for the newsletter email and the ? password. */
+.plain .news {
+  border: 0;
+  border-bottom: 1px solid #111;
+  background: transparent;
+  outline: none;
+}
+.plain .news:focus-within { outline: none; border-bottom-width: 1.5px; }
+.plain .news input { padding: 0 0.1rem; background: transparent; }
+.plain .news > button:not(.sr) { display: none; }
+/* both lines the same length, both words flush with the start of the line */
+.plain main.page.gate .news { width: min(calc(100vw - 3rem), 23rem); }
+.plain.nl main.page.signup { max-width: calc(23rem + 3rem); }
+.plain .news.bare input, .plain .news input { padding: 0 0.1rem; }
