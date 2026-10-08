@@ -728,3 +728,18 @@ body.plain.nl { display: flex; flex-direction: column; min-height: 100vh; min-he
 
 /* ?: keep the name and the menu visible while locked, so you can always leave; box stays dead centre */
 body.plain.locked .bar { display: flex; }
+
+/* newsletter: Jupiter centred in the whole screen (not just the space above the box);
+   the box stays pinned at the bottom */
+.plain.nl .planet:has(+ .signup) {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+.plain.nl .planet:has(+ .signup) img { width: min(100%, calc(100svh - 11rem)); }
+.plain.nl main.page.signup { margin-top: auto; z-index: 1; }
