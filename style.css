@@ -949,3 +949,36 @@ body.plain { font-size: 16.5px; }
 .plain .signup .note, .plain .gate .note { font-size: 13px; }
 .plain .plate figcaption { font-size: 8.5px; }
 @media (max-width: 520px) { body.plain { font-size: 16px; } }
+
+/* ---------- research v3, after hlmagnus.cargo.site/work ---------- */
+/* one entry per row on a 12-column grid: the words in columns 4-6, the picture right-aligned,
+   alternating wide (columns 8-12) and narrow (columns 10-12). This page scrolls, as the reference does. */
+.plain main.page.works { max-width: none; padding: 4.75rem 1.5rem 4rem; }
+.plain .work {
+  display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 1.5rem;
+  align-items: start;
+}
+.plain .work + .work { margin-top: 4.5rem; }
+.plain .work .words { grid-column: 4 / span 3; }
+.plain .work h2 { font: inherit; font-weight: 500; margin: 0 0 1.1em; text-wrap: balance; }
+.plain .work p { margin: 0; }
+.plain .work p + p { margin-top: 1em; }
+.plain .work .who { color: rgba(17, 17, 17, 0.55); }
+.plain .work a { color: inherit; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.15em; }
+.plain .work a:hover { opacity: 0.6; }
+.plain .work figure { margin: 0; }
+.plain .work figure img { display: block; width: 100%; height: auto; }
+.plain .work.wide figure { grid-column: 8 / span 5; }
+.plain .work.narrow figure { grid-column: 10 / span 3; }
+@media (max-width: 1100px) {
+  .plain .work .words { grid-column: 1 / span 5; }
+  .plain .work.wide figure { grid-column: 7 / span 6; }
+  .plain .work.narrow figure { grid-column: 9 / span 4; }
+}
+@media (max-width: 720px) {
+  .plain main.page.works { padding-top: 1.5rem; }
+  .plain .work { display: block; }
+  .plain .work figure { margin-top: 1.25rem; }
+  .plain .work.narrow figure { width: 70%; margin-left: auto; }
+  .plain .work + .work { margin-top: 3rem; }
+}
