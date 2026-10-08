@@ -1105,3 +1105,43 @@ body.plain { font-size: 16.5px; }
   .plain .shelf .item .frame { height: clamp(10rem, calc(100svh - 27.5rem), 30rem); }
   .plain .shelf .row { padding-bottom: 0.5rem; }
 }
+
+/* Work/News: picture and title only; titles are links without underlines */
+.plain .shelf.bare { border: 0; }
+.plain .shelf.bare .row { padding-top: 0.25rem; }
+.plain .item h2 { margin-top: 0.9rem; }
+@media (min-width: 721px) {
+  .plain .shelf.bare .item .frame { height: clamp(12rem, calc(100svh - 12rem), 40rem); }
+}
+
+/* every picture centred in its frame (the NSF logo too); titles centred under them */
+.plain .item .frame { display: flex; align-items: center; justify-content: center; }
+.plain .item .frame img { object-position: center center; }
+.plain .item.logo .frame img { width: 45%; height: 70%; object-fit: contain; }
+.plain .item h2 { text-align: center; }
+.plain .item .frame { overflow: hidden; } .plain .item .frame img { min-height: 0; min-width: 0; max-height: 100%; }
+
+/* ---------- Work and News v6: tiles, picture + name, one link each ---------- */
+.plain main.page.tiles { max-width: none; padding: 4.5rem 1.5rem 1.5rem; display: grid; column-gap: 1.5rem; row-gap: 2rem; align-items: start; }
+.plain main.page.tiles.cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.plain main.page.tiles.cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.plain .tile { display: block; color: #111; text-decoration: none; }
+.plain .tile .frame { display: flex; align-items: center; justify-content: center; height: clamp(12rem, calc(100svh - 11rem), 40rem); overflow: hidden; }
+.plain .tile .frame img { display: block; max-width: 100%; max-height: 100%; width: auto; height: auto; min-width: 0; min-height: 0; object-fit: contain; transition: opacity 160ms; }
+.plain .tile.logo .frame img { max-width: 45%; max-height: 60%; }
+.plain .tile .name { display: block; margin-top: 0.9rem; text-align: center; font-size: 1.3em; line-height: 1.15; letter-spacing: -0.015em; font-weight: 500; text-wrap: balance; transition: color 140ms; }
+.plain .tile:hover .name, .plain .tile:focus-visible .name { color: var(--pink); }
+.plain .tile:hover .frame img { opacity: 0.9; }
+.plain .tile:focus-visible { outline: none; }
+@media (max-width: 720px) {
+  .plain main.page.tiles { padding-top: 1.5rem; }
+  .plain main.page.tiles.cols-2, .plain main.page.tiles.cols-3 { grid-template-columns: 1fr; }
+  .plain .tile .frame { height: auto; }
+  .plain .tile.logo .frame img { max-width: 40%; }
+}
+
+/* links turn pink, not orange, when you're about to click */
+:root { --pink: #e2799a; --accent: #e2799a; }
+body.plain a:hover, body.plain .bar a:hover { color: var(--pink); opacity: 1; }
+.plain main.page.tiles > * + * { margin-top: 0; }
+@media (min-width: 721px) { .plain .tile .frame { height: clamp(12rem, calc(100svh - 13.5rem), 40rem); } }
