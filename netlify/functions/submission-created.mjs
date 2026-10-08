@@ -1,10 +1,11 @@
 // Runs automatically every time a Netlify form is submitted (the file name is the trigger).
 // For the "newsletter" form: remember the address, then email Cecily a plain note with the ten
-// most recent sign-ups. Email goes through Resend (RESEND_API_KEY, set on the Netlify site).
+// most recent sign-ups. Email goes out through Cecily's own Gmail (GMAIL_USER + GMAIL_APP_PASSWORD,
+// set on the Netlify site), so no extra service or account is involved.
 import { getStore } from "@netlify/blobs";
+import nodemailer from "nodemailer";
 
 const TO = "cecily.lowe@yale.edu";
-const FROM = "Newsletter <onboarding@resend.dev>";
 
 const when = (iso) =>
   new Date(iso).toLocaleString("en-US", {
@@ -27,8 +28,8 @@ export default async (req) => {
   list.push({ email, at });
   await store.setJSON("subscribers", list);
 
-  const key = process.env.RESEND_API_KEY;
-  if (!key) return new Response("saved; no RESEND_API_KEY, so no email");
+  const user = process.env.GMAIL_USER, pass = process.env.GMAIL_APP_PASSWORD;
+  if (!user || !pass) return new Response("saved; Gmail not configured, so no email");
 
   const recent = [...list].sort((a, b) => b.at.localeCompare(a.at)).slice(0, 10);
   const lines = recent.map((s, i) => `${String(i + 1).padStart(2, " ")}. ${s.email}  (${when(s.at)})`);
@@ -38,12 +39,9 @@ export default async (req) => {
     lines.join("\n") + "\n";
   const html = emailHtml({ email, at, recent, total: list.length });
 
-  const res = await fetch("https://api.resend.com/emails", {
-    method: "POST",
-    headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
-    body: JSON.stringify({ from: FROM, to: [TO], subject: `${email} joined your newsletter`, text, html }),
-  });
-  return new Response(res.ok ? "sent" : `email failed: ${res.status} ${await res.text()}`);
+  const mail = nodemailer.createTransport({ host: "smtp.gmail.com", port: 465, secure: true, auth: { user, pass } });
+  await mail.sendMail({ from: `Newsletter <${user}>`, to: TO, subject: `${email} joined your newsletter`, text, html });
+  return new Response("sent");
 };
 
 // ---- the email itself: plain, black on white, the site's own spare style. Tables and inline styles
