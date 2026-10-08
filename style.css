@@ -813,3 +813,8 @@ body.plain { font-size: 15.5px; }
 .plain .news { height: 2.4rem; }
 .plain .inside .welcome { font-size: 1.5em; }
 @media (max-width: 520px) { body.plain { font-size: 15px; } }
+
+/* About: the picture is dark, so the name over it is white */
+body.plain.about-dark .bar .who { color: #fff; }
+@media (max-width: 720px) { body.plain.about-dark .bar .who { color: #111; } }
+@media (max-width: 720px) { .plain .bar nav { gap: 0.3rem 1.1rem; } }
