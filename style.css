@@ -818,3 +818,9 @@ body.plain { font-size: 15.5px; }
 body.plain.about-dark .bar .who { color: #fff; }
 @media (max-width: 720px) { body.plain.about-dark .bar .who { color: #111; } }
 @media (max-width: 720px) { .plain .bar nav { gap: 0.3rem 1.1rem; } }
+
+/* research: the ink plate, centred under the menu */
+.plain .plate { margin: 0 auto; padding: 4.5rem 1.5rem 0; max-width: 46rem; }
+.plain .plate img { display: block; width: 100%; height: auto; }
+.plain .plate + main.page.research { padding-top: 3.5rem; margin: 0 auto; }
+@media (max-width: 720px) { .plain .plate { padding-top: 1.5rem; } .plain .plate + main.page.research { padding-top: 2rem; } }
