@@ -848,3 +848,17 @@ body.plain.about-dark .bar .who { color: #fff; }
 /* Curious: the geometry, very small, dead centre */
 .plain main.page.curious { position: fixed; inset: 0; padding: 0; max-width: none; display: grid; place-items: center; pointer-events: none; }
 .plain main.page.curious img { width: 150px; height: auto; display: block; }
+
+/* About pair v2: no cropping. Both photos whole, side by side at the same height (flex weights =
+   their aspect ratios: Voyager 5489:4637 ≈ 1.18, Juno 1:1), centred in the white picture area */
+.plain .about .pic.pair {
+  display: flex; align-items: center; justify-content: center; gap: 0;
+  background: #fff; padding: 4rem 0 2rem;
+}
+.plain .about .pic.pair img { height: auto; object-fit: contain; min-width: 0; }
+.plain .about .pic.pair img:first-child { flex: 1.1837 1 0; }
+.plain .about .pic.pair img:last-child { flex: 1 1 0; }
+@media (max-width: 720px) { .plain .about .pic.pair { padding: 0.5rem 0 0; } }
+@media (max-width: 720px) { .plain .about { grid-template-rows: auto auto; } .plain .about.on .words { padding-top: 1.5rem; } }
+@media (max-width: 720px) { .plain .about { align-content: start; } }
+@media (max-width: 720px) { .plain .about .pic.pair { padding-top: 5.25rem; } }
