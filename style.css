@@ -520,3 +520,15 @@ body.plain:has(#about:target) .bar nav { display: none; }
 .plain .research h2 { font: inherit; font-style: italic; margin: 0 0 0.6rem; }
 .plain .research p + p { margin-top: 0.8em; }
 .plain .research .ph { color: rgba(17, 17, 17, 0.45); }
+
+/* type after sebastiansangha.com (2026-10-08): that site uses ABC Diatype, which Cargo licenses to
+   Cargo-hosted sites only, so this is Inter, the closest free match. To use real Diatype, buy a web
+   licence from Dinamo (abcdinamo.com), put the .woff2 in assets/ and swap the family name below.
+   The top row sits closer to the top edge. */
+body.plain { font: 400 19px / 1.3 "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif; letter-spacing: -0.005em; }
+.plain .about .words { font-size: 17px; line-height: 1.35; }
+.plain .bar { padding-top: calc(0.75rem + env(safe-area-inset-top, 0px)); }
+.plain .spread .right { margin-top: 3rem; }
+.plain main.page { padding-top: 4.5rem; }
+@media (min-width: 721px) { .plain .about.on .words { padding-top: 3.4rem; } }
+.plain .research h2 { font-style: normal; font-weight: 500; }
