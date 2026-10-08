@@ -837,3 +837,14 @@ body.plain.about-dark .bar .who { color: #fff; }
   .plain .orrery .field { aspect-ratio: auto; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
   .plain .orrery .field img { position: static; width: 100% !important; }
 }
+
+/* About: two Jupiter photographs side by side in the picture area */
+.plain .about .pic.pair { display: grid; grid-template-columns: 1fr 1fr; gap: 0; background: #000; }
+.plain .about .pic.pair img { width: 100%; height: 100%; object-fit: cover; display: block; min-width: 0; min-height: 0; }
+@media (max-width: 720px) { .plain .about .pic.pair { grid-template-columns: 1fr 1fr; } }
+.plain .about .pic.pair img:first-child { object-position: 66% 40%; }
+.plain .about .pic.pair img:last-child { object-position: 30% 50%; }
+
+/* Curious: the geometry, very small, dead centre */
+.plain main.page.curious { position: fixed; inset: 0; padding: 0; max-width: none; display: grid; place-items: center; pointer-events: none; }
+.plain main.page.curious img { width: 150px; height: auto; display: block; }
