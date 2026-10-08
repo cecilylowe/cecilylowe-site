@@ -826,3 +826,4 @@ body.plain.about-dark .bar .who { color: #fff; }
 @media (max-width: 720px) { .plain .plate { padding-top: 1.5rem; } .plain .plate + main.page.research { padding-top: 2rem; } }
 /* the citation under the plate: as small as stays legible */
 .plain .plate figcaption { margin-top: 0.6rem; font-size: 8px; line-height: 1.35; letter-spacing: 0.01em; color: rgba(17, 17, 17, 0.5); text-align: center; }
+.plain .plate figcaption { color: #111; }
