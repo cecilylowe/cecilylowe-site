@@ -1251,3 +1251,7 @@ body.plain .news input::placeholder { color: rgba(17, 17, 17, 0.35); }
 
 /* News only: photographs in black and white (colour returns on hover) */
 body.plain.news-page .entry .pic img { filter: grayscale(1) contrast(1.05); transition: filter 200ms, opacity 160ms; }
+
+/* Work/News: the title turns pink only while the pointer is on the words themselves, not the photo */
+.plain .entry:hover .title { color: #111; }
+.plain .entry .words:hover .title, .plain .entry:focus-visible .title { color: var(--pink); }
