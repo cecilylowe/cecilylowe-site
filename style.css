@@ -1239,3 +1239,7 @@ body.plain .plate figcaption { font-size: 9px; }
 
 /* a bolder, more saturated pink for links on hover */
 :root { --pink: #e8338a; --accent: #e8338a; }
+
+/* what you type into the email and password lines shows in the pink; the cursor too */
+body.plain .news input { color: var(--pink); caret-color: var(--pink); }
+body.plain .news input::placeholder { color: rgba(17, 17, 17, 0.35); }
