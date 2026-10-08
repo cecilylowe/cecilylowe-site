@@ -1145,3 +1145,35 @@ body.plain { font-size: 16.5px; }
 body.plain a:hover, body.plain .bar a:hover { color: var(--pink); opacity: 1; }
 .plain main.page.tiles > * + * { margin-top: 0; }
 @media (min-width: 721px) { .plain .tile .frame { height: clamp(12rem, calc(100svh - 13.5rem), 40rem); } }
+
+/* ---------- Work and News v7: the hlmagnus list, simple ---------- */
+.plain main.page.entries { max-width: none; padding: 4.75rem 1.5rem 4rem; }
+.plain main.page.entries > * + * { margin-top: 4.5rem; }
+.plain .entry {
+  display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 1.5rem; align-items: start;
+  color: #111; text-decoration: none;
+}
+.plain .entry .title { grid-column: 4 / span 3; font-weight: 500; text-wrap: balance; transition: color 140ms; }
+.plain .entry .pic { display: block; }
+.plain .entry .pic img { display: block; width: 100%; height: auto; transition: opacity 160ms; }
+.plain .entry.wide .pic { grid-column: 8 / span 5; }
+.plain .entry.narrow .pic { grid-column: 10 / span 3; }
+.plain .entry.logo .pic { grid-column: 11 / span 2; }
+.plain .entry:hover .title, .plain .entry:focus-visible .title { color: var(--pink); }
+.plain .entry:hover .pic img { opacity: 0.9; }
+.plain .entry:focus-visible { outline: none; }
+@media (max-width: 1100px) {
+  .plain .entry .title { grid-column: 1 / span 5; }
+  .plain .entry.wide .pic { grid-column: 7 / span 6; }
+  .plain .entry.narrow .pic { grid-column: 9 / span 4; }
+  .plain .entry.logo .pic { grid-column: 10 / span 3; }
+}
+@media (max-width: 720px) {
+  .plain main.page.entries { padding-top: 1.5rem; }
+  .plain main.page.entries > * + * { margin-top: 3rem; }
+  .plain .entry { display: block; }
+  .plain .entry .pic { margin-top: 1rem; }
+  .plain .entry.narrow .pic { width: 70%; margin-left: auto; }
+  .plain .entry.logo .pic { width: 40%; margin-left: auto; }
+}
+.plain main.page.entries .entry { max-width: none; } .plain main.page.entries .entry > * + * { margin-top: 0; }
