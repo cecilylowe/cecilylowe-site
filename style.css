@@ -507,3 +507,9 @@ body.plain:has(#about:target) .bar nav { display: none; }
   .plain .spread .left { height: auto; }
   .plain .spread .right { margin-top: 0; width: 70%; justify-self: end; }
 }
+
+/* separate pages (2026-10-07): Research, Outreach, About each have their own file; the name goes home */
+.plain .about.on { display: grid; }
+.plain main.page { padding: 6rem 1.5rem 3rem; }
+.plain .bar nav a[aria-current="page"] { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.2em; }
+@media (min-width: 721px) { .plain .about.on .words { padding-top: 4.6rem; } }
