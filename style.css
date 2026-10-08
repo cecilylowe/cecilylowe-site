@@ -446,3 +446,42 @@ html:has(body.plain) { background: #17130f; }
   .plain .bar { flex-direction: column; gap: 0.4rem; }
   .plain .bar nav { gap: 1.5rem; }
 }
+
+/* about: opens over the page when #about is the target. Picture left, text column right. */
+.plain .about {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  background: #ffffff;
+  color: #1a1a1a;
+  grid-template-columns: minmax(0, 1fr) minmax(18rem, 26%);
+}
+.plain .about:target { display: grid; }
+.plain .about .pic {
+  background: #efebe2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+}
+.plain .about .pic span { font-size: 15px; color: rgba(26, 26, 26, 0.35); letter-spacing: 0.04em; }
+.plain .about img.pic { width: 100%; height: 100%; object-fit: cover; display: block; }
+.plain .about .words {
+  padding: 3.4rem 1.5rem 2rem;
+  font-size: 19px;
+  line-height: 1.3;
+  overflow-y: auto;
+}
+.plain .about .words p + p { margin-top: 1.3em; }
+.plain .about .words a { color: inherit; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.15em; }
+.plain .about .words a:hover { opacity: 0.6; color: inherit; }
+
+/* while about is open: the name turns dark and the links step aside */
+body.plain:has(#about:target) .bar { color: #1a1a1a; right: auto; }
+body.plain:has(#about:target) .bar nav { display: none; }
+
+@media (max-width: 720px) {
+  .plain .about { grid-template-columns: minmax(0, 1fr); grid-template-rows: 45svh auto; overflow-y: auto; overflow-x: hidden; }
+  .plain .about .words { padding-top: 1.5rem; overflow: visible; }
+}
