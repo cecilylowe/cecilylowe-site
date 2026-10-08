@@ -1207,3 +1207,32 @@ body.plain .hovercap, body.plain .signup .note, body.plain .gate .note, body.pla
 /* newsletter: restore centring (Jupiter dead centre; the email line pinned near the bottom, centred) */
 body.plain.nl .planet:has(+ .signup) { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; padding: 0 1.5rem; }
 body.plain.nl main.page.signup { position: fixed; left: 0; right: 0; bottom: 0; margin: 0 auto; width: 100%; max-width: calc(23rem + 3rem); padding: 0 1.5rem calc(1.35rem + env(safe-area-inset-bottom, 0px)); }
+
+/* type v6 (2026-10-08): the same size as sebastiansangha.com/research-1 — 21px on a 1440px-wide
+   screen, scaling with the window like Cargo does (1.46vw), never below 17px or above 24px.
+   One size for everything; small notes stay small. */
+body.plain { font-size: clamp(17px, 1.46vw, 24px); }
+body.plain .about .words, body.plain .entry .title, body.plain .entry .blurb, body.plain .tile .name,
+body.plain .news input, body.plain .news button, body.plain.nl .signup .done,
+body.plain .inside .welcome { font-size: clamp(17px, 1.46vw, 24px); }
+body.plain .hovercap, body.plain .signup .note, body.plain .gate .note, body.plain .inside .cal figcaption { font-size: clamp(13px, 0.95vw, 15px); }
+body.plain .plate figcaption { font-size: 9px; }
+.plain .news { height: 2.9rem; }
+.plain main.page.gate .news, body.plain.nl main.page.signup { max-width: calc(26rem + 3rem); }
+.plain main.page.gate .news { width: min(100%, 26rem); }
+@media (min-width: 721px) { .plain .about.on .words { min-width: 20rem; } .plain .about.on .pic.pair.single { max-width: calc(100vw - 24rem); } }
+@media (max-width: 720px) { .plain .bar nav { gap: 0.3rem 1rem; } }
+
+/* Work/News: every row the same height, so titles are evenly spaced. Each picture sits whole in an
+   equal box (columns 7-12), right-aligned and top-aligned; smaller pictures simply sit smaller. */
+.plain main.page.entries > * + * { margin-top: 3rem; }
+.plain .entry .pic, .plain .entry.wide .pic, .plain .entry.medium .pic, .plain .entry.narrow .pic, .plain .entry.logo .pic {
+  grid-column: 7 / span 6; height: clamp(14rem, 26vw, 24rem); display: flex; justify-content: flex-end; align-items: flex-start;
+}
+.plain .entry .pic img { width: auto; height: auto; max-width: 100%; max-height: 100%; }
+.plain .entry.logo .pic img { max-height: 55%; }
+@media (max-width: 1100px) { .plain .entry .words { grid-column: 1 / span 5; } }
+@media (max-width: 720px) {
+  .plain .entry .pic, .plain .entry.wide .pic, .plain .entry.medium .pic, .plain .entry.narrow .pic, .plain .entry.logo .pic { height: 14rem; width: 100%; margin-left: 0; justify-content: flex-start; }
+}
+@media (max-width: 720px) { .plain .bar nav { gap: 0.2rem 0.75rem; } }
