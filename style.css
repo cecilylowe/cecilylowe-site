@@ -635,3 +635,17 @@ body.plain { font: 400 19px / 1.3 "Inter", "Helvetica Neue", Helvetica, Arial, s
 @media (max-width: 720px) {
   .plain .planet:has(+ .signup) img { width: min(100%, calc(100svh - 17rem)); }
 }
+
+/* ?: the password box, centred on the screen, same pill as the newsletter */
+.plain main.page.gate {
+  min-height: 100vh;
+  min-height: 100svh;
+  max-width: 28rem;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.plain main.page.gate .news { width: 100%; }
+.plain .gate .note { margin-top: 0.7rem; min-height: 1.3em; text-align: center; font-size: 14px; color: rgba(17, 17, 17, 0.55); }
