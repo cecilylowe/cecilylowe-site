@@ -1236,3 +1236,6 @@ body.plain .plate figcaption { font-size: 9px; }
   .plain .entry .pic, .plain .entry.wide .pic, .plain .entry.medium .pic, .plain .entry.narrow .pic, .plain .entry.logo .pic { height: 14rem; width: 100%; margin-left: 0; justify-content: flex-start; }
 }
 @media (max-width: 720px) { .plain .bar nav { gap: 0.2rem 0.75rem; } }
+
+/* a bolder, more saturated pink for links on hover */
+:root { --pink: #e8338a; --accent: #e8338a; }
