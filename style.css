@@ -743,3 +743,6 @@ body.plain.locked .bar { display: flex; }
 }
 .plain.nl .planet:has(+ .signup) img { width: min(100%, calc(100svh - 11rem)); }
 .plain.nl main.page.signup { margin-top: auto; z-index: 1; }
+
+/* newsletter: Jupiter a touch smaller (about 12% less across) */
+.plain.nl .planet:has(+ .signup) img { width: min(88%, calc((100svh - 11rem) * 0.88)); }
