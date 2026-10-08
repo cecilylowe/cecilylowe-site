@@ -68,7 +68,8 @@ def main():
         payload = {"from": FROM, "to": [to], "reply_to": REPLY_TO, "subject": a.subject,
                    "html": html, "text": text, "attachments": attachments}
         req = urllib.request.Request("https://api.resend.com/emails", data=json.dumps(payload).encode(),
-                                     headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json"})
+                                     headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json",
+                                              "User-Agent": "cecilylowe-site/1.0"})
         try:
             r = json.load(urllib.request.urlopen(req))
             print(f"  sent to {to}  (id {r.get('id')})")
