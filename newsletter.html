@@ -31,12 +31,11 @@
 </section>
 
 <main class="page signup">
-  <!-- Sign-ups are collected by Netlify Forms (form name "newsletter"). tools/fetch_signups.py copies
-       them to subscribers/ on the Mac, which is never published or committed.
+  <!-- Sign-ups go to Cecily's own Google Apps Script (signups/Code.js), which adds them to the Google
+       Sheet "cecilylowe.com newsletter" and emails her from newsletter@cecilylowe.com.
        The box is just a box: type an email and press Enter. On success the box goes and "You're in."
        takes its place; nothing is remembered, so reloading the page brings the empty box back. -->
-  <form class="news bare" name="newsletter" method="POST" data-netlify="true" netlify-honeypot="company" novalidate autocomplete="off">
-    <input type="hidden" name="form-name" value="newsletter">
+  <form class="news bare" name="newsletter" method="POST" novalidate autocomplete="off">
     <p class="sr"><label>Leave this empty <input name="company" tabindex="-1" autocomplete="off"></label></p>
     <input id="email" name="email" type="email" placeholder="Email" aria-label="Email address, then press Enter" autocomplete="off" required>
     <button type="submit" class="sr" tabindex="-1">Sign up</button>
@@ -46,6 +45,7 @@
 </main>
 
 <script>
+  var SIGNUPS = "https://script.google.com/macros/s/AKfycby7s0fRSxo36XJLCaGEm_sIB0D9JA1B5tILmcGSNA5L21HjQaaic8HagWgCz2CincqKUg/exec";
   (function () {
     var form = document.querySelector("form.news"), note = document.querySelector(".signup .note");
     var done = document.querySelector(".signup .done");
@@ -57,12 +57,11 @@
       var email = form.email.value.trim();
       if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { note.textContent = "Please enter an email address."; return; }
       busy = true; note.textContent = "";
-      fetch("/", {
+      fetch(SIGNUPS, {
         method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams(new FormData(form)).toString()
-      }).then(function (r) {
-        if (!r.ok) throw new Error(r.status);
+        mode: "no-cors",
+        body: new URLSearchParams(new FormData(form))
+      }).then(function () {                         // no-cors: the reply is opaque; a network error throws
         form.hidden = true;
         done.hidden = false;
       }).catch(function () {
