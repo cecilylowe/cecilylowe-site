@@ -407,3 +407,42 @@ dl.facts dd + dd { grid-column: 2; }
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; }
 }
+
+/* ---------- plain: one page, Times, name left and links right (2026-10-07) ---------- */
+
+body.plain {
+  --plain-ground: #17130f;
+  --plain-ink: #ece6dc;
+  background: var(--plain-ground);
+  color: var(--plain-ink);
+  font: 400 21px / 1.3 "Times New Roman", Times, serif;
+  min-height: 100vh;
+  min-height: 100svh;
+}
+html:has(body.plain) { background: #17130f; }
+
+.plain .bar {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem 2rem;
+  padding: calc(1.5rem + env(safe-area-inset-top, 0px)) 1.5rem 0;
+}
+.plain .bar a { color: inherit; text-decoration: none; }
+.plain .bar a:hover { opacity: 0.6; color: inherit; }
+.plain .bar nav { display: flex; gap: 3rem; }
+.plain .bar nav a[aria-current="true"],
+.plain .bar nav a.on { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.2em; }
+
+.plain main { padding: 7rem 1.5rem 3rem; max-width: 42rem; }
+.plain .panel { display: none; }
+.plain .panel:target { display: block; }
+
+@media (max-width: 520px) {
+  body.plain { font-size: 18px; }
+  .plain .bar { flex-direction: column; gap: 0.4rem; }
+  .plain .bar nav { gap: 1.5rem; }
+}
