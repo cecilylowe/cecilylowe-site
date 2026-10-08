@@ -485,3 +485,32 @@ body.plain:has(#about:target) .bar nav { display: none; }
   .plain .about { grid-template-columns: minmax(0, 1fr); grid-template-rows: 45svh auto; overflow-y: auto; overflow-x: hidden; }
   .plain .about .words { padding-top: 1.5rem; overflow: visible; }
 }
+
+/* header and spread after the Cargo demo template (2026-10-07): small sans header over the
+   pictures, links as one comma-separated line; a full-height photo on the left half and a
+   smaller one hung from the top of the right half. The about text stays in Times. */
+.plain .bar {
+  font: 400 15px / 1.3 "Helvetica Neue", Helvetica, Arial, sans-serif;
+  letter-spacing: 0.005em;
+  padding: calc(0.55rem + env(safe-area-inset-top, 0px)) 0.7rem 0;
+}
+.plain .bar nav { display: block; text-align: right; }
+.plain .bar nav a + a { margin-left: 0; }
+
+.plain .spread {
+  display: grid;
+  grid-template-columns: 50% 25%;
+  align-items: start;
+}
+.plain .spread img { display: block; width: 100%; }
+.plain .spread .left { height: 100vh; height: 100svh; object-fit: cover; }
+.plain .spread .right { margin-top: 2.3rem; height: auto; }
+.plain main { padding-top: 3rem; }
+
+@media (max-width: 720px) {
+  .plain .bar { flex-direction: row; flex-wrap: wrap; position: sticky; background: #fff; padding-bottom: 0.55rem; }
+  .plain .bar nav { text-align: left; }
+  .plain .spread { grid-template-columns: 1fr; }
+  .plain .spread .left { height: auto; }
+  .plain .spread .right { margin-top: 0; width: 70%; justify-self: end; }
+}
