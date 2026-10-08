@@ -532,3 +532,21 @@ body.plain { font: 400 19px / 1.3 "Inter", "Helvetica Neue", Helvetica, Arial, s
 .plain main.page { padding-top: 4.5rem; }
 @media (min-width: 721px) { .plain .about.on .words { padding-top: 3.4rem; } }
 .plain .research h2 { font-style: normal; font-weight: 500; }
+
+/* research: Jupiter fills the first screen, centred; Interests, Publications and CV follow below */
+.plain .planet {
+  height: 100vh;
+  height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3.5rem 1.5rem 1.5rem;
+}
+.plain .planet img {
+  display: block;
+  width: min(100%, calc(100svh - 5rem));
+  height: auto;
+  aspect-ratio: 1;
+}
+@media (max-width: 720px) { .plain .planet { height: auto; min-height: 70svh; padding-top: 1.5rem; } }
+.plain main.page.research { padding-top: 3rem; }
