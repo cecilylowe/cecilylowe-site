@@ -830,7 +830,7 @@ body.plain.about-dark .bar .who { color: #fff; }
 
 /* research: the orrery, eight patterns scattered across the full width at different sizes */
 .plain .plate.orrery { max-width: 72rem; padding-top: 4rem; }
-.plain .orrery .field { position: relative; width: 100%; aspect-ratio: 100 / 50; }
+.plain .orrery .field { position: relative; width: 100%; aspect-ratio: 100 / 40; }
 .plain .orrery .field img { position: absolute; height: auto; display: block; }
 .plain .orrery figcaption { margin-top: 1.5rem; }
 @media (max-width: 720px) {
