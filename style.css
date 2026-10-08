@@ -1255,3 +1255,6 @@ body.plain.news-page .entry .pic img { filter: grayscale(1) contrast(1.05); tran
 /* Work/News: the title turns pink only while the pointer is on the words themselves, not the photo */
 .plain .entry:hover .title { color: #111; }
 .plain .entry .words:hover .title, .plain .entry:focus-visible .title { color: var(--pink); }
+/* the hover zone is the whole left half of each row (columns 1-6, full row height), not just the words */
+.plain .entry .words { align-self: stretch; max-width: none; }
+.plain .entry .words .title, .plain .entry .words .blurb { max-width: 36rem; }
