@@ -40,10 +40,9 @@ export default async (req) => {
   const html = emailHtml({ email, at, recent, total: list.length });
 
   const mail = nodemailer.createTransport({ host: "smtp.gmail.com", port: 465, secure: true, auth: { user, pass } });
-  // Sent from the Gmail address itself: cecilylowe.com publishes a strict DMARC "reject" policy
-  // (Squarespace's email preset), so mail claiming to be from @cecilylowe.com but sent through
-  // Gmail would be rejected. Replies still go to the newsletter address.
-  await mail.sendMail({ from: `Cecily Lowe <${user}>`, replyTo: process.env.MAIL_FROM || user, to: TO, subject: `${email} joined your newsletter`, text, html });
+  // Sent through Cecily's Gmail as newsletter@cecilylowe.com (a verified "Send mail as" alias).
+  // Replies go to her Yale inbox: the domain has no mailbox of its own.
+  await mail.sendMail({ from: `Cecily Lowe <${process.env.MAIL_FROM || user}>`, replyTo: TO, to: TO, subject: `${email} joined your newsletter`, text, html });
   return new Response("sent");
 };
 
