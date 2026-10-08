@@ -1177,3 +1177,7 @@ body.plain a:hover, body.plain .bar a:hover { color: var(--pink); opacity: 1; }
   .plain .entry.logo .pic { width: 40%; margin-left: auto; }
 }
 .plain main.page.entries .entry { max-width: none; } .plain main.page.entries .entry > * + * { margin-top: 0; }
+/* a size between wide and narrow (the physics course photograph) */
+.plain .entry.medium .pic { grid-column: 9 / span 4; }
+@media (max-width: 1100px) { .plain .entry.medium .pic { grid-column: 8 / span 5; } }
+@media (max-width: 720px) { .plain .entry.medium .pic { width: 85%; margin-left: auto; } }
