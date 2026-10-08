@@ -889,3 +889,17 @@ body.plain.about-dark .bar .who { color: #fff; }
   .plain .about.on .words p { margin: 0; }
   .plain .about.on .words p + p { margin-top: 1.3em; }
 }
+
+/* ?: inside, after Cargo's quiet index pages: Welcome, then the calendar in a hairline frame,
+   monochrome, full width under the menu margins */
+.plain main.page.inside-wrap { max-width: none; padding: 4.25rem 1.5rem 2rem; }
+.plain .inside .cal { margin: 2.5rem 0 0; }
+.plain .inside .cal figcaption {
+  display: flex; justify-content: space-between; font-size: 12px; letter-spacing: 0.02em;
+  color: #111; padding-bottom: 0.5rem; border-bottom: 1px solid #111;
+}
+.plain .inside .cal iframe {
+  display: block; width: 100%; height: min(72vh, 760px); border: 0;
+  filter: grayscale(1) contrast(1.05);
+}
+@media (max-width: 720px) { .plain .inside .cal iframe { height: 70vh; } }
