@@ -827,3 +827,13 @@ body.plain.about-dark .bar .who { color: #fff; }
 /* the citation under the plate: as small as stays legible */
 .plain .plate figcaption { margin-top: 0.6rem; font-size: 8px; line-height: 1.35; letter-spacing: 0.01em; color: rgba(17, 17, 17, 0.5); text-align: center; }
 .plain .plate figcaption { color: #111; }
+
+/* research: the orrery, eight patterns scattered across the full width at different sizes */
+.plain .plate.orrery { max-width: 72rem; padding-top: 4rem; }
+.plain .orrery .field { position: relative; width: 100%; aspect-ratio: 100 / 50; }
+.plain .orrery .field img { position: absolute; height: auto; display: block; }
+.plain .orrery figcaption { margin-top: 1.5rem; }
+@media (max-width: 720px) {
+  .plain .orrery .field { aspect-ratio: auto; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .plain .orrery .field img { position: static; width: 100% !important; }
+}
