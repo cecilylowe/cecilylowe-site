@@ -10,4 +10,4 @@ rm -rf .deploy && mkdir .deploy
 cp ./*.html style.css favicon.ico .deploy/
 cp -R assets .deploy/assets
 rm -f .deploy/assets/cover.jpg            # not used by the current pages
-npx --yes netlify-cli deploy --prod --dir .deploy --site "$SITE_ID" --message "${1:-update}"
+npx --yes netlify-cli deploy --prod --dir .deploy --functions netlify/functions --site "$SITE_ID" --message "${1:-update}"

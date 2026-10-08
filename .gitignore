@@ -4,3 +4,4 @@ _unused/
 _private/
 .deploy/
 subscribers/
+node_modules/

@@ -1,14 +1,13 @@
+functionsDirectory = "/Users/cecily/Sites/cecilylowe/netlify/functions"
+functionsDirectoryOrigin = "default"
 plugins = []
 headers = []
 redirects = []
 
-[functions]
-
-[functions."*"]
-
 [build]
 publish = "/Users/cecily/Sites/cecilylowe"
 publishOrigin = "default"
+functions = "/Users/cecily/Sites/cecilylowe/netlify/functions"
 
 [build.environment]
 
@@ -23,3 +22,7 @@ publishOrigin = "default"
 [build.processing.js]
 
 [build.services]
+
+[functions]
+
+[functions."*"]
