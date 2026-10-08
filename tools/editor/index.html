@@ -1,0 +1,296 @@
+<title>Site Editor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap">
+<style>
+  :root {
+    --bg: #ffffff; --ink: #111111; --ink-2: rgba(17,17,17,.55); --rule: rgba(17,17,17,.14);
+    --chip: #f3f3f1; --accent: #1d5bd8; --stage: #e9e9e6;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #161616; --ink: #f1f1ef; --ink-2: rgba(241,241,239,.6); --rule: rgba(241,241,239,.16);
+      --chip: #232323; --accent: #7aa7ff; --stage: #0c0c0c; color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #161616; --ink: #f1f1ef; --ink-2: rgba(241,241,239,.6); --rule: rgba(241,241,239,.16);
+    --chip: #232323; --accent: #7aa7ff; --stage: #0c0c0c; color-scheme: dark;
+  }
+  html, body { margin: 0; height: 100%; }
+  body { background: var(--stage); color: var(--ink); font: 400 13px/1.3 "Inter", -apple-system, sans-serif; display: flex; flex-direction: column; }
+  .bar { background: var(--bg); border-bottom: 1px solid var(--rule); padding: 8px 16px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; }
+  .tabs, .group { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; }
+  button { font: inherit; color: var(--ink); background: var(--chip); border: 1px solid transparent; border-radius: 6px; padding: 5px 10px; cursor: pointer; }
+  button:hover { border-color: var(--rule); }
+  button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+  button.primary { background: var(--accent); color: #fff; }
+  button:disabled { opacity: .45; cursor: default; }
+  .status { color: var(--ink-2); margin-left: auto; min-width: 9em; text-align: right; }
+  .help { color: var(--ink-2); padding: 6px 16px; background: var(--bg); border-bottom: 1px solid var(--rule); font-size: 12px; }
+  .stage { flex: 1; min-height: 0; display: flex; justify-content: center; overflow: auto; }
+  iframe { border: 0; background: #fff; width: 100%; height: 100%; display: block; }
+  .stage.phone iframe { width: 390px; max-width: 100%; box-shadow: 0 0 0 1px var(--rule); }
+  @media (max-width: 600px) { .status { margin-left: 0; text-align: left; } }
+</style>
+
+<div class="bar">
+  <div class="tabs" id="tabs" role="tablist"></div>
+  <div class="group">
+    <button id="w-laptop" aria-pressed="true">Laptop</button>
+    <button id="w-phone" aria-pressed="false">Phone</button>
+  </div>
+  <div class="group">
+    <button id="undo" disabled>Undo</button>
+    <button id="reset">Reset page</button>
+    <button id="save" class="primary" disabled>Save</button>
+  </div>
+  <span class="status" id="status">Loading…</span>
+</div>
+<div class="help">Drag a picture to move it · drag its blue corner to resize · double-click any text to edit it (Enter to finish) · click something and press Delete to hide it · Save keeps your changes, then ask Claude to put them on the site.</div>
+<div class="stage" id="stage"><iframe id="frame" title="Site page being edited"></iframe></div>
+
+<script>
+(function () {
+  "use strict";
+  var PAGES = [
+    { key: "home", label: "Home", file: "home.html" },
+    { key: "about", label: "About", file: "about.html" },
+    { key: "research", label: "Research", file: "research.html" },
+    { key: "curious", label: "Curious", file: "curious.html" },
+    { key: "newsletter", label: "Newsletter", file: "newsletter.html" },
+    { key: "question", label: "?", file: "question.html" }
+  ];
+  var HREF_TO_KEY = { "index.html": "home", "": "home", "about.html": "about", "research.html": "research",
+    "curious.html": "curious", "newsletter.html": "newsletter", "question.html": "question" };
+  var TEXT_TAGS = /^(P|H1|H2|H3|H4|A|LI|FIGCAPTION|SPAN|EM|STRONG|DT|DD|LABEL|BUTTON)$/;
+
+  var frame = document.getElementById("frame"), stage = document.getElementById("stage");
+  var statusEl = document.getElementById("status"), saveBtn = document.getElementById("save");
+  var undoBtn = document.getElementById("undo"), resetBtn = document.getElementById("reset");
+  var db = null, current = null, edits = {}, history = [], dirty = false, saveTimer = null, resetArmed = false;
+
+  function say(t) { statusEl.textContent = t; }
+
+  /* ---------- tabs and width ---------- */
+  var tabs = document.getElementById("tabs");
+  PAGES.forEach(function (p) {
+    var b = document.createElement("button");
+    b.textContent = p.label; b.setAttribute("role", "tab"); b.dataset.key = p.key;
+    b.addEventListener("click", function () { open(p.key); });
+    tabs.appendChild(b);
+  });
+  function setWidth(phone) {
+    stage.classList.toggle("phone", phone);
+    document.getElementById("w-phone").setAttribute("aria-pressed", phone);
+    document.getElementById("w-laptop").setAttribute("aria-pressed", !phone);
+  }
+  document.getElementById("w-laptop").onclick = function () { setWidth(false); };
+  document.getElementById("w-phone").onclick = function () { setWidth(true); };
+
+  /* ---------- persistence ---------- */
+  function docRef(key) { return db.doc("edits/" + key); }
+  function toItems() {
+    return Object.keys(edits).map(function (sel) { var e = edits[sel]; return Object.assign({ sel: sel }, e); });
+  }
+  function markDirty() {
+    dirty = true; saveBtn.disabled = !db; undoBtn.disabled = history.length === 0;
+    say(db ? "Unsaved changes" : "Changes can't be saved in this view");
+    clearTimeout(saveTimer); if (db) saveTimer = setTimeout(save, 2500);
+  }
+  function save() {
+    clearTimeout(saveTimer);
+    if (!db || !dirty || !current) return Promise.resolve();
+    var key = current; dirty = false; saveBtn.disabled = true; say("Saving…");
+    return docRef(key).set({ page: key, items: toItems(), savedAt: new Date().toISOString() })
+      .then(function () { say("Saved"); })
+      .catch(function (e) { dirty = true; saveBtn.disabled = false; say("Could not save (" + (e && e.code || "error") + ")"); });
+  }
+  saveBtn.onclick = save;
+
+  /* ---------- the page inside the frame ---------- */
+  var sels, doc, overlay, handle, selected = null;
+
+  function selectorFor(el) {
+    var parts = [];
+    while (el && el.nodeType === 1 && el.tagName !== "BODY") {
+      var i = 1, s = el; while ((s = s.previousElementSibling)) i++;
+      parts.unshift(el.tagName.toLowerCase() + ":nth-child(" + i + ")");
+      el = el.parentElement;
+    }
+    return "body > " + parts.join(" > ");
+  }
+  function entry(sel) { return edits[sel] || (edits[sel] = {}); }
+  function remember(sel) { history.push([sel, edits[sel] ? JSON.parse(JSON.stringify(edits[sel])) : null]); }
+
+  function applyTo(el, e) {
+    if (!el || !e) return;
+    if (e.dx || e.dy) el.style.translate = (e.dx || 0) + "px " + (e.dy || 0) + "px"; else el.style.translate = "";
+    el.style.scale = e.scale && e.scale !== 1 ? String(e.scale) : "";
+    if (e.hidden) el.style.display = "none";
+    if (typeof e.html === "string" && el.innerHTML !== e.html) el.innerHTML = e.html;
+  }
+  function applyAll() {
+    Object.keys(edits).forEach(function (sel) { var el = doc.querySelector(sel); if (el) applyTo(el, edits[sel]); });
+  }
+
+  function placeHandle() {
+    if (!selected || !handle) return;
+    var r = selected.getBoundingClientRect();
+    overlay.style.display = "block";
+    overlay.style.left = r.left + "px"; overlay.style.top = r.top + "px";
+    overlay.style.width = r.width + "px"; overlay.style.height = r.height + "px";
+    handle.style.display = selected.tagName === "IMG" ? "block" : "none";
+  }
+  function select(el) { selected = el; if (!el) { overlay.style.display = "none"; return; } placeHandle(); }
+
+  function wire() {
+    doc = frame.contentDocument;
+    sels = new WeakMap();
+    doc.body.querySelectorAll("*").forEach(function (el) { sels.set(el, selectorFor(el)); });
+
+    var st = doc.createElement("style");
+    st.textContent =
+      "img{cursor:grab;-webkit-user-drag:none;user-select:none}" +
+      "[contenteditable=true]{outline:1.5px solid #1d5bd8;outline-offset:3px;cursor:text}" +
+      "#ed-overlay{position:fixed;display:none;pointer-events:none;outline:1.5px solid #1d5bd8;z-index:2147483646}" +
+      "#ed-handle{position:absolute;right:-7px;bottom:-7px;width:14px;height:14px;background:#1d5bd8;border:2px solid #fff;" +
+      "border-radius:3px;pointer-events:auto;cursor:nwse-resize}";
+    doc.head.appendChild(st);
+    overlay = doc.createElement("div"); overlay.id = "ed-overlay";
+    handle = doc.createElement("div"); handle.id = "ed-handle"; overlay.appendChild(handle);
+    doc.body.appendChild(overlay);
+
+    // links switch tabs instead of leaving; forms never submit in the editor
+    doc.addEventListener("click", function (ev) {
+      var a = ev.target.closest && ev.target.closest("a[href]");
+      if (a && !a.isContentEditable) {
+        ev.preventDefault();
+        var k = HREF_TO_KEY[(a.getAttribute("href") || "").split("#")[0].split("?")[0]];
+        if (k && k !== current && ev.detail === 1) setTimeout(function () { if (!editingEl) open(k); }, 260);
+      }
+    }, true);
+    doc.addEventListener("submit", function (ev) { ev.preventDefault(); say("Forms are switched off while editing"); }, true);
+
+    // select on click
+    doc.addEventListener("pointerdown", function (ev) {
+      if (ev.target === handle) return;
+      var el = ev.target.closest ? ev.target.closest("img, " + "p,h1,h2,h3,a,li,figcaption,span,section,div,figure") : null;
+      if (editingEl && !editingEl.contains(ev.target)) finishEdit();
+      if (el && el !== overlay && !editingEl) select(el);
+    }, true);
+
+    // drag pictures to move
+    var drag = null;
+    doc.addEventListener("pointerdown", function (ev) {
+      var img = ev.target.tagName === "IMG" ? ev.target : null;
+      if (!img || editingEl) return;
+      ev.preventDefault();
+      var sel = sels.get(img); if (!sel) return;
+      var e = entry(sel);
+      drag = { mode: "move", el: img, sel: sel, x: ev.clientX, y: ev.clientY, dx: e.dx || 0, dy: e.dy || 0, moved: false };
+      img.setPointerCapture(ev.pointerId);
+    });
+    handle.addEventListener("pointerdown", function (ev) {
+      if (!selected || selected.tagName !== "IMG") return;
+      ev.preventDefault(); ev.stopPropagation();
+      var sel = sels.get(selected), e = entry(sel), r = selected.getBoundingClientRect();
+      drag = { mode: "size", el: selected, sel: sel, x: ev.clientX, w: r.width, scale: e.scale || 1, moved: false };
+      handle.setPointerCapture(ev.pointerId);
+    });
+    function onMove(ev) {
+      if (!drag) return;
+      if (!drag.moved) { remember(drag.sel); drag.moved = true; }
+      var e = entry(drag.sel);
+      if (drag.mode === "move") { e.dx = Math.round(drag.dx + ev.clientX - drag.x); e.dy = Math.round(drag.dy + ev.clientY - drag.y); }
+      else { var s = drag.scale * Math.max(0.1, (drag.w + (ev.clientX - drag.x)) / drag.w); e.scale = Math.round(s * 100) / 100; }
+      applyTo(drag.el, e); placeHandle();
+    }
+    function onUp() { if (drag && drag.moved) markDirty(); drag = null; }
+    doc.addEventListener("pointermove", onMove); handle.addEventListener("pointermove", onMove);
+    doc.addEventListener("pointerup", onUp); handle.addEventListener("pointerup", onUp);
+    doc.addEventListener("scroll", placeHandle, true);
+    frame.contentWindow.addEventListener("resize", placeHandle);
+
+    // double-click text to edit
+    doc.addEventListener("dblclick", function (ev) {
+      var el = ev.target;
+      while (el && el !== doc.body && !(TEXT_TAGS.test(el.tagName) && el.textContent.trim())) el = el.parentElement;
+      if (!el || el === doc.body || el.tagName === "IMG") return;
+      ev.preventDefault(); startEdit(el);
+    });
+    doc.addEventListener("keydown", function (ev) {
+      if (editingEl) {
+        if (ev.key === "Enter" && !ev.shiftKey) { ev.preventDefault(); finishEdit(); }
+        if (ev.key === "Escape") { ev.preventDefault(); editingEl.innerHTML = editingBefore; finishEdit(true); }
+        return;
+      }
+      if ((ev.key === "Delete" || ev.key === "Backspace") && selected && sels.get(selected)) {
+        ev.preventDefault(); var sel = sels.get(selected); remember(sel);
+        entry(sel).hidden = true; applyTo(selected, edits[sel]); select(null); markDirty();
+      }
+      if ((ev.metaKey || ev.ctrlKey) && ev.key.toLowerCase() === "s") { ev.preventDefault(); save(); }
+      if ((ev.metaKey || ev.ctrlKey) && ev.key.toLowerCase() === "z") { ev.preventDefault(); undo(); }
+    });
+    applyAll();
+  }
+
+  var editingEl = null, editingBefore = "";
+  function startEdit(el) {
+    editingEl = el; editingBefore = el.innerHTML;
+    el.setAttribute("contenteditable", "true"); el.focus();
+    select(null);
+  }
+  function finishEdit(cancelled) {
+    var el = editingEl; if (!el) return;
+    editingEl = null; el.removeAttribute("contenteditable");
+    if (cancelled || el.innerHTML === editingBefore) return;
+    var sel = sels.get(el); if (!sel) return;
+    remember(sel);
+    var clean = el.innerHTML.replace(/<(script|style)[\s\S]*?<\/\1>/gi, "").replace(/\son\w+="[^"]*"/gi, "");
+    entry(sel).html = clean; markDirty();
+  }
+
+  function undo() {
+    var last = history.pop(); if (!last) return;
+    if (last[1]) edits[last[0]] = last[1]; else delete edits[last[0]];
+    markDirty(); reloadKeepingEdits();
+  }
+  undoBtn.onclick = undo;
+  function reloadKeepingEdits() { frame.onload = function () { wire(); }; frame.contentWindow.location.reload(); }
+
+  resetBtn.onclick = function () {
+    if (!resetArmed) { resetArmed = true; resetBtn.textContent = "Click again to reset"; setTimeout(function () { resetArmed = false; resetBtn.textContent = "Reset page"; }, 3000); return; }
+    resetArmed = false; resetBtn.textContent = "Reset page";
+    edits = {}; history = []; dirty = true; save().then(function () { open(current, true); });
+  };
+
+  /* ---------- open a page ---------- */
+  function open(key, force) {
+    if (key === current && !force) return;
+    var go = function () {
+      current = key; edits = {}; history = []; dirty = false; undoBtn.disabled = true; saveBtn.disabled = true;
+      Array.prototype.forEach.call(tabs.children, function (b) { b.setAttribute("aria-pressed", b.dataset.key === key); });
+      try { localStorage.setItem("cl-editor-page", key); } catch (e) {}
+      var load = db ? docRef(key).get().then(function (s) { var d = s.exists ? s.data() : null;
+          (d && Array.isArray(d.items) ? d.items : []).forEach(function (it) { var c = Object.assign({}, it); delete c.sel; edits[it.sel] = c; });
+        }).catch(function () {}) : Promise.resolve();
+      load.then(function () {
+        frame.onload = function () { wire(); say(db ? (Object.keys(edits).length ? "Saved edits shown" : "No edits yet") : "Viewing only"); };
+        frame.src = PAGES.filter(function (p) { return p.key === key; })[0].file;
+      });
+    };
+    if (dirty) save().then(go); else go();
+  }
+
+  var start = "home"; try { start = localStorage.getItem("cl-editor-page") || "home"; } catch (e) {}
+  open(start);
+  if (window.claude && typeof window.claude.use === "function") {
+    window.claude.use("db").then(function (d) {
+      if (!d) return;
+      db = d; var k = current; current = null; open(k || start);
+    });
+  }
+})();
+</script>
