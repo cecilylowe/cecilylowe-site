@@ -411,15 +411,15 @@ dl.facts dd + dd { grid-column: 2; }
 /* ---------- plain: one page, Times, name left and links right (2026-10-07) ---------- */
 
 body.plain {
-  --plain-ground: #17130f;
-  --plain-ink: #ece6dc;
+  --plain-ground: #ffffff;
+  --plain-ink: #111111;
   background: var(--plain-ground);
   color: var(--plain-ink);
   font: 400 21px / 1.3 "Times New Roman", Times, serif;
   min-height: 100vh;
   min-height: 100svh;
 }
-html:has(body.plain) { background: #17130f; }
+html:has(body.plain) { background: #ffffff; }
 
 .plain .bar {
   position: fixed;
@@ -454,7 +454,7 @@ html:has(body.plain) { background: #17130f; }
   inset: 0;
   z-index: 1;
   background: #ffffff;
-  color: #1a1a1a;
+  color: #111111;
   grid-template-columns: minmax(0, 1fr) minmax(18rem, 26%);
 }
 .plain .about:target { display: grid; }
@@ -478,7 +478,7 @@ html:has(body.plain) { background: #17130f; }
 .plain .about .words a:hover { opacity: 0.6; color: inherit; }
 
 /* while about is open: the name turns dark and the links step aside */
-body.plain:has(#about:target) .bar { color: #1a1a1a; right: auto; }
+body.plain:has(#about:target) .bar { right: auto; }
 body.plain:has(#about:target) .bar nav { display: none; }
 
 @media (max-width: 720px) {
