@@ -5,3 +5,4 @@ _private/
 .deploy/
 subscribers/
 node_modules/
+.netlify/
