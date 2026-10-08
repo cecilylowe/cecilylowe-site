@@ -4,17 +4,15 @@ Static site. No build step, no framework. Open `index.html` in a browser to prev
 or run `python3 -m http.server 8000` from this folder and visit http://localhost:8000.
 
 ```
-index.html          the cover (scroll to pump down), then the index of work
-work.html           projects, one entry per row, with drawn figures
-publications.html   papers, preprints, proceedings, talks
-outreach.html       a grid of tiles with captions
-curious.html        the newsletter: subscribe + the running list
-about.html          short bio, links, contact
-cv.html             the CV, with a link to the PDF
-style.css           all styling (design tokens at the top)
-script.js           cover, sphere, clock, hover previews, canvas drawings, newsletter form
-assets/             images and the CV PDF go here
-tools/              build the editable preview, and copy edits back (see below)
+index.html          home: the two bubble-chamber photographs, name and menu on top
+research.html       Interests, Publications, CV
+blog.html           the blog (empty until there are posts)
+about.html          picture on the left, a column of text on the right
+style.css           all styling; the current design is the "plain" block at the bottom
+script.js           left from the earlier design; the current pages do not load it
+assets/             images
+_unused/            earlier versions of the pages, kept for reference, not published
+tools/              preview builder from the earlier design
 CNAME               the custom domain (cecilylowe.com)
 ```
 
@@ -28,9 +26,7 @@ so keep the attribute when you rewrite the text inside it.
   To use a photo instead of the drawn figure, replace the `<canvas>` with
   `<img src="assets/photo.jpg" alt="…">`.
 - **Publications**: each is an `<li class="pub">` with title, authors, venue and links.
-- **Outreach**: each tile is an `<li>` in the grid. Replace the `<canvas>` with an `<img>`,
-  point the `href` at the recording, slides or article, and write the caption. The four tiles
-  shipped are placeholders describing what to put there.
+- **Blog**: `blog.html`, one page; posts go inside `<main>`.
 - **CV**: sections of `<dl class="facts">` with a year on the left. Put the PDF at
   `assets/cecily-lowe-cv.pdf` (that is where the page links).
 - **Curious**: the running list is a `<ul class="list">`.
