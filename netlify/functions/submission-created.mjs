@@ -40,7 +40,7 @@ export default async (req) => {
   const html = emailHtml({ email, at, recent, total: list.length });
 
   const mail = nodemailer.createTransport({ host: "smtp.gmail.com", port: 465, secure: true, auth: { user, pass } });
-  await mail.sendMail({ from: `Newsletter <${user}>`, to: TO, subject: `${email} joined your newsletter`, text, html });
+  await mail.sendMail({ from: `Cecily Lowe <${process.env.MAIL_FROM || user}>`, to: TO, subject: `${email} joined your newsletter`, text, html });
   return new Response("sent");
 };
 
