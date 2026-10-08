@@ -1243,3 +1243,8 @@ body.plain .plate figcaption { font-size: 9px; }
 /* what you type into the email and password lines shows in the pink; the cursor too */
 body.plain .news input { color: var(--pink); caret-color: var(--pink); }
 body.plain .news input::placeholder { color: rgba(17, 17, 17, 0.35); }
+
+/* Work/News: the words start at the left margin and run wider (columns 1-6), no empty band on the left */
+.plain .entry .words, .plain .entry .title { grid-column: 1 / span 6; }
+.plain .entry .words { max-width: 36rem; }
+@media (max-width: 1100px) { .plain .entry .words { grid-column: 1 / span 6; } }
