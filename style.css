@@ -763,3 +763,28 @@ body.plain.locked .bar { display: flex; }
 }
 .plain.nl .signup .done[hidden] { display: none; }
 .plain .news button.sr { position: absolute; width: 1px; height: 1px; padding: 0; border: 0; overflow: hidden; clip: rect(0 0 0 0); }
+
+/* type a little smaller everywhere (2026-10-08): about 10% down from the previous sizes */
+body.plain { font-size: 17px; }
+.plain .about .words { font-size: 15.5px; }
+.plain .news input, .plain .news button, .plain.nl .signup .done { font-size: 15.5px; }
+.plain .signup .note, .plain .gate .note { font-size: 13px; }
+.plain .news { height: 2.6rem; }
+@media (max-width: 520px) { body.plain { font-size: 16px; } }
+
+/* about: the text sits at the bottom of the right-hand column (desktop); on phones it still follows the picture */
+@media (min-width: 721px) {
+  .plain .about.on .words {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding-top: 3.4rem;
+    padding-bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px));
+  }
+  .plain .about.on .words p { margin: 0; }
+  .plain .about.on .words p + p { margin-top: 1.3em; }
+}
+/* the five-item menu has to fit over the white column on About: slightly tighter menu spacing,
+   slightly wider text column */
+.plain .bar nav { gap: 2.5rem; }
+@media (min-width: 721px) { .plain .about { grid-template-columns: minmax(0, 1fr) minmax(30rem, 30%); } }
