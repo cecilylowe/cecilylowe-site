@@ -941,3 +941,11 @@ body.plain.about-dark .bar .who { color: #fff; }
 .plain .inside .cal { max-width: 34rem; margin-top: 2rem; }
 .plain .inside .cal iframe { height: min(46vh, 380px); }
 @media (max-width: 720px) { .plain .inside .cal iframe { height: 52vh; } }
+
+/* type v4 (2026-10-08): a little bigger everywhere, about 6% up from 15.5px */
+body.plain { font-size: 16.5px; }
+.plain .about .words { font-size: 15.5px; }
+.plain .news input, .plain .news button, .plain.nl .signup .done { font-size: 15.5px; }
+.plain .signup .note, .plain .gate .note { font-size: 13px; }
+.plain .plate figcaption { font-size: 8.5px; }
+@media (max-width: 520px) { body.plain { font-size: 16px; } }
