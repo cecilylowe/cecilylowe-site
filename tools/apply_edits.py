@@ -18,7 +18,7 @@ from pathlib import Path
 from bs4 import BeautifulSoup
 
 SITE = Path(__file__).resolve().parent.parent
-FILES = {"home": "index.html", "about": "about.html", "research": "work.html", "work": "work.html",
+FILES = {"home": "index.html", "about": "about.html", "research": "work.html", "work": "work.html", "news": "news.html",
          "curious": "curious.html", "newsletter": "newsletter.html", "question": "question.html"}
 
 

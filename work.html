@@ -19,6 +19,7 @@
   <nav>
     <a href="about.html">About</a>
     <a href="work.html" aria-current="page">Work</a>
+    <a href="news.html">News</a>
     <a href="curious.html">Curious</a>
     <a href="newsletter.html">Newsletter</a>
     <a href="question.html">?</a>
@@ -26,48 +27,30 @@
 </header>
 
 <!-- Research: three sections. Placeholders until there is content. -->
-<!-- Work, after architecture.yale.edu: highlight cards on a 12-column grid, newest first.
-     Each card: picture (links to the paper or article), small label, large title, a line, the source. -->
-<main class="page cards">
-  <article class="card c-ypei">
-    <a class="pic" href="https://wlab.yale.edu/posts/2026-08-11-lowe-creates-the-physics-of-light-course-for-women-in-prison"><img src="assets/research/news-ypei.jpg" alt="Cecily Lowe outside the Federal Correctional Institution in Danbury, Connecticut."></a>
-    <p class="kicker">Teaching &middot; August 2026</p>
-    <h2><a href="https://wlab.yale.edu/posts/2026-08-11-lowe-creates-the-physics-of-light-course-for-women-in-prison">The Physics of Light</a></h2>
-    <p class="desc">A course on light, colour and vision, designed and taught for women at the Danbury Federal Correctional Institution through the Yale Prison Education Initiative.</p>
-    <p class="src"><a href="https://wlab.yale.edu/posts/2026-08-11-lowe-creates-the-physics-of-light-course-for-women-in-prison">Yale Wright Laboratory &#8599;</a></p>
-  </article>
-
-  <article class="card c-gas">
-    <a class="pic" href="https://arxiv.org/abs/2604.18371"><img src="assets/research/paper-gas-collisions.png" alt="Measured impulse event rates for krypton, xenon and SF6 at several pressures, with model fits and residuals."></a>
-    <p class="kicker">Paper &middot; April 2026</p>
-    <h2><a href="https://arxiv.org/abs/2604.18371">Optomechanical detection of individual gas collisions</a></h2>
-    <p class="desc">Single krypton, xenon and SF<sub>6</sub> molecules caught one at a time by the kick each gives an optically levitated nanoparticle. Y.-H. Tseng, C. A. Hardy, T. W. Penny, C. Lowe, J. Baeza-Rubio, D. Carney, D. C. Moore.</p>
-    <p class="src"><a href="https://arxiv.org/abs/2604.18371">arXiv:2604.18371 &#8599;</a></p>
-  </article>
-
-  <article class="card c-marshall">
-    <a class="pic" href="https://wlab.yale.edu/posts/2025-10-22-lowe-awarded-marshall-plan-fellowship"><img src="assets/research/news-marshall-plan.jpg" alt="Cecily Lowe at an optical table in the lab."></a>
-    <p class="kicker">Fellowship &middot; October 2025</p>
-    <h2><a href="https://wlab.yale.edu/posts/2025-10-22-lowe-awarded-marshall-plan-fellowship">Marshall Plan Fellowship</a></h2>
-    <p class="desc">Austrian Marshall Plan Foundation fellowship to work with Uro&scaron; Deli&cacute;&rsquo;s group at TU Wien on loading arrays of levitated nanoparticles through hollow-core fibre.</p>
-    <p class="src"><a href="https://wlab.yale.edu/posts/2025-10-22-lowe-awarded-marshall-plan-fellowship">Yale Wright Laboratory &#8599;</a></p>
-  </article>
-
-  <article class="card c-nsf">
-    <a class="pic" href="https://wlab.yale.edu/posts/2025-06-13-wright-lab-students-awarded-2025-nsf-graduate-research-fellowships"><img src="assets/research/nsf-logo.png" alt="National Science Foundation logo."></a>
-    <p class="kicker">Award &middot; June 2025</p>
-    <h2><a href="https://wlab.yale.edu/posts/2025-06-13-wright-lab-students-awarded-2025-nsf-graduate-research-fellowships">NSF Graduate Research Fellowship</a></h2>
-    <p class="desc">Supporting an array of levitated optomechanical sensors built to detect dark matter directly.</p>
-    <p class="src"><a href="https://wlab.yale.edu/posts/2025-06-13-wright-lab-students-awarded-2025-nsf-graduate-research-fellowships">Yale Wright Laboratory &#8599;</a></p>
-  </article>
-
-  <article class="card c-pra">
-    <a class="pic" href="https://doi.org/10.1103/PhysRevA.111.033514"><img src="assets/research/paper-arrays.png" alt="Photographs of trapped microsphere arrays in vacuum, sorted into lines, grids and a Y shape."></a>
-    <p class="kicker">Paper &middot; Editors&rsquo; Suggestion &middot; March 2025</p>
-    <h2><a href="https://doi.org/10.1103/PhysRevA.111.033514">Optical levitation of arrays of microspheres</a></h2>
-    <p class="desc">Defect-free arrays of more than 25 silica microspheres trapped in vacuum, each sphere controlled and tracked at once. B. Siegel, G. Afek, C. Lowe, J. Wang, Y.-H. Tseng, T. W. Penny, D. C. Moore.</p>
-    <p class="src"><a href="https://doi.org/10.1103/PhysRevA.111.033514">Physical Review A 111, 033514 &#8599;</a></p>
-  </article>
+<!-- Work: the publications, side by side at full size; each picture sits whole in an equal frame
+     and links to the paper -->
+<main class="page drawers">
+  <section class="shelf">
+    <h1 class="shelf-head">Publications</h1>
+    <div class="row">
+      <article class="item">
+        <a class="frame" href="https://arxiv.org/abs/2604.18371"><img src="assets/research/paper-gas-collisions.png" alt="Measured impulse event rates for krypton, xenon and SF6 at several pressures, with model fits and residuals."></a>
+        <p class="kicker">April 2026</p>
+        <h2><a href="https://arxiv.org/abs/2604.18371">Optomechanical detection of individual gas collisions</a></h2>
+        <p class="who">Y.-H. Tseng, C. A. Hardy, T. W. Penny, C. Lowe, J. Baeza-Rubio, D. Carney, D. C. Moore</p>
+        <p class="desc">Single krypton, xenon and SF<sub>6</sub> molecules caught one at a time by the kick each gives an optically levitated nanoparticle. The measured rates match theory, and the spectrum reads out the particle&rsquo;s surface properties.</p>
+        <p class="src"><a href="https://arxiv.org/abs/2604.18371">arXiv:2604.18371 &#8599;</a></p>
+      </article>
+      <article class="item">
+        <a class="frame" href="https://doi.org/10.1103/PhysRevA.111.033514"><img src="assets/research/paper-arrays.png" alt="Photographs of trapped microsphere arrays in vacuum, sorted into lines, grids and a Y shape."></a>
+        <p class="kicker">March 2025 &middot; Editors&rsquo; Suggestion</p>
+        <h2><a href="https://doi.org/10.1103/PhysRevA.111.033514">Optical levitation of arrays of microspheres</a></h2>
+        <p class="who">B. Siegel, G. Afek, C. Lowe, J. Wang, Y.-H. Tseng, T. W. Penny, D. C. Moore</p>
+        <p class="desc">Defect-free two-dimensional arrays of more than 25 silica microspheres, trapped in vacuum with each sphere&rsquo;s optical trap controlled on its own and every sphere tracked at once.</p>
+        <p class="src"><a href="https://doi.org/10.1103/PhysRevA.111.033514">Physical Review A 111, 033514 &#8599;</a></p>
+      </article>
+    </div>
+  </section>
 </main>
 
 </body>

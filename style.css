@@ -1019,3 +1019,89 @@ body.plain { font-size: 16.5px; }
   .plain .card { grid-column: 1 / -1 !important; }
   .plain .c-marshall .pic img { width: 75%; }
 }
+
+/* hover captions: a small white card over the corner of a photograph, with its source */
+.plain .capwrap { position: relative; margin: 0; outline: none; }
+.plain .hovercap {
+  position: absolute; left: 0.75rem; bottom: 0.75rem; max-width: min(23rem, calc(100% - 1.5rem));
+  background: #fff; color: #111; font-size: 13px; line-height: 1.35; padding: 0.6rem 0.75rem;
+  opacity: 0; transform: translateY(4px); transition: opacity 160ms, transform 160ms; pointer-events: none;
+}
+.plain .hovercap .src { display: block; margin-top: 0.4rem; color: rgba(17, 17, 17, 0.55); }
+.plain .hovercap a { color: inherit; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.15em; }
+.plain .capwrap:hover .hovercap, .plain .capwrap:focus-within .hovercap { opacity: 1; transform: none; pointer-events: auto; }
+/* home: the figures take the images' grid places */
+.plain .spread .capwrap img { display: block; }
+.plain .spread .cw-left .hovercap { bottom: 1.25rem; left: 1.25rem; }
+@media (max-width: 720px) { .plain .spread .cw-right { justify-self: stretch; } .plain .hovercap { font-size: 12px; } }
+/* about: the figure is as tall as the screen and as wide as the photograph */
+@media (min-width: 721px) {
+  .plain .about.on .pic.pair.single .capwrap { height: 100%; width: fit-content; max-width: 100%; }
+  .plain .about.on .pic.pair.single .capwrap img { height: 100%; width: auto; max-width: 100%; display: block; }
+}
+
+/* Work list: pictures link to their source; the Marshall Plan photo smaller; the NSF logo modest */
+.plain .work figure a { display: block; }
+.plain .work figure a:hover img { opacity: 0.85; }
+.plain .work.small figure { grid-column: 10 / span 3; }
+.plain .work.small figure img { width: 75%; margin-left: auto; }
+.plain .work.logo figure { grid-column: 10 / span 3; }
+.plain .work.logo figure img { width: 55%; margin-left: auto; }
+@media (max-width: 1100px) { .plain .work.small figure, .plain .work.logo figure { grid-column: 9 / span 4; } }
+@media (max-width: 720px) { .plain .work.small figure, .plain .work.logo figure { width: 60%; margin-left: auto; } .plain .work.small figure img, .plain .work.logo figure img { width: 100%; } }
+
+/* ---------- Work v5: drawers ---------- */
+.plain main.page.drawers { max-width: none; padding: 4.25rem 1.5rem 3rem; }
+.plain .drawer { border-top: 1px solid #111; }
+.plain .drawer:last-of-type { border-bottom: 1px solid #111; }
+.plain .drawer summary {
+  list-style: none; cursor: pointer; display: flex; align-items: baseline; gap: 0.75rem;
+  padding: 0.85rem 0; font-size: 1.55em; letter-spacing: -0.02em; font-weight: 500;
+}
+.plain .drawer summary::-webkit-details-marker { display: none; }
+.plain .drawer summary::after { content: "+"; margin-left: auto; font-weight: 400; }
+.plain .drawer[open] summary::after { content: "\2212"; }
+.plain .drawer summary .count { font-size: 12.5px; letter-spacing: 0.04em; color: rgba(17,17,17,.5); font-weight: 400; }
+.plain .drawer summary:hover span:first-child { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.12em; }
+.plain .drawer .row { display: grid; grid-template-columns: 1fr 1fr; column-gap: 1.5rem; row-gap: 2.5rem; padding: 0.5rem 0 2.5rem; }
+.plain .item { min-width: 0; }
+.plain .item .frame { display: block; aspect-ratio: 3 / 2; background: #fff; }
+.plain .item .frame img { display: block; width: 100%; height: 100%; object-fit: contain; object-position: left center; transition: opacity 160ms; }
+.plain .item .frame:hover img { opacity: 0.85; }
+.plain .item.logo .frame img { width: 45%; object-position: left center; }
+.plain .item .kicker { margin: 0.9rem 0 0.35rem; font-size: 12.5px; letter-spacing: 0.04em; text-transform: uppercase; }
+.plain .item h2 { margin: 0; font: inherit; font-size: 1.3em; line-height: 1.15; letter-spacing: -0.015em; font-weight: 500; text-wrap: balance; }
+.plain .item h2 a { color: inherit; text-decoration: none; }
+.plain .item h2 a:hover { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.12em; }
+.plain .item .who { margin: 0.45rem 0 0; color: rgba(17,17,17,.55); }
+.plain .item .desc { margin: 0.5rem 0 0; max-width: 40em; }
+.plain .item .src { margin: 0.5rem 0 0; font-size: 13px; }
+.plain .item .src a { color: inherit; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.15em; }
+@media (max-width: 720px) {
+  .plain main.page.drawers { padding-top: 1.5rem; }
+  .plain .drawer .row { grid-template-columns: 1fr; }
+  .plain .drawer summary { font-size: 1.3em; }
+}
+
+/* Work and News: plain shelves, a heading over a hairline, entries side by side */
+.plain .shelf + .shelf { margin-top: 1.5rem; }
+.plain .shelf-head {
+  margin: 0; padding: 0.85rem 0; border-top: 1px solid #111;
+  font: inherit; font-size: 1.55em; letter-spacing: -0.02em; font-weight: 500;
+}
+.plain .shelf .row { display: grid; grid-template-columns: 1fr 1fr; column-gap: 1.5rem; row-gap: 2.5rem; padding: 0.5rem 0 1.5rem; }
+@media (max-width: 720px) { .plain .shelf .row { grid-template-columns: 1fr; } .plain .shelf-head { font-size: 1.3em; } }
+
+/* fit on one screen: picture frames take what height is left */
+@media (min-width: 721px) {
+  .plain .shelf .item .frame { aspect-ratio: auto; height: clamp(12rem, calc(100svh - 24rem), 30rem); }
+  /* News: Fellowships (two entries) and Teaching (one) share one row of three */
+  .plain main.news-row { display: grid; grid-template-columns: 2fr 1fr; column-gap: 1.5rem; }
+  .plain main.news-row .shelf + .shelf { margin-top: 0; }
+  .plain main.news-row .shelf:last-child .row { grid-template-columns: 1fr; }
+}
+@media (min-width: 721px) {
+  .plain main.page.drawers { padding-bottom: 1rem; }
+  .plain .shelf .item .frame { height: clamp(10rem, calc(100svh - 27.5rem), 30rem); }
+  .plain .shelf .row { padding-bottom: 0.5rem; }
+}
