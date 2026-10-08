@@ -550,3 +550,33 @@ body.plain { font: 400 19px / 1.3 "Inter", "Helvetica Neue", Helvetica, Arial, s
 }
 @media (max-width: 720px) { .plain .planet { height: auto; min-height: 70svh; padding-top: 1.5rem; } }
 .plain main.page.research { padding-top: 3rem; }
+
+/* newsletter: sign-up box under Jupiter */
+.plain .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.plain main.page.signup { padding-top: 0; margin: 0 auto 4rem; max-width: 26rem; text-align: center; }
+.plain .news { display: flex; gap: 0.75rem; align-items: baseline; }
+.plain .news input {
+  flex: 1; min-width: 0;
+  font: inherit; color: inherit; background: transparent;
+  border: 0; border-bottom: 1px solid rgba(17, 17, 17, 0.35); border-radius: 0;
+  padding: 0.3rem 0; outline: none;
+}
+.plain .news input:focus { border-bottom-color: #111; }
+.plain .news input::placeholder { color: rgba(17, 17, 17, 0.4); }
+.plain .news button {
+  font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer;
+  text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.2em;
+}
+.plain .news button:hover { opacity: 0.6; }
+.plain .signup .note { margin-top: 0.8rem; min-height: 1.3em; color: rgba(17, 17, 17, 0.55); font-size: 0.9em; }
+/* on the newsletter page the planet and the box under it share the first screen */
+.plain .planet:has(+ .signup) { height: auto; padding: 4.5rem 1.5rem 1.75rem; }
+.plain .planet:has(+ .signup) img { width: min(100%, calc(100svh - 11rem)); }
+/* research has no planet any more: its sections start below the menu again */
+.plain main.page.research { padding-top: 4.5rem; }
+@media (max-width: 720px) {
+  .plain .bar nav { display: flex; flex-wrap: wrap; gap: 0.3rem 1.1rem; }
+  .plain .planet:has(+ .signup) { min-height: 0; padding-top: 1.5rem; }
+  .plain .planet:has(+ .signup) img { width: 100%; }
+  .plain main.page.signup { padding-inline: 1.5rem; }
+}
