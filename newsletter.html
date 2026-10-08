@@ -32,38 +32,45 @@
 
 <main class="page signup">
   <!-- Sign-ups are collected by Netlify Forms (form name "newsletter"). tools/fetch_signups.py copies
-       them to subscribers/ on the Mac, which is never published or committed. -->
-  <form class="news" name="newsletter" method="POST" data-netlify="true" netlify-honeypot="company" novalidate>
+       them to subscribers/ on the Mac, which is never published or committed.
+       The box is just a box: type an email and press Enter. On success the box goes and "You're in."
+       takes its place; nothing is remembered, so reloading the page brings the empty box back. -->
+  <form class="news bare" name="newsletter" method="POST" data-netlify="true" netlify-honeypot="company" novalidate autocomplete="off">
     <input type="hidden" name="form-name" value="newsletter">
     <p class="sr"><label>Leave this empty <input name="company" tabindex="-1" autocomplete="off"></label></p>
-    <label for="email" class="sr">Email address</label>
-    <input id="email" name="email" type="email" placeholder="Your email" autocomplete="email" required>
-    <button type="submit">Sign up</button>
+    <input id="email" name="email" type="email" aria-label="Email address, then press Enter" autocomplete="off" required>
+    <button type="submit" class="sr" tabindex="-1">Sign up</button>
   </form>
+  <p class="done" hidden>You&rsquo;re in.</p>
   <p class="note" aria-live="polite"></p>
 </main>
 
 <script>
   (function () {
     var form = document.querySelector("form.news"), note = document.querySelector(".signup .note");
+    var done = document.querySelector(".signup .done");
+    form.reset();                                        // a fresh, empty box on every load
     var busy = false;
     form.addEventListener("submit", function (e) {
       e.preventDefault();
       if (busy) return;
       var email = form.email.value.trim();
       if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { note.textContent = "Please enter an email address."; return; }
-      busy = true; note.textContent = "Signing you up…";
+      busy = true; note.textContent = "";
       fetch("/", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: new URLSearchParams(new FormData(form)).toString()
       }).then(function (r) {
         if (!r.ok) throw new Error(r.status);
-        note.textContent = "Thank you. You\u2019re signed up.";
-        form.reset();
+        form.hidden = true;
+        done.hidden = false;
       }).catch(function () {
         note.textContent = "Something went wrong. Please try again.";
       }).then(function () { busy = false; });
+    });
+    window.addEventListener("pageshow", function (e) {  // coming back with the browser's Back button
+      if (e.persisted) { form.reset(); form.hidden = false; done.hidden = true; note.textContent = ""; }
     });
   })();
 </script>
