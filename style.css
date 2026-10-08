@@ -513,3 +513,10 @@ body.plain:has(#about:target) .bar nav { display: none; }
 .plain main.page { padding: 6rem 1.5rem 3rem; }
 .plain .bar nav a[aria-current="page"] { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.2em; }
 @media (min-width: 721px) { .plain .about.on .words { padding-top: 4.6rem; } }
+
+/* research page: Interests, Publications, CV */
+.plain .research { max-width: 40rem; }
+.plain .research section + section { margin-top: 3rem; }
+.plain .research h2 { font: inherit; font-style: italic; margin: 0 0 0.6rem; }
+.plain .research p + p { margin-top: 0.8em; }
+.plain .research .ph { color: rgba(17, 17, 17, 0.45); }
