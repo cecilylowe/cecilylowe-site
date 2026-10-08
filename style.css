@@ -903,3 +903,41 @@ body.plain.about-dark .bar .who { color: #fff; }
   filter: grayscale(1) contrast(1.05);
 }
 @media (max-width: 720px) { .plain .inside .cal iframe { height: 70vh; } }
+
+/* ---------- no page scrolls (2026-10-08) ---------- */
+
+/* About: the photograph runs the full height of the screen, edge to edge on the left, whole;
+   the text column takes what is left on the right, top-aligned under the menu */
+@media (min-width: 721px) {
+  .plain .about.on { display: flex; padding: 0; overflow: hidden; gap: 0; }
+  .plain .about.on .pic.pair.single { flex: none; height: 100vh; height: 100svh; max-width: calc(100vw - 20rem); padding: 0; }
+  .plain .about.on .pic.pair.single img:first-child { height: 100%; width: auto; max-width: 100%; object-fit: contain; object-position: left top; }
+  .plain .about.on .words { flex: 1; min-width: 16rem; padding: 4.25rem 1.5rem 1.5rem 1.75rem; }
+}
+
+/* Research: the circles scale with the screen height so circles, credit and the three sections
+   all fit; the sections sit side by side in three columns */
+.plain .plate.orrery { padding-top: 3.75rem; max-width: min(72rem, calc((100svh - 15.5rem) / 0.4)); }
+.plain .orrery figcaption { margin-top: 0.9rem; }
+.plain .plate + main.page.research {
+  max-width: min(72rem, calc((100svh - 15.5rem) / 0.4)); padding: 1.75rem 1.5rem 0;
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 1.5rem;
+}
+.plain .plate + main.page.research section + section { margin-top: 0; }
+@media (max-width: 720px) {
+  .plain .plate.orrery { max-width: none; padding-top: 0.75rem; }
+  .plain .orrery .field { grid-template-columns: repeat(4, 1fr); gap: 0.5rem; }
+  .plain .plate + main.page.research { max-width: none; grid-template-columns: 1fr; padding-top: 1.25rem; row-gap: 1rem; }
+}
+
+/* Home on a phone: the two photographs side by side so both fit on one screen */
+@media (max-width: 720px) {
+  .plain .spread { grid-template-columns: 1fr 1fr; align-items: start; }
+  .plain .spread .left { height: auto; }
+  .plain .spread .right { width: 100%; margin-top: 0; justify-self: stretch; }
+}
+
+/* ?: the calendar smaller, a contained panel rather than full width */
+.plain .inside .cal { max-width: 34rem; margin-top: 2rem; }
+.plain .inside .cal iframe { height: min(46vh, 380px); }
+@media (max-width: 720px) { .plain .inside .cal iframe { height: 52vh; } }
