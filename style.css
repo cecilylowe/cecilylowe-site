@@ -1181,3 +1181,29 @@ body.plain a:hover, body.plain .bar a:hover { color: var(--pink); opacity: 1; }
 .plain .entry.medium .pic { grid-column: 9 / span 4; }
 @media (max-width: 1100px) { .plain .entry.medium .pic { grid-column: 8 / span 5; } }
 @media (max-width: 720px) { .plain .entry.medium .pic { width: 85%; margin-left: auto; } }
+
+/* Work/News: the title, then a one-sentence blurb, in the narrow column (after hlmagnus) */
+.plain .entry .words { grid-column: 4 / span 3; }
+.plain .entry .words .title { display: block; }
+.plain .entry .blurb { display: block; margin-top: 1.1em; font-weight: 400; color: #111; }
+@media (max-width: 1100px) { .plain .entry .words { grid-column: 1 / span 5; } }
+
+/* ---------- one typeface everywhere (2026-10-08) ----------
+   Archivo, the closest free match to Gerstner Programm (architecture.yale.edu): compact, slightly
+   condensed, neutral. One family, two weights (400 text, 500 titles), set a touch tight.
+   Every element inherits it, including form fields, captions and the calendar caption. */
+:root { --font: "Archivo", "Helvetica Neue", Helvetica, Arial, sans-serif; --mono: var(--font); }
+body.plain { font-family: var(--font); letter-spacing: -0.01em; font-feature-settings: "kern" 1; }
+body.plain *, body.plain input, body.plain button, body.plain textarea { font-family: inherit; }
+body.plain .m, body.plain .sep { font-family: var(--font); }
+
+/* one type scale: everything 16.5px (titles 500 weight), except the tiny citation-style notes */
+body.plain .about .words, body.plain .entry .title, body.plain .entry .blurb, body.plain .tile .name,
+body.plain .news input, body.plain .news button, body.plain.nl .signup .done,
+body.plain .inside .welcome, body.plain .hovercap { font-size: 16.5px; }
+body.plain .inside .welcome { font-weight: 500; }
+body.plain .hovercap, body.plain .signup .note, body.plain .gate .note, body.plain .inside .cal figcaption { font-size: 13px; }
+
+/* newsletter: restore centring (Jupiter dead centre; the email line pinned near the bottom, centred) */
+body.plain.nl .planet:has(+ .signup) { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; padding: 0 1.5rem; }
+body.plain.nl main.page.signup { position: fixed; left: 0; right: 0; bottom: 0; margin: 0 auto; width: 100%; max-width: calc(23rem + 3rem); padding: 0 1.5rem calc(1.35rem + env(safe-area-inset-bottom, 0px)); }
