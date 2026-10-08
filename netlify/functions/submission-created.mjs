@@ -65,7 +65,6 @@ export function emailHtml({ email, at, recent, total }) {
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#ffffff;">
     <tr><td align="left" style="padding:40px 24px;">
       <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:520px;">
-        <tr><td style="${font}font-size:13px;line-height:18px;color:#999;padding-bottom:28px;">Cecily Lowe &middot; Newsletter</td></tr>
         <tr><td style="${font}font-size:20px;line-height:26px;color:#111;padding-bottom:6px;">${esc(email)}</td></tr>
         <tr><td style="${font}font-size:14px;line-height:20px;color:#555;padding-bottom:36px;">joined your newsletter on ${esc(when(at))}.</td></tr>
         <tr><td style="${font}font-size:13px;line-height:18px;color:#999;padding-bottom:10px;">Most recent sign-ups &middot; ${total} in total</td></tr>
