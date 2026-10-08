@@ -804,3 +804,12 @@ body.plain { font-size: 17px; }
 .plain main.page.gate .news { width: min(calc(100vw - 3rem), 23rem); }
 .plain.nl main.page.signup { max-width: calc(23rem + 3rem); }
 .plain .news.bare input, .plain .news input { padding: 0 0.1rem; }
+
+/* type v3 (2026-10-08): just a little bigger than sebastiansangha.com (Cargo base 14.5px, Diatype) */
+body.plain { font-size: 15.5px; }
+.plain .about .words { font-size: 14.5px; }
+.plain .news input, .plain .news button, .plain.nl .signup .done { font-size: 14.5px; }
+.plain .signup .note, .plain .gate .note { font-size: 12.5px; }
+.plain .news { height: 2.4rem; }
+.plain .inside .welcome { font-size: 1.5em; }
+@media (max-width: 520px) { body.plain { font-size: 15px; } }
