@@ -1418,3 +1418,10 @@ body.plain { background: #fff; min-height: 100vh; min-height: 100svh; }
 
 /* the email link on About turns pink on hover */
 .plain .about .words a:hover { color: var(--pink); opacity: 1; }
+
+/* About: only the name is large; the bio, email and CV line stay at the normal size */
+.plain .about .words h1.big { font: inherit; font-size: clamp(44px, 5.4vw, 96px); line-height: 1; letter-spacing: -0.035em; font-weight: 400; margin: 0 0 1.2rem; }
+/* About scrolls with the page (not pinned), so pulling past the top or bottom shows the pink */
+@media (min-width: 721px) {
+  .plain .about.on { position: relative; inset: auto; min-height: 100vh; min-height: 100svh; height: 100svh; }
+}
