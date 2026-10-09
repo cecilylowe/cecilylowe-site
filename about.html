@@ -28,11 +28,13 @@
      The Moon version is kept in _unused/about-moon.html. -->
 <main class="me">
   <!-- the picture spot rotates through black-and-white images, all cropped to the same square
-       (assets/about/01-08.jpg, made from the site's own pictures); a different one on every visit -->
+       (assets/about/01-08.jpg, made from the site's own pictures); in order, the next one on every refresh -->
   <div class="pic rot">
     <img src="assets/about/01.jpg" alt="Satellite view of a von Kármán vortex street: dark spiralling eddies in a field of white cloud.">
     <script>
-      // a different black-and-white picture on every visit (assets/about/01-08.jpg, all cropped to the same square)
+      // the pictures in order, one per page load: a visit starts with the clouds (01) and each refresh shows the
+      // next (01 -> 08, then 01 again). The place in the cycle is kept for this browser tab only (sessionStorage),
+      // so a new visit always starts with the clouds again.
       (function () {
         var img = document.currentScript.previousElementSibling, pics = [
           ["01", "Satellite view of a von Kármán vortex street: dark spiralling eddies in a field of white cloud."],
@@ -43,7 +45,12 @@
           ["06", "Swirling cloud bands on Jupiter, from the Juno spacecraft."],
           ["07", "A deep field of galaxies around the Bullet Cluster."],
           ["08", "Étienne Léopold Trouvelot's drawing of the November meteors streaking across the night sky."]
-        ], k = Math.floor(Math.random() * pics.length);
+        ], k = 0;
+        try {
+          var last = parseInt(sessionStorage.getItem("aboutPic"), 10);
+          if (!isNaN(last)) k = (last + 1) % pics.length;
+          sessionStorage.setItem("aboutPic", String(k));
+        } catch (e) {}
         img.src = img.getAttribute("src").replace("01.jpg", pics[k][0] + ".jpg"); img.alt = pics[k][1];
       })();
     </script>
