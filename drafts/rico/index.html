@@ -32,6 +32,17 @@
   /* the corner-triangle marker */
   .tri { display: inline-block; width: 0.7em; height: 0.7em; margin-right: 0.15em; background: currentColor; clip-path: polygon(0 0, 100% 0, 0 100%); vertical-align: 0.05em; }
 
+  /* front cover: a grid of tiles, picture then title then a grey line of year and tags */
+  #home { padding-block: 3.4rem 3rem; padding-inline: 2.5rem; }
+  .tiles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 1rem; row-gap: 2.2rem; }
+  .tile { display: block; }
+  .tile .pic { display: block; aspect-ratio: 4 / 3; background: var(--paper); overflow: hidden; }
+  .tile .pic img { width: 100%; height: 100%; display: block; object-fit: cover; }
+  .tile .pic.fit img { object-fit: contain; }
+  .tile .t { display: block; margin-top: 0.45rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.005em; line-height: 1.15; transition: color 120ms; }
+  .tile .m { display: block; margin-top: 0.2rem; color: var(--quiet); font-size: 0.82em; }
+  .tile:hover .t { color: var(--pink); }
+
   /* index */
   #index { padding-block: 2.6rem 3rem; }
   .group + .group { margin-top: 2.2rem; }
@@ -68,6 +79,7 @@
   #about .k { color: var(--pink); }
 
   @media (max-width: 760px) {
+    #home { padding-inline: 0; } .tiles { grid-template-columns: minmax(0, 1fr); }
     header .w { padding-left: 0; } header .a { padding-right: 0; }
     .proj { grid-template-columns: minmax(0, 1fr); gap: 1.8rem; padding-inline: 0; }
     .facts { order: -1; }
@@ -79,12 +91,14 @@
 
 <header>
   <a class="w" href="#index" data-go="index">Work</a>
-  <a href="#index" data-go="index">Cecily Lowe</a>
+  <a href="#home">Cecily Lowe</a>
   <a class="a" href="#about" data-go="about">About</a>
 </header>
 
 <main>
-  <section id="index">
+  <section id="home"><div class="tiles"></div></section>
+
+  <section id="index" hidden>
     <div class="group">
       <h2>Papers</h2>
       <ul data-kind="paper"></ul>
@@ -106,34 +120,47 @@
 <script>
   // newest first within each group; ids double as #anchors
   var P = [
-    { id: "prison-course", kind: "news", year: "2026", title: "Developing Physics Course at Women’s Federal Prison",
+    { id: "prison-course", tags: "2026, teaching, outreach", kind: "news", year: "2026", title: "Developing Physics Course at Women’s Federal Prison",
       facts: [["Type", "Teaching"], ["Location", "FCI Danbury, Connecticut"], ["Through", "Yale Prison Education Initiative"]],
       body: "Designed and taught a new Physics of Light course for women at the Danbury Federal Correctional Institution, through the Yale Prison Education Initiative.",
       link: ["Yale Wright Laboratory", "https://wlab.yale.edu/posts/2026-08-11-lowe-creates-the-physics-of-light-course-for-women-in-prison"],
       pics: [["assets/research/news-ypei.jpg", "outside FCI Danbury"]] },
-    { id: "gas-collisions", kind: "paper", year: "2026", title: "Optomechanical detection of individual gas collisions",
+    { id: "gas-collisions", tags: "2026, paper, levitated optomechanics", kind: "paper", year: "2026", title: "Optomechanical detection of individual gas collisions",
       facts: [["Type", "Paper"], ["Venue", "arXiv:2604.18371"], ["Authors", "Y.-H. Tseng, C. A. Hardy, T. W. Penny, C. Lowe, J. Baeza-Rubio, D. Carney, D. C. Moore"]],
       body: "Single krypton, xenon and SF₆ molecules caught one at a time by the kick each gives an optically levitated nanoparticle. The measured rates match theory, and the spectrum reads out the particle’s surface properties.",
       link: ["Read on arXiv", "https://arxiv.org/abs/2604.18371"],
-      pics: [["assets/research/paper-gas-collisions.png", "impulse event rates for Kr, Xe and SF₆"]] },
-    { id: "marshall-plan", kind: "news", year: "2025", title: "Marshall Plan Foundation Fellowship",
+      fit: true, pics: [["assets/research/paper-gas-collisions.png", "impulse event rates for Kr, Xe and SF₆"]] },
+    { id: "marshall-plan", tags: "2025, fellowship, TU Wien", kind: "news", year: "2025", title: "Marshall Plan Foundation Fellowship",
       facts: [["Type", "Fellowship"], ["Location", "TU Wien, Vienna"], ["Lab", "Uroš Delić"]],
       body: "Awarded the Marshall Plan Foundation Fellowship and worked with Uroš Delić’s lab for four months at TU Wien. Here she developed a nanoparticle loading technique for the science goal of coupling a neutral Cs atom with a silica nanoparticle for the first time to create non-Gaussian states of nanoparticle motion.",
       link: ["Yale Wright Laboratory", "https://wlab.yale.edu/posts/2025-10-22-lowe-awarded-marshall-plan-fellowship"],
       pics: [["assets/research/news-marshall-plan.jpg", "at the optical table"]] },
-    { id: "nsf-grfp", kind: "news", year: "2025", title: "NSF Graduate Research Fellowship",
+    { id: "nsf-grfp", tags: "2025, award, dark matter", kind: "news", year: "2025", title: "NSF Graduate Research Fellowship",
       facts: [["Type", "Award"], ["From", "National Science Foundation"]],
       body: "Awarded the 2025 National Science Foundation Graduate Research Fellowship to develop arrays of levitated sensors for detecting dark matter directly.",
       link: ["Yale Wright Laboratory", "https://wlab.yale.edu/posts/2025-06-13-wright-lab-students-awarded-2025-nsf-graduate-research-fellowships"],
       pics: [["assets/research/nsf-flag.jpg", "NSF flag"]] },
-    { id: "microsphere-arrays", kind: "paper", year: "2025", title: "Optical levitation of arrays of microspheres",
+    { id: "microsphere-arrays", tags: "2025, paper, optical trapping", kind: "paper", year: "2025", title: "Optical levitation of arrays of microspheres",
       facts: [["Type", "Paper, Editors’ Suggestion"], ["Venue", "Physical Review A 111, 033514"], ["Authors", "B. Siegel, G. Afek, C. Lowe, J. Wang, Y.-H. Tseng, T. W. Penny, D. C. Moore"]],
       body: "Defect-free two-dimensional arrays of more than 25 silica microspheres, trapped in vacuum with each sphere’s optical trap controlled on its own and every sphere tracked at once.",
       link: ["Physical Review A", "https://doi.org/10.1103/PhysRevA.111.033514"],
-      pics: [["assets/research/paper-arrays.png", "trapped arrays, sorted into lines, grids and a Y"]] }
+      fit: true, pics: [["assets/research/paper-arrays.png", "trapped arrays, sorted into lines, grids and a Y"]] }
   ];
 
-  var views = { index: document.getElementById("index"), project: document.getElementById("project"), about: document.getElementById("about") };
+  // cover tiles, newest first, plus About to fill the grid
+  var tiles = document.querySelector("#home .tiles");
+  P.slice().sort(function (a, b) { return b.year.localeCompare(a.year); }).forEach(function (p) {
+    var a = el("a", "tile"); a.href = "#" + p.id;
+    var pic = el("span", "pic" + (p.fit ? " fit" : "")), im = el("img"); im.src = p.pics[0][0]; im.alt = p.pics[0][1]; pic.appendChild(im);
+    a.appendChild(pic); a.appendChild(el("span", "t", p.title)); a.appendChild(el("span", "m", p.tags)); tiles.appendChild(a);
+  });
+  (function () {
+    var a = el("a", "tile"); a.href = "#about";
+    var pic = el("span", "pic"), im = el("img"); im.src = "assets/calabi-yau.jpg"; im.alt = "A Calabi\u2013Yau manifold etched in a glass cube."; pic.appendChild(im);
+    a.appendChild(pic); a.appendChild(el("span", "t", "About")); a.appendChild(el("span", "m", "Ph.D. student, Yale University")); tiles.appendChild(a);
+  })();
+
+  var views = { home: document.getElementById("home"), index: document.getElementById("index"), project: document.getElementById("project"), about: document.getElementById("about") };
   function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
 
   document.querySelectorAll("#index ul").forEach(function (ul) {
@@ -163,8 +190,9 @@
   }
 
   function route() {
-    var h = (location.hash || "#index").slice(1), i = P.findIndex(function (p) { return p.id === h; });
-    views.index.hidden = !(h === "index" || (i < 0 && h !== "about"));
+    var h = (location.hash || "#home").slice(1), i = P.findIndex(function (p) { return p.id === h; });
+    views.home.hidden = !(h === "home" || (i < 0 && h !== "about" && h !== "index"));
+    views.index.hidden = h !== "index";
     views.about.hidden = h !== "about";
     views.project.hidden = i < 0;
     if (i >= 0) showProject(i);
@@ -175,7 +203,7 @@
     if (views.project.hidden) return;
     if (e.key === "ArrowRight") document.querySelector(".arrow.next").click();
     if (e.key === "ArrowLeft") document.querySelector(".arrow.prev").click();
-    if (e.key === "Escape") location.hash = "index";
+    if (e.key === "Escape") location.hash = "home";
   });
   route();
 </script>
