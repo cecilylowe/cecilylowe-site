@@ -1272,3 +1272,13 @@ body.plain.news-page .entry .pic img { filter: grayscale(1) contrast(1.05); tran
   .plain .about.on .pic.pair.single { width: min(56vw, calc(100vw - 34rem)); max-width: none; height: 100vh; height: 100svh; }
   .plain .about.on .words { min-width: 0; }
 }
+
+/* ---------- type v7 (2026-10-09): one face, one weight, one size, like sebastiansangha.cargo.site ----------
+   Hanken Grotesk, the closest free match to Cargo's ABC Diatype (same width and letterforms).
+   Everything 400 weight in near-black #222 at the one size; small notes stay smaller. */
+:root { --font: "Hanken Grotesk", "Helvetica Neue", Helvetica, Arial, sans-serif; }
+body.plain { font-family: var(--font); color: #222; letter-spacing: 0; font-weight: 400; }
+body.plain *, body.plain h1, body.plain h2, body.plain h3, body.plain b, body.plain strong,
+body.plain .entry .title, body.plain .tile .name, body.plain .inside .welcome { font-weight: 400; }
+body.plain .bar a, body.plain .entry, body.plain .entry .blurb, body.plain .about .words { color: #222; }
+body.plain .entry .title { margin-bottom: 0; }
