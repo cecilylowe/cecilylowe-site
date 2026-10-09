@@ -14,4 +14,4 @@ face on davidricogomez.com, from measurements only (measurements-diatype.json): 
 ascenders/descenders, stem weight and each character's advance width. No outlines come from any other font.
 
 Rebuild: `python3 build_sans.py` (reads Geist-Variable.woff2 here); copy LoweSans-Regular.woff2 to assets/fonts/.
-To go back to Lowe Grotesk, delete the "Lowe Sans" block at the end of style.css and point the preload links back.
+Lowe Sans is the site's font for good (Cecily, 2026-10-09). Lowe Grotesk stays only as an archive.

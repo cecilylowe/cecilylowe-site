@@ -1611,3 +1611,7 @@ body.plain.about2 main.me {
   font-weight: 400; font-style: normal; font-display: swap;
 }
 :root { --font: "Lowe Sans", "Helvetica Neue", Helvetica, Arial, sans-serif; --mono: var(--font); }
+
+/* About v12.3 (2026-10-09): the name a little above the middle of the screen */
+.about2 .me .name { top: 44vh; top: 44svh; }
+@media (max-width: 720px) { .about2 .me .name { top: auto; } }
