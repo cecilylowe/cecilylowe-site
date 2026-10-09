@@ -1354,3 +1354,13 @@ body.plain { background: #fff; min-height: 100vh; min-height: 100svh; }
 
 /* the site's pink, from Cecily's swatch */
 :root { --pink: #d82f8a; --accent: #d82f8a; }
+
+/* News: the hovered photo turns a pink duotone (dark tones become the pink, light tones stay pale),
+   like architecture.yale.edu's orange */
+.plain .sqtile .sq { position: relative; }
+.plain .sqtile .sq::after {
+  content: ""; position: absolute; inset: 0; background: var(--pink);
+  mix-blend-mode: screen; opacity: 0; transition: opacity 250ms ease; pointer-events: none;
+}
+.plain .sqtile:hover .sq::after, .plain .sqtile:focus-visible .sq::after { opacity: 1; }
+@media (prefers-reduced-motion: reduce) { .plain .sqtile .sq::after { transition: none; } }
