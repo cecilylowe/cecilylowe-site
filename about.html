@@ -28,15 +28,31 @@
      The Moon version is kept in _unused/about-moon.html. -->
 <main class="me">
   <!-- the picture spot rotates through black-and-white images, all cropped to the same square
-       (assets/about/01-08.jpg, made from the site's own pictures); a new one every 2.5 seconds -->
+       (assets/about/01-08.jpg, made from the site's own pictures); a different one on every visit -->
   <div class="pic rot">
     <img src="assets/about/01.jpg" alt="Satellite view of a von Kármán vortex street: dark spiralling eddies in a field of white cloud.">
+    <script>
+      // a different black-and-white picture on every visit (assets/about/01-08.jpg, all cropped to the same square)
+      (function () {
+        var img = document.currentScript.previousElementSibling, pics = [
+          ["01", "Satellite view of a von Kármán vortex street: dark spiralling eddies in a field of white cloud."],
+          ["02", "Jupiter's Great Red Spot and the turbulent bands around it, from Voyager."],
+          ["03", "Bubble-chamber photograph: charged particle tracks curling into spirals in a magnetic field."],
+          ["04", "Close-up of the Moon's cratered surface."],
+          ["05", "Bubble-chamber photograph of a particle shower, tracks fanning out and spiralling."],
+          ["06", "Swirling cloud bands on Jupiter, from the Juno spacecraft."],
+          ["07", "A deep field of galaxies around the Bullet Cluster."],
+          ["08", "Étienne Léopold Trouvelot's drawing of the November meteors streaking across the night sky."]
+        ], k = Math.floor(Math.random() * pics.length);
+        img.src = img.getAttribute("src").replace("01.jpg", pics[k][0] + ".jpg"); img.alt = pics[k][1];
+      })();
+    </script>
   </div>
   <!-- to the right of the picture: the name, then the bio and email below it (2026-10-09) -->
   <div class="side">
-    <h1 class="name">Cecily Lowe</h1>
+    <h1 class="sr">Cecily Lowe</h1>
     <div class="words">
-      <p data-edit="about.bio">Cecily is a Ph.D. student at Yale University building levitated optomechanical sensors to study the interaction between dark matter and ordinary matter.</p>
+      <p data-edit="about.bio">Cecily Lowe is a Ph.D. student at Yale University building levitated optomechanical sensors to study the interaction between dark matter and ordinary matter.</p>
       <p data-edit="about.contact"><a href="mailto:cecily.lowe@yale.edu">cecily.lowe@yale.edu</a></p>
     </div>
   </div>
@@ -95,34 +111,6 @@
     });
   })();
 
-  // About pictures: a new one every 2.5 seconds, cut straight over, as the picture changes on
-  // architecture.yale.edu. Each is loaded before it is shown. Still when reduced motion is asked for.
-  (function () {
-    var img = document.querySelector(".pic.rot img"); if (!img) return;
-    var pics = [
-      ["assets/about/01.jpg", "Satellite view of a von Kármán vortex street: dark spiralling eddies in a field of white cloud."],
-      ["assets/about/02.jpg", "Jupiter's Great Red Spot and the turbulent bands around it, from Voyager."],
-      ["assets/about/03.jpg", "Bubble-chamber photograph: charged particle tracks curling into spirals in a magnetic field."],
-      ["assets/about/04.jpg", "Close-up of the Moon's cratered surface."],
-      ["assets/about/05.jpg", "Bubble-chamber photograph of a particle shower, tracks fanning out and spiralling."],
-      ["assets/about/06.jpg", "Swirling cloud bands on Jupiter, from the Juno spacecraft."],
-      ["assets/about/07.jpg", "A deep field of galaxies around the Bullet Cluster."],
-      ["assets/about/08.jpg", "Étienne Léopold Trouvelot's drawing of the November meteors streaking across the night sky."]
-    ];
-    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    var base = img.getAttribute("src");                // keeps the ?v= stamp the publish adds
-    function url(k) { return base.replace("01.jpg", pics[k][0].slice(-6)); }
-    var i = 0, loaded = { 0: true };
-    function load(k) { var im = new Image(); im.onload = function () { loaded[k] = true; }; im.src = url(k); }
-    load(1);
-    setInterval(function () {
-      if (document.hidden) return;
-      var k = (i + 1) % pics.length;
-      if (!loaded[k]) return;                         // not here yet: try again next tick
-      i = k; img.src = url(k); img.alt = pics[k][1];
-      var n = (k + 1) % pics.length; if (!loaded[n]) load(n);
-    }, 2500);
-  })();
 
   // the Newsletter bar starts where the picture does: hand the picture's left edge to the stylesheet as --picl
   (function () {

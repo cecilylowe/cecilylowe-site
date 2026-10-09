@@ -1700,3 +1700,9 @@ html:has(body.plain) body.plain { min-height: calc(100vh + 1px); min-height: cal
   .about2 .me .side { top: calc(44svh - var(--pside) / 2); height: var(--pside); margin: 0; }
   .about2 .me .side .words { align-self: flex-start; }
 }
+
+/* About v14 (2026-10-09): no big name; the bio alone at the bottom of the right-hand side, wider and a little
+   bigger (16px); one random picture per visit */
+.about2 .me .side .words { font-size: 16px; line-height: 1.4; gap: 0.6rem; }
+@media (min-width: 721px) { .about2 .me .side .words { margin-top: 0; max-width: 36rem; } }
+@media (max-width: 720px) { .about2 .me .side .words { padding-top: 1.4rem; } }
