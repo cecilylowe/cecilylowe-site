@@ -1634,3 +1634,7 @@ body.plain.about2 main.me {
 /* pink past the top and bottom again: Chrome only bounces a page that can scroll, so every page is 1px taller
    than the screen (too little to see); the pink (html background) shows in the bounce */
 html:has(body.plain) body.plain { min-height: calc(100vh + 1px); min-height: calc(100svh + 1px); }
+
+/* Newsletter panel v3 (2026-10-09): the email box centred at the bottom again; "Email" stays at the left of its line */
+.nlpanel .signup { justify-self: center; }
+.nlpanel .news.bare input { text-align: left; }
