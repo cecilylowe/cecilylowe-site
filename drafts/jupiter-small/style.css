@@ -1351,3 +1351,6 @@ body.plain .bar a, body.plain .entry, body.plain .entry .blurb, body.plain .abou
 /* pulling past the top or bottom of a page (overscroll) shows the site's pink; the page itself stays white */
 html, html:has(body.plain) { background: var(--pink); }
 body.plain { background: #fff; min-height: 100vh; min-height: 100svh; }
+
+/* the site's pink, from Cecily's swatch */
+:root { --pink: #d82f8a; --accent: #d82f8a; }
