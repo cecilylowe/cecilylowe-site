@@ -1258,5 +1258,3 @@ body.plain.news-page .entry .pic img { filter: grayscale(1) contrast(1.05); tran
 /* the hover zone is the whole left half of each row (columns 1-6, full row height), not just the words */
 .plain .entry .words { align-self: stretch; max-width: none; }
 .plain .entry .words .title, .plain .entry .words .blurb { max-width: 36rem; }
-/* News: a black-and-white photo turns to colour while the pointer is on it */
-body.plain.news-page .entry .pic:hover img { filter: none; opacity: 1; }
