@@ -1593,3 +1593,13 @@ body.plain.about2 main.me {
 @media (max-width: 720px) {
   .about2 .me .name { left: auto; transform: none; text-align: center; margin-inline: 0; }
 }
+
+/* About v12.2 (2026-10-09): the name dead centre on the screen, at the size of "Yale Architecture" on
+   architecture.yale.edu (96px, line-height 0.95, letter-spacing 1px; 55px on phones) */
+.about2 .me .name {
+  top: 50vh; top: 50svh; left: 50%; transform: translate(-50%, -50%);
+  font-size: 96px; line-height: 0.95; letter-spacing: 1px; text-align: center;
+}
+@media (max-width: 720px) {
+  .about2 .me .name { top: auto; left: auto; transform: none; font-size: 55px; letter-spacing: 0.2px; margin: -0.5em 0 0; }
+}
