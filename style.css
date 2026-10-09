@@ -1373,3 +1373,35 @@ body.plain { background: #fff; min-height: 100vh; min-height: 100svh; }
 @media (min-width: 721px) {
   .plain main.page.sqgrid:has(.sqtile:nth-child(4)) { --side: min(calc((100vw - 7rem) / 3), 24rem); min-height: 0; align-content: start; padding-top: 5rem; padding-bottom: 4rem; }
 }
+
+/* ---------- Work = Publications | News (after architecture.yale.edu) ---------- */
+.plain main.page.split {
+  max-width: none; padding: 3.75rem 1.5rem 3rem;
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 3rem; align-items: start;
+}
+.plain main.page.split > * + * { margin-top: 0; }
+.plain .split .col { border-top: 1px solid #111; padding-top: 1.1rem; min-width: 0; }
+.plain .split h1 { margin: 0 0 1.6rem; font: inherit; font-size: clamp(44px, 5.4vw, 96px); line-height: 1; letter-spacing: -0.035em; font-weight: 400; }
+.plain .split .sqgrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem 1.25rem; align-items: start; padding: 0; min-height: 0; }
+.plain .split .sqgrid > * + * { margin-top: 0; }
+.plain .split .sqtile .sq { width: auto; height: auto; aspect-ratio: 1; max-height: none; }
+.plain .split .sqtile .name { min-height: 2.4em; margin-top: 0.6rem; font-size: 0.8em; }
+/* paper first pages: portrait, whole, light frame so the white page reads on white */
+.plain .split .paper .sq { aspect-ratio: 1 / 1.3; background: #fff; }
+.plain .split .paper .sq img { object-fit: contain; outline: 1px solid rgba(17,17,17,.12); outline-offset: -1px; }
+.plain .split .sqgrid.hovering .sqtile:not(.hot) .sq img { transform: scale(0.5); }
+@media (max-width: 900px) {
+  .plain main.page.split { grid-template-columns: 1fr; row-gap: 3rem; padding-top: 1.5rem; }
+  .plain .split .sqgrid.hovering .sqtile:not(.hot) .sq img { transform: none; }
+}
+/* fit both columns on one laptop screen: the grids size from the screen height */
+@media (min-width: 901px) {
+  .plain .split .g-news { width: min(100%, calc(100svh - 19rem)); }
+  .plain .split .g-pubs { width: min(100%, calc((100svh - 15.5rem) / 1.3 * 2)); }
+}
+@media (min-width: 901px) {
+  .plain .split .g-news { width: min(100%, calc(100svh - 22rem)); row-gap: 1rem; }
+  .plain .split .sqtile .name { font-size: 0.7em; margin-top: 0.45rem; min-height: 2.5em; }
+  .plain .split h1 { margin-bottom: 1.2rem; }
+  .plain main.page.split { padding-bottom: 1.5rem; }
+}

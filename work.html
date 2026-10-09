@@ -19,7 +19,6 @@
   <nav>
     <a href="about.html">About</a>
     <a href="work.html" aria-current="page">Work</a>
-    <a href="news.html">News</a>
     <a href="thoughts.html">Thoughts</a>
     <a href="newsletter.html">Newsletter</a>
     <a href="question.html">?</a>
@@ -27,20 +26,54 @@
 </header>
 
 <!-- Research: three sections. Placeholders until there is content. -->
-<main class="page entries">
-  <!-- after hlmagnus.cargo.site/work: one entry per row, newest at the top (insert new ones by
-       data-date). The title sits a quarter of the way in, the picture to the right; the whole
-       row is one link. -->
-  <a class="entry wide" data-date="2026-04" href="https://arxiv.org/abs/2604.18371">
-    <span class="words"><span class="title">Optomechanical detection of individual gas collisions</span><span class="blurb">Single gas molecules detected one at a time by the kick each gives an optically levitated nanoparticle.</span></span>
-    <span class="pic"><img src="assets/research/paper-gas-collisions.png" alt="Measured impulse event rates for krypton, xenon and SF6 at several pressures, with model fits and residuals."></span>
-  </a>
-
-  <a class="entry wide" data-date="2025-03" href="https://doi.org/10.1103/PhysRevA.111.033514">
-    <span class="words"><span class="title">Optical levitation of arrays of microspheres</span><span class="blurb">Defect-free arrays of more than 25 microspheres, trapped in vacuum and tracked all at once.</span></span>
-    <span class="pic"><img src="assets/research/paper-arrays.png" alt="Photographs of trapped microsphere arrays in vacuum, sorted into lines, grids and a Y shape."></span>
-  </a>
+<main class="page split">
+  <!-- Work: after architecture.yale.edu's Publications | Yale Arts Campus spread. Two columns, each a
+       hairline rule and a large heading. Left: first pages of the papers, side by side (no titles yet).
+       Right: the news, a 2x2 of squares. In both, the hovered item turns pink and the rest shrink. -->
+  <section class="col pubs">
+    <h1>Publications</h1>
+    <div class="sqgrid g-pubs">
+      <a class="sqtile paper" data-date="2026-04" href="https://arxiv.org/abs/2604.18371">
+        <span class="sq"><img src="assets/research/page1-gas.jpg" alt="First page of Optomechanical detection of individual gas collisions (arXiv:2604.18371)."></span>
+      </a>
+      <a class="sqtile paper" data-date="2025-03" href="https://doi.org/10.1103/PhysRevA.111.033514">
+        <span class="sq"><img src="assets/research/page1-arrays.jpg" alt="First page of Optical levitation of arrays of microspheres (Physical Review A 111, 033514)."></span>
+      </a>
+    </div>
+  </section>
+  <section class="col newscol" id="news">
+    <h1>News</h1>
+    <div class="sqgrid g-news">
+      <a class="sqtile" data-date="2026-09" href="https://www.linkedin.com/feed/update/urn:li:activity:7511234610639421440/">
+        <span class="sq"><img src="assets/research/sq-candidacy-bw.jpg" alt="Cecily Lowe beside her prospectus title slide, Searching for Dark Matter with an Array of Levitated Microparticles."></span>
+        <span class="name">Advanced to Ph.D. Candidacy</span>
+      </a>
+      <a class="sqtile" data-date="2026-08" href="https://wlab.yale.edu/posts/2026-08-11-lowe-creates-the-physics-of-light-course-for-women-in-prison">
+        <span class="sq"><img src="assets/research/sq-ypei-bw.jpg" alt="Cecily Lowe outside the Federal Correctional Institution in Danbury, Connecticut."></span>
+        <span class="name">Teaching at Women&rsquo;s Federal Prison</span>
+      </a>
+      <a class="sqtile" data-date="2025-10" href="https://wlab.yale.edu/posts/2025-10-22-lowe-awarded-marshall-plan-fellowship">
+        <span class="sq"><img src="assets/research/sq-marshall-bw.jpg" alt="Cecily Lowe at an optical table in the lab."></span>
+        <span class="name">Marshall Plan Foundation Fellowship</span>
+      </a>
+      <a class="sqtile" data-date="2025-06" href="https://wlab.yale.edu/posts/2025-06-13-wright-lab-students-awarded-2025-nsf-graduate-research-fellowships">
+        <span class="sq"><img src="assets/research/sq-bullet-bw.jpg" alt="The Bullet Cluster; the blue glow maps dark matter."></span>
+        <span class="name">NSF Graduate Research Fellowship</span>
+      </a>
+    </div>
+  </section>
 </main>
 
+<script>
+  // hover: the item under the pointer stays full size and turns pink; the rest in its group shrink
+  document.querySelectorAll(".sqgrid").forEach(function (grid) {
+    grid.querySelectorAll(".sqtile").forEach(function (t) {
+      function on() { grid.classList.add("hovering"); t.classList.add("hot"); }
+      function off() { grid.classList.remove("hovering"); t.classList.remove("hot"); }
+      t.addEventListener("mouseenter", on); t.addEventListener("mouseleave", off);
+      t.addEventListener("focus", on); t.addEventListener("blur", off);
+    });
+  });
+</script>
 </body>
 </html>
