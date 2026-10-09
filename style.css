@@ -1658,3 +1658,6 @@ html:has(body.plain) body.plain { min-height: calc(100vh + 1px); min-height: cal
 @media (min-width: 721px) {
   .plain .homebio { left: 50%; right: auto; padding-left: 0; }
 }
+
+/* About without the bio (2026-10-09): on phones the name stays tucked under the picture */
+@media (max-width: 720px) { body.plain.about2 main.me { align-content: start; } }
