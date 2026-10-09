@@ -1443,3 +1443,58 @@ body.plain { background: #fff; min-height: 100vh; min-height: 100svh; }
 }
 :root { --font: "Lowe Grotesk", "Helvetica Neue", Helvetica, Arial, sans-serif; --mono: var(--font); }
 body.plain { letter-spacing: 0.02em; }
+
+/* ---------- Work: the full lists (2026-10-09) ----------
+   An arrow beside each heading opens a panel that slides up from the bottom with a 6px pink line along
+   its top, like the menu on architecture.yale.edu. Close sits top left in a thin box. Rows follow the
+   YSoA publications table: hairline between rows, title black, the rest grey, the picture at the end;
+   on hover a row grows to 105% inside a thin black box. */
+.plain .split h1 .opener { color: inherit; text-decoration: none; display: inline-flex; align-items: baseline; gap: 0.3em; }
+.plain .split h1 .opener .arr { font-size: 0.62em; transition: transform 160ms; }
+.plain .split h1 .opener:hover { color: var(--pink); }
+.plain .split h1 .opener:hover .arr { transform: translateX(0.12em); }
+html.panel-open, html.panel-open body { overflow: hidden; }
+.listpanel {
+  position: fixed; inset: 0; z-index: 50; background: #fff; border-top: 6px solid var(--pink);
+  overflow-y: auto; overscroll-behavior: contain; transform: translateY(100%);
+  transition: transform 420ms cubic-bezier(0.22, 0.7, 0.2, 1);
+  padding: 1rem 1.5rem 4rem; box-sizing: border-box; color: #111;
+}
+.listpanel.up { transform: translateY(0); }
+.listpanel[hidden] { display: block; visibility: hidden; }
+.listpanel .close {
+  font: inherit; color: #111; background: #fff; border: 1px solid #111; padding: 3px 12px; margin: 0;
+  cursor: pointer; line-height: 1.2; border-radius: 0;
+}
+.listpanel .close:hover { color: var(--pink); border-color: var(--pink); }
+.listpanel h1 { font: inherit; font-weight: 400; font-size: clamp(44px, 5.4vw, 96px); line-height: 1; letter-spacing: -0.035em; margin: 2.2rem 0 2.4rem; }
+.ltable { display: block; }
+.ltable .lhead, .ltable .lrow { display: grid; column-gap: 2rem; align-items: start; }
+.pubs-table .lhead, .pubs-table .lrow { grid-template-columns: minmax(0, 5fr) minmax(0, 1.2fr) minmax(0, 5fr) 6.5rem; }
+.news-table .lhead, .news-table .lrow { grid-template-columns: minmax(0, 1fr) 6.5rem; }
+.ltable .lhead { padding: 0 1rem 0.5rem; border-bottom: 1px solid #ddd; }
+.ltable .lhead .c-auth, .ltable .lhead .c-year { color: #8c8c8c; }
+.ltable .lrow {
+  position: relative; padding: 1rem; color: #111; text-decoration: none; background: #fff;
+  border: 1px solid transparent; border-bottom-color: #ddd;
+  transition: transform 0.1s linear, z-index 0s linear 0.05s;
+}
+.ltable .lrow .c-year, .ltable .lrow .c-auth { color: #8c8c8c; }
+.ltable .lrow .c-img img { display: block; width: 100%; height: auto; }
+.ltable .lrow:hover, .ltable .lrow:focus-visible { transform: scale(1.05); z-index: 2; border-color: #111; outline: none; }
+.ltable .lrow:hover .c-title { color: var(--pink); }
+@media (max-width: 720px) {
+  .listpanel { padding: 0.8rem 1rem 3rem; }
+  .listpanel h1 { margin: 1.6rem 0 1.6rem; }
+  .pubs-table .lhead { display: none; }
+  .pubs-table .lrow { grid-template-columns: minmax(0, 1fr) 4.5rem; row-gap: 0.4rem; column-gap: 1rem; }
+  .pubs-table .lrow .c-title { grid-column: 1; grid-row: 1; }
+  .pubs-table .lrow .c-year { grid-column: 1; grid-row: 2; }
+  .pubs-table .lrow .c-auth { grid-column: 1; grid-row: 3; font-size: 0.8em; }
+  .pubs-table .lrow .c-img { grid-column: 2; grid-row: 1 / span 3; }
+  .news-table .lhead, .news-table .lrow { grid-template-columns: minmax(0, 1fr) 4.5rem; column-gap: 1rem; }
+  .ltable .lrow { padding: 0.8rem 0.25rem; }
+  .ltable .lrow:hover { transform: none; }
+}
+@media (prefers-reduced-motion: reduce) { .listpanel { transition: none; } }
+.listpanel .close:focus { outline: none; }
