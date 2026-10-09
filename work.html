@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Work — Cecily Lowe</title>
+<link rel="preload" href="assets/fonts/LoweSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="style.css?v=1791573675">
+<script src="site.js?v=1791573675" defer></script>
+<link rel="icon" type="image/png" sizes="32x32" href="assets/icon-32.png?v=jupiter">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/icon-192.png?v=jupiter">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=jupiter">
+<script>(function(){var V="1791573675";try{var u=new URL(location.href);if(u.searchParams.has("fresh")){u.searchParams.delete("fresh");history.replaceState(null,"",u.pathname+(u.search||"")+u.hash)}}catch(e){}function check(){fetch("/version.txt?"+Date.now(),{cache:"no-store"}).then(function(r){return r.ok?r.text():""}).then(function(v){v=(v||"").trim();if(!v||v===V)return;var k="cl-fresh-"+v+location.pathname;try{var t=+sessionStorage.getItem(k)||0;if(Date.now()-t<15000)return;sessionStorage.setItem(k,Date.now())}catch(e){}fetch(location.pathname,{cache:"reload"}).catch(function(){}).then(function(){location.reload()})}).catch(function(){})}function warm(){var k="cl-warm-"+V;try{if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,"1")}catch(e){}fetch("/version.txt?"+Date.now(),{cache:"no-store"}).then(function(r){return r.ok?r.text():""}).then(function(v){if((v||"").trim()!==V)return;["/", "/about", "/news", "/newsletter", "/question", "/thoughts", "/work"].forEach(function(p){if(p!==location.pathname)fetch(p,{cache:"reload"}).catch(function(){})})}).catch(function(){})}check();addEventListener("load",function(){setTimeout(warm,300)});addEventListener("pageshow",function(e){if(e.persisted)check()})})();</script>
+</head>
+<body class="plain">
+
+<header class="bar">
+  <a class="who" href="/" data-edit="site.name">Cecily Lowe</a>
+  <nav>
+    <a href="/about">About</a>
+    <a href="/work" aria-current="page">Work</a>
+    <a href="/question">?</a>
+  </nav>
+</header>
+
+<!-- Research: three sections. Placeholders until there is content. -->
+<main class="page split">
+  <!-- Work: after architecture.yale.edu's Publications | Yale Arts Campus spread. Two columns, each a
+       hairline rule and a large heading. Left: first pages of the papers, side by side (no titles yet).
+       Right: the news, a 2x2 of squares. In both, the hovered item turns pink and the rest shrink. -->
+  <section class="col pubs">
+    <h1><a class="opener" href="#publications" aria-label="All publications">Publications <svg class="arr" viewBox="0 0 12 20" aria-hidden="true"><polyline points="1.5,1.5 10,10 1.5,18.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square" stroke-linejoin="miter"/></svg></a></h1>
+    <div class="sqgrid g-pubs">
+      <a class="sqtile paper" data-date="2026-04" href="https://arxiv.org/abs/2604.18371">
+        <span class="sq"><img src="assets/research/page1-gas.jpg?v=1791573675" alt="First page of Optomechanical detection of individual gas collisions (arXiv:2604.18371)."></span>
+      </a>
+      <a class="sqtile paper" data-date="2025-03" href="https://doi.org/10.1103/PhysRevA.111.033514">
+        <span class="sq"><img src="assets/research/page1-arrays.jpg?v=1791573675" alt="First page of Optical levitation of arrays of microspheres (Physical Review A 111, 033514)."></span>
+      </a>
+    </div>
+  </section>
+  <section class="col newscol" id="news">
+    <h1><a class="opener" href="#all-news" aria-label="All news">News <svg class="arr" viewBox="0 0 12 20" aria-hidden="true"><polyline points="1.5,1.5 10,10 1.5,18.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square" stroke-linejoin="miter"/></svg></a></h1>
+    <div class="sqgrid g-news">
+      <a class="sqtile" data-date="2026-09" href="https://www.linkedin.com/feed/update/urn:li:activity:7511234610639421440/">
+        <span class="sq"><img src="assets/research/sq-candidacy-bw.jpg?v=1791573675" alt="Cecily Lowe beside her prospectus title slide, Searching for Dark Matter with an Array of Levitated Microparticles."></span>
+        <span class="name">Advanced to Ph.D. Candidacy</span>
+      </a>
+      <a class="sqtile" data-date="2026-08" href="https://wlab.yale.edu/posts/2026-08-11-lowe-creates-the-physics-of-light-course-for-women-in-prison">
+        <span class="sq"><img src="assets/research/sq-ypei-bw.jpg?v=1791573675" alt="Cecily Lowe outside the Federal Correctional Institution in Danbury, Connecticut."></span>
+        <span class="name">Teaching at Women&rsquo;s Federal Prison</span>
+      </a>
+      <a class="sqtile" data-date="2025-10" href="https://wlab.yale.edu/posts/2025-10-22-lowe-awarded-marshall-plan-fellowship">
+        <span class="sq"><img src="assets/research/sq-marshall-bw.jpg?v=1791573675" alt="Cecily Lowe at an optical table in the lab."></span>
+        <span class="name">Marshall Plan Foundation Fellowship</span>
+      </a>
+      <a class="sqtile" data-date="2025-06" href="https://wlab.yale.edu/posts/2025-06-13-wright-lab-students-awarded-2025-nsf-graduate-research-fellowships">
+        <span class="sq"><img src="assets/research/sq-bullet-bw.jpg?v=1791573675" alt="The Bullet Cluster; the blue glow maps dark matter."></span>
+        <span class="name">NSF Graduate Research Fellowship</span>
+      </a>
+    </div>
+  </section>
+</main>
+
+<script>
+  // hover: the item under the pointer stays full size and turns pink; the rest in its group shrink
+  document.querySelectorAll(".sqgrid").forEach(function (grid) {
+    grid.querySelectorAll(".sqtile").forEach(function (t) {
+      function on() { grid.classList.add("hovering"); t.classList.add("hot"); }
+      function off() { grid.classList.remove("hovering"); t.classList.remove("hot"); }
+      t.addEventListener("mouseenter", on); t.addEventListener("mouseleave", off);
+      t.addEventListener("focus", on); t.addEventListener("blur", off);
+    });
+  });
+</script>
+
+<!-- The full lists. Each opens from the arrow beside its heading and slides up from the bottom of the
+     screen with a pink line along its top edge, the way the menu opens on architecture.yale.edu.
+     Close (top left), Esc or the browser's Back button slides it away again. Rows grow on hover. -->
+<!-- the thin pink line along the bottom of the screen, as on architecture.yale.edu; the lists rise from it -->
+<div class="pinkline" aria-hidden="true"></div>
+
+<section class="listpanel" id="publications" role="dialog" aria-modal="true" aria-label="Publications" hidden>
+  <button class="close" type="button">Close</button>
+  <h1>Publications</h1>
+  <div class="ltable pubs-table">
+    <div class="lhead"><span class="c-title">Title</span><span class="c-year">Year</span><span class="c-auth">Authors</span><span class="c-img"></span></div>
+    <a class="lrow" href="https://arxiv.org/abs/2604.18371">
+      <span class="c-title">Optomechanical Detection of Individual Gas Collisions</span>
+      <span class="c-year">2026</span>
+      <span class="c-auth">Yu-Han Tseng, Clarke A. Hardy, T. W. Penny, Cecily Lowe, Jacqueline Baeza-Rubio, Daniel Carney, David C. Moore</span>
+      <span class="c-img"><img src="assets/research/page1-gas.jpg?v=1791573675" alt="First page of the paper." loading="lazy"></span>
+    </a>
+    <a class="lrow" href="https://doi.org/10.1103/PhysRevA.111.033514">
+      <span class="c-title">Optical Levitation of Arrays of Microspheres</span>
+      <span class="c-year">2025</span>
+      <span class="c-auth">Benjamin Siegel, Gadi Afek, Cecily Lowe, Jiaxiang Wang, Yu-Han Tseng, T. W. Penny, David C. Moore</span>
+      <span class="c-img"><img src="assets/research/page1-arrays.jpg?v=1791573675" alt="First page of the paper." loading="lazy"></span>
+    </a>
+  </div>
+</section>
+
+<section class="listpanel" id="all-news" role="dialog" aria-modal="true" aria-label="News" hidden>
+  <button class="close" type="button">Close</button>
+  <h1>News</h1>
+  <div class="ltable news-table">
+    <div class="lhead"><span class="c-title">Title</span><span class="c-img"></span></div>
+    <a class="lrow" href="https://www.linkedin.com/feed/update/urn:li:activity:7511234610639421440/">
+      <span class="c-title">Advanced to Ph.D. Candidacy</span>
+      <span class="c-img"><img src="assets/research/sq-candidacy-bw.jpg?v=1791573675" alt="" loading="lazy"></span>
+    </a>
+    <a class="lrow" href="https://wlab.yale.edu/posts/2026-08-11-lowe-creates-the-physics-of-light-course-for-women-in-prison">
+      <span class="c-title">Teaching at Women&rsquo;s Federal Prison</span>
+      <span class="c-img"><img src="assets/research/sq-ypei-bw.jpg?v=1791573675" alt="" loading="lazy"></span>
+    </a>
+    <a class="lrow" href="https://wlab.yale.edu/posts/2025-10-22-lowe-awarded-marshall-plan-fellowship">
+      <span class="c-title">Marshall Plan Foundation Fellowship</span>
+      <span class="c-img"><img src="assets/research/sq-marshall-bw.jpg?v=1791573675" alt="" loading="lazy"></span>
+    </a>
+    <a class="lrow" href="https://wlab.yale.edu/posts/2025-06-13-wright-lab-students-awarded-2025-nsf-graduate-research-fellowships">
+      <span class="c-title">NSF Graduate Research Fellowship</span>
+      <span class="c-img"><img src="assets/research/sq-bullet-bw.jpg?v=1791573675" alt="" loading="lazy"></span>
+    </a>
+  </div>
+</section>
+
+<script>
+  // the list panels: the address carries #publications or #all-news, so Back closes a panel and a
+  // shared link opens it. Opening slides the panel up from the bottom; closing slides it back down.
+  (function () {
+    var panels = { "#publications": document.getElementById("publications"), "#all-news": document.getElementById("all-news") };
+    var current = null, opened = false;
+    function show(p) {
+      if (current === p) return;
+      if (current) hide(current, true);
+      current = p; p.hidden = false; p.scrollTop = 0;
+      document.documentElement.classList.add("panel-open");
+      p.getBoundingClientRect();                      // start from below the screen
+      requestAnimationFrame(function () { p.classList.add("up"); });
+      setTimeout(function () { p.querySelector(".close").focus({ preventScroll: true }); }, 50);
+    }
+    function hide(p, now) {
+      p.classList.remove("up");
+      if (current === p) current = null;
+      if (!current) document.documentElement.classList.remove("panel-open");
+      var done = function () { if (!p.classList.contains("up")) p.hidden = true; };
+      now ? done() : setTimeout(done, 450);
+    }
+    function route() {
+      var p = panels[location.hash];
+      if (p) show(p); else if (current) hide(current);
+    }
+    document.querySelectorAll("a.opener").forEach(function (a) {
+      a.addEventListener("click", function (e) { e.preventDefault(); opened = true; history.pushState(null, "", a.getAttribute("href")); route(); });
+    });
+    function close() {
+      if (opened) { opened = false; history.back(); }                  // undo our own step in history
+      else { history.replaceState(null, "", location.pathname + location.search); route(); }
+    }
+    document.querySelectorAll(".listpanel .close").forEach(function (b) { b.addEventListener("click", close); });
+    addEventListener("keydown", function (e) { if (e.key === "Escape" && current) close(); });
+    addEventListener("popstate", function () { opened = false; route(); });
+    addEventListener("hashchange", route);
+    if (location.hash === "#news") history.replaceState(null, "", location.pathname + location.search + "#all-news");   // old /news links
+    route();
+  })();
+</script>
+</body>
+</html>

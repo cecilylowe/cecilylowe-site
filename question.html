@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>? — Cecily Lowe</title>
+<link rel="preload" href="assets/fonts/LoweSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="style.css?v=1791573675">
+<script src="site.js?v=1791573675" defer></script>
+<link rel="icon" type="image/png" sizes="32x32" href="assets/icon-32.png?v=jupiter">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/icon-192.png?v=jupiter">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=jupiter">
+<script>(function(){var V="1791573675";try{var u=new URL(location.href);if(u.searchParams.has("fresh")){u.searchParams.delete("fresh");history.replaceState(null,"",u.pathname+(u.search||"")+u.hash)}}catch(e){}function check(){fetch("/version.txt?"+Date.now(),{cache:"no-store"}).then(function(r){return r.ok?r.text():""}).then(function(v){v=(v||"").trim();if(!v||v===V)return;var k="cl-fresh-"+v+location.pathname;try{var t=+sessionStorage.getItem(k)||0;if(Date.now()-t<15000)return;sessionStorage.setItem(k,Date.now())}catch(e){}fetch(location.pathname,{cache:"reload"}).catch(function(){}).then(function(){location.reload()})}).catch(function(){})}function warm(){var k="cl-warm-"+V;try{if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,"1")}catch(e){}fetch("/version.txt?"+Date.now(),{cache:"no-store"}).then(function(r){return r.ok?r.text():""}).then(function(v){if((v||"").trim()!==V)return;["/", "/about", "/news", "/newsletter", "/question", "/thoughts", "/work"].forEach(function(p){if(p!==location.pathname)fetch(p,{cache:"reload"}).catch(function(){})})}).catch(function(){})}check();addEventListener("load",function(){setTimeout(warm,300)});addEventListener("pageshow",function(e){if(e.persisted)check()})})();</script>
+</head>
+<body class="plain locked qpage">
+
+<header class="bar">
+  <a class="who" href="/" data-edit="site.name">Cecily Lowe</a>
+  <nav>
+    <a href="/about">About</a>
+    <a href="/work">Work</a>
+    <a href="/question" aria-current="page">?</a>
+  </nav>
+</header>
+
+<!-- ?: a password screen, dead centre, nothing else. The page behind it is ENCRYPTED with the
+     password (tools/lock_question.py); only the right password can decrypt it in the browser.
+     The readable source is _private/question-inside.html, which is not published. -->
+<main class="page gate">
+  <form class="news" id="gate" novalidate>
+    <label for="pw" class="sr">Password</label>
+    <input id="pw" name="password" type="password" placeholder="Password" aria-label="Password, then press Enter" autocomplete="current-password" autocapitalize="none" spellcheck="false" required>
+    <button type="submit" class="sr" tabindex="-1">Enter</button>
+  </form>
+  <p class="note" aria-live="polite"></p>
+</main>
+
+<main class="page inside-wrap" id="inside" hidden></main>
+
+<!--LOCKED-->
+<script type="application/json" id="locked">{"salt": "dNS2w2icskkq0XTpveH9wA==", "iv": "wuF4ZtWpyF8sqBWpQ+3bKw==", "ct": "tzqfxLnW5eXftKUKLnNsi+Mrp2GeMacTaGPTO8XnZAFLCFpg3sctZtQT8SqgbrO5MgMOxyCXWVyBe0vjmAW00dOvkF4DfHhzyNzmi3nniM1lN6iNZxK48ogsFIQeytWkAwvl28h/vEHeBJ5E1uW/HS1GgubUG93j4Gn9VZD4B8VS/hwsfBIEhV7yNWm8ZkqGe+8/MukDKiNPHdHTcku9uqHKoWd2WhsXEbK1h0hYoI8wYaHKMJT3k7TjHpQyzwS3u1gFBwmB+jgRJwsHQKXTcVxSYEWd5fU55stxqf5yHoc2gRX7aZHZ+4u1Gvs6L1Zv/YOV59BQDlJm4CqppPy5kYWOid6c+fVA9ZtQ/3vFmtSNWBps0Y7w7AYOkicHlniKYdYQj2vLlnpfE/SqjpsISLalAD+ekZC0vpyqy9lEhipOHunqdeStJ7XSXYj8BnO60g9CyZgEk+ZlzbOTyvDuY8YSNaSNjR+FEzRlMnwwMAyJdn8lJhgsckT8ARbOj8iUwX/re14MixAyIlDwbeQ3IcKZ4QVKvEez22Vmebge1ImHgvoFNsz/jrgdvf2Aa9Jh8JE2EutnAXmzC+SmaXU5oTcjKd6oZ39HprMaZBNuK4rPiEL5elgOq15lgY7zy8OD6hStOyI7qbeFKvm4aErl4lFuM6uy2iv8YMoQrlzjQU/SPqhKojBbP7bi09U7/u0npbbmVZGuxcgK+ZqDRIVYyqbp1vr9yfHSO5la+nSAUHY+czgdqLBKrbhMyKghrlfNQG3mC6s5a54a7lluFYX9YdE1viX9q9LoQ2KG6+bB73peYN7KnE3yAIu+8D/YL5Cc96c6PZg8AxBIn+sLBQFtVae7DDOBqVvSlzz6rLPVLKCmEsLFZ0x3J78y1WVORxDTG7XVmvj2z3/OSmNp5dY5frKJB/I7t9slrHiTlvXid6iAJ+yLI2l7hegKLDAUAh+d", "mac": "rBrio9xcI3OdzkGY1LmEsDLxBYGLCt+r9XUwXTrkLiE=", "iter": 30000}</script>
+<!--/LOCKED-->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js" integrity="sha512-a+SUDuwNzXDvz4XrIcXHuCf089/iJAoN4lmrXJg18XnduKK6YlDHNRalv4yd1N40OKI80tFidF+rqTFKGPoWFQ==" crossorigin="anonymous"></script>
+<script>
+  (function () {
+    var C = window.CryptoJS;
+    var blob = JSON.parse(document.getElementById("locked").textContent);
+    var form = document.getElementById("gate"), note = document.querySelector(".gate .note");
+    var gate = document.querySelector(".gate"), inside = document.getElementById("inside");
+    var KEY = "cl-question";
+
+    function b64(s) { return C.enc.Base64.parse(s); }
+    function sameBytes(a, b) {               // constant-time compare of two hex strings
+      if (a.length !== b.length) return false;
+      var d = 0; for (var i = 0; i < a.length; i++) d |= a.charCodeAt(i) ^ b.charCodeAt(i); return d === 0;
+    }
+    function open(pw) {
+      var key = C.PBKDF2(pw, b64(blob.salt), { keySize: 16, iterations: blob.iter, hasher: C.algo.SHA256 });
+      var enc = C.lib.WordArray.create(key.words.slice(0, 8), 32);
+      var mac = C.lib.WordArray.create(key.words.slice(8, 16), 32);
+      var iv = b64(blob.iv), ct = b64(blob.ct);
+      var check = C.HmacSHA256(iv.clone().concat(ct), mac).toString();
+      if (!sameBytes(check, b64(blob.mac).toString())) return null;
+      var out = C.AES.decrypt({ ciphertext: ct }, enc, { iv: iv, mode: C.mode.CBC, padding: C.pad.Pkcs7 }).toString(C.enc.Utf8);
+      return out.indexOf("CL1:") === 0 ? out.slice(4) : null;
+    }
+    function show(html) {
+      inside.innerHTML = html;
+      gate.hidden = true;
+      inside.hidden = false;
+      document.body.classList.remove("locked");
+    }
+    function remembered() { try { return sessionStorage.getItem(KEY); } catch (e) { return null; } }
+    function remember(pw) { try { sessionStorage.setItem(KEY, pw); } catch (e) {} }
+
+    if (!C) { note.textContent = "Could not load. Please check your connection and reload."; return; }
+
+    var saved = remembered();
+    if (saved) { var h = open(saved); if (h) { show(h); return; } }
+
+    var busy = false;
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      if (busy) return;
+      var pw = form.password.value;
+      if (!pw) { note.textContent = "Please enter the password."; return; }
+      busy = true; note.textContent = "";
+      setTimeout(function () {                // let the page repaint before the key is derived
+        var html = null;
+        try { html = open(pw); } catch (err) { html = null; }
+        busy = false;
+        if (html) { remember(pw); show(html); }
+        else { note.textContent = "Incorrect password."; form.password.value = ""; form.password.focus(); }
+      }, 30);
+    });
+  })();
+</script>
+
+</body>
+</html>

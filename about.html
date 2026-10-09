@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>About — Cecily Lowe</title>
+<link rel="preload" href="assets/fonts/LoweSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="style.css?v=1791573675">
+<script src="site.js?v=1791573675" defer></script>
+<link rel="icon" type="image/png" sizes="32x32" href="assets/icon-32.png?v=jupiter">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/icon-192.png?v=jupiter">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=jupiter">
+<script>(function(){var V="1791573675";try{var u=new URL(location.href);if(u.searchParams.has("fresh")){u.searchParams.delete("fresh");history.replaceState(null,"",u.pathname+(u.search||"")+u.hash)}}catch(e){}function check(){fetch("/version.txt?"+Date.now(),{cache:"no-store"}).then(function(r){return r.ok?r.text():""}).then(function(v){v=(v||"").trim();if(!v||v===V)return;var k="cl-fresh-"+v+location.pathname;try{var t=+sessionStorage.getItem(k)||0;if(Date.now()-t<15000)return;sessionStorage.setItem(k,Date.now())}catch(e){}fetch(location.pathname,{cache:"reload"}).catch(function(){}).then(function(){location.reload()})}).catch(function(){})}function warm(){var k="cl-warm-"+V;try{if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,"1")}catch(e){}fetch("/version.txt?"+Date.now(),{cache:"no-store"}).then(function(r){return r.ok?r.text():""}).then(function(v){if((v||"").trim()!==V)return;["/", "/about", "/news", "/newsletter", "/question", "/thoughts", "/work"].forEach(function(p){if(p!==location.pathname)fetch(p,{cache:"reload"}).catch(function(){})})}).catch(function(){})}check();addEventListener("load",function(){setTimeout(warm,300)});addEventListener("pageshow",function(e){if(e.persisted)check()})})();</script>
+</head>
+<body class="plain about2">
+
+<header class="bar">
+  <a class="who" href="/" data-edit="site.name">Cecily Lowe</a>
+  <nav>
+    <a href="/about" aria-current="page">About</a>
+    <a href="/work">Work</a>
+    <a href="/question">?</a>
+  </nav>
+</header>
+
+<!-- About (2026-10-09): the vortex-street photograph framed in white on the left, the name running
+     across it into the right column (like the wordmark over the picture on architecture.yale.edu),
+     the bio small below, and a black Newsletter bar that slides up the sign-up (what was Thoughts).
+     The Moon version is kept in _unused/about-moon.html. -->
+<main class="me">
+  <!-- the picture spot rotates through black-and-white images, all cropped to the same square
+       (assets/about/01-08.jpg, made from the site's own pictures); in order, the next one on every refresh -->
+  <div class="pic rot">
+    <img src="assets/about/01.jpg?v=1791573675" alt="Satellite view of a von Kármán vortex street: dark spiralling eddies in a field of white cloud.">
+    <script>
+      // the pictures in order, one per page load: a visit starts with the clouds (01) and each refresh shows the
+      // next (01 -> 08, then 01 again). The place in the cycle is kept for this browser tab only (sessionStorage),
+      // so a new visit always starts with the clouds again.
+      (function () {
+        var img = document.currentScript.previousElementSibling, pics = [
+          ["01", "Satellite view of a von Kármán vortex street: dark spiralling eddies in a field of white cloud."],
+          ["02", "Jupiter's Great Red Spot and the turbulent bands around it, from Voyager."],
+          ["03", "Bubble-chamber photograph: charged particle tracks curling into spirals in a magnetic field."],
+          ["04", "Close-up of the Moon's cratered surface."],
+          ["05", "Bubble-chamber photograph of a particle shower, tracks fanning out and spiralling."],
+          ["06", "Swirling cloud bands on Jupiter, from the Juno spacecraft."],
+          ["07", "A deep field of galaxies around the Bullet Cluster."],
+          ["08", "Étienne Léopold Trouvelot's drawing of the November meteors streaking across the night sky."]
+        ], k = 0;
+        try {
+          var last = parseInt(sessionStorage.getItem("aboutPic"), 10);
+          if (!isNaN(last)) k = (last + 1) % pics.length;
+          sessionStorage.setItem("aboutPic", String(k));
+        } catch (e) {}
+        img.src = img.getAttribute("src").replace("01.jpg", pics[k][0] + ".jpg"); img.alt = pics[k][1];
+      })();
+    </script>
+  </div>
+  <!-- to the right of the picture: the name, then the bio and email below it (2026-10-09) -->
+  <div class="side">
+    <h1 class="sr">Cecily Lowe</h1>
+    <div class="words">
+      <p data-edit="about.bio">Cecily Lowe is a Ph.D. student at Yale University building levitated optomechanical sensors to study the interaction between dark matter and ordinary matter.</p>
+      <p data-edit="about.contact"><a href="mailto:cecily.lowe@yale.edu">cecily.lowe@yale.edu</a></p>
+    </div>
+  </div>
+</main>
+
+<a class="newsbtn" href="#newsletter">
+  <span>Newsletter</span>
+  <svg viewBox="0 0 12 20" aria-hidden="true"><polyline points="1.5,1.5 10,10 1.5,18.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square"/></svg>
+</a>
+
+<div class="pinkline" aria-hidden="true"></div>
+
+<!-- the sign-up, sliding up from the bottom with a pink line along its top like the Work lists.
+     Sign-ups go to Cecily's own Google Apps Script (signups/Code.js), which adds them to the Google
+     Sheet "cecilylowe.com newsletter" and emails her from newsletter@cecilylowe.com. -->
+<section class="nlpanel" id="newsletter" role="dialog" aria-modal="true" aria-label="Newsletter" hidden>
+  <button class="close" type="button">Close</button>
+  <div class="art"><img src="assets/calabi-yau.jpg?v=1791573675" alt="A Calabi–Yau manifold etched in a glass cube." loading="lazy"></div>
+  <div class="signup">
+    <form class="news bare" name="newsletter" method="POST" novalidate autocomplete="off">
+      <p class="sr"><label>Leave this empty <input name="company" tabindex="-1" autocomplete="off"></label></p>
+      <input id="email" name="email" type="email" placeholder="Email" aria-label="Email address, then press Enter" autocomplete="off" required>
+      <button type="submit" class="sr" tabindex="-1">Sign up</button>
+    </form>
+    <p class="done" hidden>You&rsquo;re in.</p>
+    <p class="note" aria-live="polite"></p>
+  </div>
+</section>
+
+<script>
+  var SIGNUPS = "https://script.google.com/macros/s/AKfycby7s0fRSxo36XJLCaGEm_sIB0D9JA1B5tILmcGSNA5L21HjQaaic8HagWgCz2CincqKUg/exec";
+  (function () {
+    var form = document.querySelector("form.news"), note = document.querySelector(".nlpanel .note");
+    var done = document.querySelector(".nlpanel .done");
+    form.reset();                                        // a fresh, empty box on every load
+    var busy = false;
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      if (busy) return;
+      var email = form.email.value.trim();
+      if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { note.textContent = "Please enter an email address."; return; }
+      busy = true; note.textContent = "";
+      fetch(SIGNUPS, {
+        method: "POST",
+        mode: "no-cors",
+        body: new URLSearchParams(new FormData(form))
+      }).then(function () {                         // no-cors: the reply is opaque; a network error throws
+        form.hidden = true;
+        done.hidden = false;
+      }).catch(function () {
+        note.textContent = "Something went wrong. Please try again.";
+      }).then(function () { busy = false; });
+    });
+    window.addEventListener("pageshow", function (e) {  // coming back with the browser's Back button
+      if (e.persisted) { form.reset(); form.hidden = false; done.hidden = true; note.textContent = ""; }
+    });
+  })();
+
+
+  // the Newsletter bar starts where the picture does: hand the picture's left edge to the stylesheet as --picl
+  (function () {
+    var pic = document.querySelector(".pic.rot"); if (!pic) return;
+    function line() { document.documentElement.style.setProperty("--picl", Math.round(pic.getBoundingClientRect().left) + "px"); }
+    addEventListener("resize", line); if (document.fonts) document.fonts.ready.then(line); line();
+  })();
+
+  // the panel: the address carries #newsletter, so Back closes it and old /thoughts links open it
+  (function () {
+    var p = document.getElementById("newsletter"), btn = document.querySelector(".newsbtn"), opened = false;
+    function show() {
+      if (!p.hidden && p.classList.contains("up")) return;
+      p.hidden = false;
+      document.documentElement.classList.add("panel-open");
+      p.getBoundingClientRect();                      // start from below the screen
+      requestAnimationFrame(function () { p.classList.add("up"); });
+      setTimeout(function () { p.querySelector(".close").focus({ preventScroll: true }); }, 450);   // the email box waits for a click
+    }
+    function hide() {
+      p.classList.remove("up");
+      document.documentElement.classList.remove("panel-open");
+      setTimeout(function () { if (!p.classList.contains("up")) p.hidden = true; }, 450);
+    }
+    function route() { location.hash === "#newsletter" ? show() : (p.hidden || hide()); }
+    btn.addEventListener("click", function (e) { e.preventDefault(); opened = true; history.pushState(null, "", "#newsletter"); route(); });
+    function close() {
+      if (opened) { opened = false; history.back(); }
+      else { history.replaceState(null, "", location.pathname + location.search); route(); }
+    }
+    p.querySelector(".close").addEventListener("click", close);
+    addEventListener("keydown", function (e) { if (e.key === "Escape" && !p.hidden) close(); });
+    addEventListener("popstate", function () { opened = false; route(); });
+    addEventListener("hashchange", route);
+    route();
+  })();
+</script>
+</body>
+</html>

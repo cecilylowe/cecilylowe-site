@@ -1,0 +1,1723 @@
+/* cecilylowe.com — theme
+   Sources: Cargo Basic Grid 02 (two-column masonry, caption = number · title · grey date),
+   Cargo Graphic S977 (a coloured ground, white panels, big tightly set type, grey metadata),
+   and a set of pastel "af Klint, but physics" images: pale split grounds, thin coral and blue rings
+   and sweeping arcs, radial spokes, dust-fields of particles, a white serif overlay.
+   Layout: site name left and page tabs right across the top; one reading column below;
+   outreach is the wide page. Light, airy, pastel neutral. */
+
+:root {
+  /* grounds */
+  --ground-a: #e3e7ee;            /* pale blue-grey */
+  --ground-b: #f4e8dc;            /* peach cream */
+  --paper: rgba(252, 250, 246, 0.72); /* a white panel that lets the ground show through */
+  --paper-solid: #fbf8f3;
+
+  /* ink */
+  --ink: #3a3e4a;
+  --ink-2: rgba(58, 62, 74, 0.55);
+  --ink-3: rgba(58, 62, 74, 0.16);
+
+  /* the af Klint set */
+  --coral: #e3927a;
+  --coral-2: #f2c9bb;
+  --blue: #8ea6d4;
+  --blue-2: #c9d5ea;
+  --straw: #e9d393;
+  --sage: #aec7b4;
+  --lilac: #cdc6e4;
+  --accent: #cf6b55;              /* links on hover, the current tab */
+
+  /* type */
+  --font: "Geist", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --mono: "Geist Mono", "SF Mono", Menlo, Consolas, monospace;
+  --size: 18px;
+  --lh: 1.35;
+  --mono-size: 13px;
+  --mono-lh: 1.5;
+
+  --gutter: 1.5rem;
+  --col: 42rem;
+  --wide: 72rem;
+
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+
+html {
+  background: var(--ground-b);
+  min-height: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(100deg, var(--ground-a) 0%, var(--ground-b) 100%);
+  color: var(--ink);
+  font: 400 var(--size) / var(--lh) var(--font);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  padding: 0;
+}
+
+/* ---------- type ---------- */
+
+.m {
+  font-family: var(--mono);
+  font-size: var(--mono-size);
+  line-height: var(--mono-lh);
+  letter-spacing: 0;
+}
+.dim { color: var(--ink-2); }
+
+h1, h2, h3 { font-size: inherit; font-weight: 500; margin: 0; }
+
+h1.display {
+  font-size: clamp(1.6rem, 3.6vw, 2.35rem);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+  max-width: 22ch;
+}
+
+p { margin: 0; }
+p + p { margin-top: 1em; }
+
+a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-decoration-color: var(--ink-3);
+  text-underline-offset: 0.16em;
+  transition: color 120ms, text-decoration-color 120ms;
+}
+a:hover { color: var(--accent); text-decoration-color: currentColor; }
+a:focus-visible { outline: 1.5px solid var(--accent); outline-offset: 2px; border-radius: 1px; }
+
+sup, sub { font-size: 0.7em; line-height: 0; }
+
+.sep {
+  font-family: var(--mono);
+  font-size: var(--mono-size);
+  color: var(--ink-2);
+  letter-spacing: 0.4em;
+  margin: 2.5rem 0;
+}
+
+/* ---------- top row ---------- */
+
+.top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.25rem 2rem;
+  padding-top: calc(1.1rem + env(safe-area-inset-top, 0px));
+}
+.top .name { text-decoration: none; font-weight: 500; }
+.top .name:hover { color: var(--ink); }
+
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 1.1rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.nav a { text-decoration: none; color: var(--ink); }
+.nav a:hover { color: var(--accent); }
+.nav a[aria-current="page"] {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-decoration-color: var(--accent);
+  text-underline-offset: 0.22em;
+}
+
+main, .main {
+  padding-top: 4rem;
+  max-width: var(--col);
+  min-width: 0;
+}
+main.wide, .main.wide { max-width: var(--wide); }
+main > * + *, .main > * + * { margin-top: 2.5rem; }
+
+.lead .m { margin-top: 1rem; display: block; }
+.prose { max-width: var(--col); }
+
+footer.foot {
+  margin-top: 5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 1.5rem;
+  color: var(--ink-2);
+}
+footer.foot a { color: inherit; text-decoration-color: transparent; }
+footer.foot a:hover { color: var(--accent); }
+
+/* ---------- the hero and the sheet ---------- */
+
+/* the photo is pinned; the sheet of content scrolls up over it */
+.hero {
+  position: sticky;
+  top: 0;
+  z-index: 0;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+  background: var(--ground-a);
+}
+.hero .film {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform-origin: 50% 50%;
+  will-change: transform, opacity;
+}
+
+/* two bubble-chamber photographs side by side; multiplied onto the split pastel ground so the
+   white film takes the blue-grey on the left and the peach on the right */
+.hero .diptych {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  background: linear-gradient(100deg, var(--ground-a) 0%, var(--ground-b) 100%);
+}
+.hero .diptych img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  object-fit: cover;
+  mix-blend-mode: multiply;
+  filter: grayscale(1) contrast(1.08);
+}
+
+.sheet {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  background: linear-gradient(100deg, var(--ground-a) 0%, var(--ground-b) 100%);
+  padding-inline: var(--gutter);
+  padding-block: 0 5rem;
+}
+body.has-hero .sheet {
+  border-radius: 28px 28px 0 0;
+  box-shadow: 0 -24px 60px rgba(58, 62, 74, 0.16);
+}
+
+/* the name and the tabs stay at the top once they get there, over a frosted strip */
+.top {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  margin-inline: calc(-1 * var(--gutter));
+  padding-inline: var(--gutter);
+  padding-bottom: 0.8rem;
+  background: rgba(240, 236, 232, 0.72);
+  -webkit-backdrop-filter: blur(16px) saturate(1.2);
+  backdrop-filter: blur(16px) saturate(1.2);
+}
+body.has-hero .top { border-radius: 28px 28px 0 0; }
+/* once the sheet has fully covered the photo and the row is stuck to the top, square it off */
+body.has-hero .hero.covered ~ .sheet .top { border-radius: 0; }
+
+/* ---------- the index ---------- */
+
+.group h2 { margin-bottom: 0.6rem; }
+.group h2 + p { max-width: var(--col); }
+
+.index { list-style: none; margin: 0; padding: 0; max-width: var(--col); }
+.index li + li { margin-top: 0.1rem; }
+
+.row {
+  display: grid;
+  grid-template-columns: 4.25rem 1fr;
+  grid-template-areas: "year title" "year meta";
+  column-gap: 1rem;
+  padding: 0.3rem 0;
+  text-decoration: none;
+  color: inherit;
+}
+@media (min-width: 900px) {
+  .row {
+    grid-template-columns: 4.25rem 1fr auto;
+    grid-template-areas: "year title meta";
+    align-items: baseline;
+  }
+  .row .meta { text-align: right; max-width: 14rem; }
+}
+.row .year { grid-area: year; color: var(--ink-2); padding-top: 0.2rem; }
+.row .title { grid-area: title; }
+.row .meta { grid-area: meta; color: var(--ink-2); }
+.row:hover { color: var(--accent); }
+.row:hover .year, .row:hover .meta { color: var(--accent); }
+
+/* quick view: a small picture in a fixed corner while an index row is hovered */
+.qv {
+  position: fixed;
+  right: var(--gutter);
+  bottom: calc(var(--gutter) + env(safe-area-inset-bottom, 0px));
+  width: 240px;
+  height: 170px;
+  opacity: 0;
+  transition: opacity 150ms;
+  pointer-events: none;
+  background: var(--paper-solid);
+}
+.qv.on { opacity: 1; }
+.qv canvas { width: 100%; height: 100%; display: block; }
+
+/* ---------- work entries ---------- */
+
+.entry { max-width: var(--col); scroll-margin-top: 1.25rem; }
+.entry > * + * { margin-top: 1rem; }
+.entry .spec { color: var(--ink-2); }
+.entry figure { margin: 1.5rem 0; }
+.entry figure canvas, .entry figure img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  background: var(--paper);
+}
+.entry figcaption { margin-top: 0.5rem; color: var(--ink-2); }
+.entry .links { color: var(--ink-2); display: flex; flex-wrap: wrap; gap: 0 1.25rem; }
+.entry .links a { color: inherit; }
+.entry .links a:hover { color: var(--accent); }
+
+.also { list-style: none; margin: 0; padding: 0; max-width: var(--col); color: var(--ink-2); }
+.also li + li { margin-top: 0.6rem; }
+
+/* ---------- publications ---------- */
+
+.pubs { list-style: none; margin: 0; padding: 0; max-width: var(--col); }
+.pubs li + li { margin-top: 1.25rem; }
+.pub .who, .pub .where { color: var(--ink-2); }
+.pub .where { display: flex; flex-wrap: wrap; gap: 0 1.25rem; }
+.pub .where a { color: inherit; }
+.pub .where a:hover { color: var(--accent); }
+
+/* ---------- outreach: Basic Grid 02 ---------- */
+
+/* two columns, images at their own proportions, packed top to bottom like the template */
+.masonry {
+  columns: 2;
+  column-gap: 1.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.tile {
+  break-inside: avoid;
+  -webkit-column-break-inside: avoid;
+  margin-bottom: 2.25rem;
+  display: block;
+}
+.tile a { display: block; text-decoration: none; color: inherit; }
+.tile .pic {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  background: var(--paper-solid);
+}
+.tile .pic canvas, .tile .pic img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.tile .cap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 1.1rem;
+  margin-top: 0.6rem;
+  align-items: baseline;
+}
+.tile .num { font-variant-numeric: tabular-nums; }
+.tile .when { color: var(--ink-2); }
+.tile a:hover .cap { color: var(--accent); }
+.tile a:hover .when { color: var(--accent); }
+
+/* ---------- about, cv ---------- */
+
+dl.facts { margin: 0; max-width: var(--col); }
+dl.facts div { display: grid; grid-template-columns: 7rem 1fr; column-gap: 1rem; padding: 0.3rem 0; }
+dl.facts dt { color: var(--ink-2); }
+dl.facts dd { margin: 0; min-width: 0; }
+dl.facts dd + dd { grid-column: 2; }
+@media (max-width: 480px) {
+  dl.facts div { grid-template-columns: 1fr; }
+  dl.facts dd + dd { grid-column: 1; }
+}
+
+.cv section + section { margin-top: 2.5rem; }
+.cv h2 { margin-bottom: 0.6rem; }
+.cv dl.facts dd + dd { margin-top: 0.35rem; }
+
+/* ---------- curious ---------- */
+
+.subscribe { max-width: var(--col); }
+.subscribe form { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.5rem 1rem; }
+.subscribe input[type="email"] {
+  font: inherit;
+  color: inherit;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--ink-3);
+  border-radius: 0;
+  padding: 0.15rem 0;
+  width: min(100%, 20rem);
+  outline: none;
+}
+.subscribe input[type="email"]:focus { border-bottom-color: var(--accent); }
+.subscribe input::placeholder { color: var(--ink-2); }
+.subscribe button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-decoration-color: var(--ink-3);
+  text-underline-offset: 0.16em;
+}
+.subscribe button:hover { color: var(--accent); text-decoration-color: currentColor; }
+.subscribe button:focus-visible { outline: 1.5px solid var(--accent); outline-offset: 2px; }
+.subscribe .note { margin-top: 0.6rem; color: var(--ink-2); min-height: 1.5em; }
+
+.list { list-style: none; margin: 0; padding: 0; max-width: var(--col); }
+.list li { display: grid; grid-template-columns: 1fr auto; column-gap: 1.5rem; padding: 0.3rem 0; align-items: baseline; }
+.list .tag { color: var(--ink-2); white-space: nowrap; }
+@media (max-width: 480px) { .list li { grid-template-columns: 1fr; } }
+
+/* ---------- narrow screens ---------- */
+
+@media (max-width: 760px) {
+  main, .main { padding-top: 2.5rem; }
+  .qv { display: none; }
+  .masonry { column-gap: 1rem; }
+  .tile { margin-bottom: 1.5rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}
+
+/* ---------- plain: one page, Times, name left and links right (2026-10-07) ---------- */
+
+body.plain {
+  --plain-ground: #ffffff;
+  --plain-ink: #111111;
+  background: var(--plain-ground);
+  color: var(--plain-ink);
+  font: 400 21px / 1.3 "Times New Roman", Times, serif;
+  min-height: 100vh;
+  min-height: 100svh;
+}
+html:has(body.plain) { background: #ffffff; }
+
+.plain .bar {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem 2rem;
+  padding: calc(1.5rem + env(safe-area-inset-top, 0px)) 1.5rem 0;
+}
+.plain .bar a { color: inherit; text-decoration: none; }
+.plain .bar a:hover { opacity: 0.6; color: inherit; }
+.plain .bar nav { display: flex; gap: 3rem; }
+.plain .bar nav a[aria-current="true"],
+.plain .bar nav a.on { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.2em; }
+
+.plain main { padding: 7rem 1.5rem 3rem; max-width: 42rem; }
+.plain .panel { display: none; }
+.plain .panel:target { display: block; }
+
+@media (max-width: 520px) {
+  body.plain { font-size: 18px; }
+  .plain .bar { flex-direction: column; gap: 0.4rem; }
+  .plain .bar nav { gap: 1.5rem; }
+}
+
+/* about: opens over the page when #about is the target. Picture left, text column right. */
+.plain .about {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  background: #ffffff;
+  color: #111111;
+  grid-template-columns: minmax(0, 1fr) minmax(18rem, 26%);
+}
+.plain .about:target { display: grid; }
+.plain .about .pic {
+  background: #efebe2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+}
+.plain .about .pic span { font-size: 15px; color: rgba(26, 26, 26, 0.35); letter-spacing: 0.04em; }
+.plain .about img.pic { width: 100%; height: 100%; object-fit: cover; display: block; }
+.plain .about .words {
+  padding: 3.4rem 1.5rem 2rem;
+  font-size: 19px;
+  line-height: 1.3;
+  overflow-y: auto;
+}
+.plain .about .words p + p { margin-top: 1.3em; }
+.plain .about .words a { color: inherit; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.15em; }
+.plain .about .words a:hover { opacity: 0.6; color: inherit; }
+
+/* while about is open: the name turns dark and the links step aside */
+body.plain:has(#about:target) .bar { right: auto; }
+body.plain:has(#about:target) .bar nav { display: none; }
+
+@media (max-width: 720px) {
+  .plain .about { grid-template-columns: minmax(0, 1fr); grid-template-rows: 45svh auto; overflow-y: auto; overflow-x: hidden; }
+  .plain .about .words { padding-top: 1.5rem; overflow: visible; }
+}
+
+/* header and spread after the Cargo demo template (2026-10-07): small sans header over the
+   pictures, links as one comma-separated line; a full-height photo on the left half and a
+   smaller one hung from the top of the right half. The about text stays in Times. */
+/* headings: back to the earlier Times size and placement (her call, 2026-10-07) */
+
+.plain .spread {
+  display: grid;
+  grid-template-columns: 50% 25%;
+  align-items: start;
+}
+.plain .spread img { display: block; width: 100%; }
+.plain .spread .left { height: 100vh; height: 100svh; object-fit: cover; }
+.plain .spread .right { margin-top: 4.25rem; height: auto; }
+.plain main { padding-top: 3rem; }
+
+@media (max-width: 720px) {
+  .plain .bar { position: sticky; background: #fff; padding-bottom: 0.9rem; }
+  .plain .spread { grid-template-columns: 1fr; }
+  .plain .spread .left { height: auto; }
+  .plain .spread .right { margin-top: 0; width: 70%; justify-self: end; }
+}
+
+/* separate pages (2026-10-07): Research, Blog, About each have their own file; the name goes home */
+.plain .about.on { display: grid; }
+.plain main.page { padding: 6rem 1.5rem 3rem; }
+.plain .bar nav a[aria-current="page"] { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.2em; }
+@media (min-width: 721px) { .plain .about.on .words { padding-top: 4.6rem; } }
+
+/* research page: Interests, Publications, CV */
+.plain .research { max-width: 40rem; }
+.plain .research section + section { margin-top: 3rem; }
+.plain .research h2 { font: inherit; font-style: italic; margin: 0 0 0.6rem; }
+.plain .research p + p { margin-top: 0.8em; }
+.plain .research .ph { color: rgba(17, 17, 17, 0.45); }
+
+/* type after sebastiansangha.com (2026-10-08): that site uses ABC Diatype, which Cargo licenses to
+   Cargo-hosted sites only, so this is Inter, the closest free match. To use real Diatype, buy a web
+   licence from Dinamo (abcdinamo.com), put the .woff2 in assets/ and swap the family name below.
+   The top row sits closer to the top edge. */
+body.plain { font: 400 19px / 1.3 "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif; letter-spacing: -0.005em; }
+.plain .about .words { font-size: 17px; line-height: 1.35; }
+.plain .bar { padding-top: calc(0.75rem + env(safe-area-inset-top, 0px)); }
+.plain .spread .right { margin-top: 3rem; }
+.plain main.page { padding-top: 4.5rem; }
+@media (min-width: 721px) { .plain .about.on .words { padding-top: 3.4rem; } }
+.plain .research h2 { font-style: normal; font-weight: 500; }
+
+/* research: Jupiter fills the first screen, centred; Interests, Publications and CV follow below */
+.plain .planet {
+  height: 100vh;
+  height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3.5rem 1.5rem 1.5rem;
+}
+.plain .planet img {
+  display: block;
+  width: min(100%, calc(100svh - 5rem));
+  height: auto;
+  aspect-ratio: 1;
+}
+@media (max-width: 720px) { .plain .planet { height: auto; min-height: 70svh; padding-top: 1.5rem; } }
+.plain main.page.research { padding-top: 3rem; }
+
+/* newsletter: sign-up box under Jupiter */
+.plain .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.plain main.page.signup { padding-top: 0; margin: 0 auto 4rem; max-width: 26rem; text-align: center; }
+.plain .news { display: flex; gap: 0.75rem; align-items: baseline; }
+.plain .news input {
+  flex: 1; min-width: 0;
+  font: inherit; color: inherit; background: transparent;
+  border: 0; border-bottom: 1px solid rgba(17, 17, 17, 0.35); border-radius: 0;
+  padding: 0.3rem 0; outline: none;
+}
+.plain .news input:focus { border-bottom-color: #111; }
+.plain .news input::placeholder { color: rgba(17, 17, 17, 0.4); }
+.plain .news button {
+  font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer;
+  text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.2em;
+}
+.plain .news button:hover { opacity: 0.6; }
+.plain .signup .note { margin-top: 0.8rem; min-height: 1.3em; color: rgba(17, 17, 17, 0.55); font-size: 0.9em; }
+/* on the newsletter page the planet and the box under it share the first screen */
+.plain .planet:has(+ .signup) { height: auto; padding: 4.5rem 1.5rem 1.75rem; }
+.plain .planet:has(+ .signup) img { width: min(100%, calc(100svh - 11rem)); }
+/* research has no planet any more: its sections start below the menu again */
+.plain main.page.research { padding-top: 4.5rem; }
+@media (max-width: 720px) {
+  .plain .bar nav { display: flex; flex-wrap: wrap; gap: 0.3rem 1.1rem; }
+  .plain .planet:has(+ .signup) { min-height: 0; padding-top: 1.5rem; }
+  .plain .planet:has(+ .signup) img { width: 100%; }
+  .plain main.page.signup { padding-inline: 1.5rem; }
+}
+
+/* newsletter: Jupiter turns slowly, one revolution every two minutes, forever */
+@keyframes spin { to { transform: rotate(360deg); } }
+.plain .planet:has(+ .signup) img { animation: spin 120s linear infinite; will-change: transform; }
+@media (prefers-reduced-motion: reduce) { .plain .planet:has(+ .signup) img { animation: none; } }
+
+/* newsletter v2 (2026-10-08): smaller Jupiter so planet + box share one screen with no scroll;
+   a modern pill-shaped field with the button inside it */
+.plain .planet:has(+ .signup) { padding: 4.25rem 1.5rem 1.5rem; }
+.plain .planet:has(+ .signup) img { width: min(100%, calc(100svh - 15rem)); }
+.plain main.page.signup { margin: 0 auto; padding: 0 1.5rem 1rem; max-width: 28rem; }
+
+.plain .news {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  padding: 5px;
+  background: #fff;
+  border: 1px solid rgba(17, 17, 17, 0.14);
+  border-radius: 999px;
+  box-shadow: 0 1px 2px rgba(17, 17, 17, 0.04), 0 8px 24px -12px rgba(17, 17, 17, 0.18);
+  transition: border-color 160ms, box-shadow 160ms;
+}
+.plain .news:focus-within {
+  border-color: rgba(17, 17, 17, 0.4);
+  box-shadow: 0 0 0 4px rgba(17, 17, 17, 0.06), 0 8px 24px -12px rgba(17, 17, 17, 0.22);
+}
+.plain .news input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  padding: 0.6rem 0.4rem 0.6rem 1.1rem;
+  font-size: 16px;            /* 16px stops iPhones zooming in on focus */
+  background: transparent;
+}
+.plain .news input:focus { border: 0; }
+.plain .news input::placeholder { color: rgba(17, 17, 17, 0.38); }
+.plain .news button {
+  flex: none;
+  padding: 0.65rem 1.25rem;
+  border-radius: 999px;
+  background: #111;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background 160ms, transform 120ms;
+}
+.plain .news button:hover { opacity: 1; background: #333; }
+.plain .news button:active { transform: scale(0.97); }
+.plain .news button:focus-visible { outline: 2px solid #111; outline-offset: 2px; }
+.plain .signup .note { margin-top: 0.7rem; font-size: 14px; }
+@media (max-width: 720px) {
+  .plain .planet:has(+ .signup) img { width: min(100%, calc(100svh - 17rem)); }
+}
+
+/* ?: the password box, centred on the screen, same pill as the newsletter */
+.plain main.page.gate {
+  min-height: 100vh;
+  min-height: 100svh;
+  max-width: 28rem;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.plain main.page.gate .news { width: 100%; }
+.plain .gate .note { margin-top: 0.7rem; min-height: 1.3em; text-align: center; font-size: 14px; color: rgba(17, 17, 17, 0.55); }
+
+/* ?: while locked, only the password box shows, dead centre. Once open, the menu comes back. */
+body.plain.locked .bar { display: none; }
+.plain main.page.gate { padding-top: 0; padding-bottom: 0; }
+.plain main.page.gate[hidden] { display: none; }
+.plain main.page.inside-wrap { padding-top: 4.5rem; }
+.plain .inside .welcome { font: inherit; font-size: 1.6em; font-weight: 500; letter-spacing: -0.015em; margin: 0; }
+
+/* boxes v3 (2026-10-08): after the Yale School of Architecture site and Cargo. Hairline black rule,
+   square corners, no shadow; the button is a ruled cell on the right with an arrow and inverts to
+   black on hover. Same box on Newsletter and ?. */
+.plain .news {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  padding: 0;
+  height: 2.75rem;
+  background: #fff;
+  border: 1px solid #111;
+  border-radius: 0;
+  box-shadow: none;
+  transition: none;
+}
+.plain .news:focus-within { border-color: #111; box-shadow: none; outline: 1px solid #111; outline-offset: 0; }
+.plain .news input {
+  padding: 0 0.85rem;
+  font-size: 17px;
+  letter-spacing: -0.005em;
+}
+.plain .news input::placeholder { color: rgba(17, 17, 17, 0.35); }
+.plain .news button {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 0 0.85rem;
+  border: 0;
+  border-left: 1px solid #111;
+  border-radius: 0;
+  background: #fff;
+  color: #111;
+  font-size: 17px;
+  font-weight: 400;
+  letter-spacing: -0.005em;
+  transition: background 120ms, color 120ms;
+}
+.plain .news button::after { content: "\2192"; font-size: 0.95em; }
+.plain .news button:hover { background: #111; color: #fff; opacity: 1; }
+.plain .news button:active { transform: none; }
+.plain .news button:focus-visible { outline: none; background: #111; color: #fff; }
+.plain .signup .note, .plain .gate .note { font-size: 14px; color: rgba(17, 17, 17, 0.5); }
+
+/* newsletter: Jupiter centred in the space above, the box sits low, near the bottom of the screen */
+body.plain.nl { display: flex; flex-direction: column; min-height: 100vh; min-height: 100svh; }
+.plain.nl .planet:has(+ .signup) { flex: 1; height: auto; min-height: 0; padding: 4.25rem 1.5rem 1rem; }
+.plain.nl .planet:has(+ .signup) img { width: min(100%, calc(100svh - 13rem)); }
+.plain.nl main.page.signup { flex: none; width: 100%; max-width: 26rem; margin: 0 auto; padding: 0 1.5rem 2.75rem; }
+.plain.nl .signup .note { margin: 0.6rem 0 0; min-height: 1.2em; }
+
+/* ?: the box is exactly in the middle of the screen; the message hangs below without moving it */
+.plain main.page.gate {
+  position: fixed;
+  inset: 0;
+  min-height: 0;
+  max-width: none;
+  margin: 0;
+  padding: 0 1.5rem;
+  display: grid;
+  place-items: center;
+}
+.plain main.page.gate .news { width: min(100%, 26rem); }
+.plain .gate .note { position: absolute; top: calc(50% + 1.375rem + 0.6rem); left: 0; right: 0; margin: 0; text-align: center; }
+
+/* newsletter: the sign-up box sits right at the bottom of the screen; its message shows just above it */
+.plain.nl main.page.signup { position: relative; padding-bottom: calc(0.85rem + env(safe-area-inset-bottom, 0px)); }
+.plain.nl .signup .note { position: absolute; left: 0; right: 0; bottom: calc(100% - 0.15rem); margin: 0; min-height: 0; text-align: center; }
+.plain.nl .planet:has(+ .signup) { padding-bottom: 2.25rem; }
+
+/* ?: keep the name and the menu visible while locked, so you can always leave; box stays dead centre */
+body.plain.locked .bar { display: flex; }
+
+/* newsletter: Jupiter centred in the whole screen (not just the space above the box);
+   the box stays pinned at the bottom */
+.plain.nl .planet:has(+ .signup) {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+.plain.nl .planet:has(+ .signup) img { width: min(100%, calc(100svh - 11rem)); }
+.plain.nl main.page.signup { margin-top: auto; z-index: 1; }
+
+/* newsletter: Jupiter a touch smaller (about 12% less across) */
+.plain.nl .planet:has(+ .signup) img { width: min(88%, calc((100svh - 11rem) * 0.88)); }
+
+/* newsletter: sign-up box a hair higher (8px) */
+.plain.nl main.page.signup { padding-bottom: calc(1.35rem + env(safe-area-inset-bottom, 0px)); }
+
+/* newsletter v4: a bare box, no placeholder and no button; press Enter. "You're in." replaces it. */
+.plain .news.bare input { padding: 0 0.85rem; text-align: left; }
+.plain .news.bare[hidden] { display: none; }
+.plain.nl .signup .done {
+  height: 2.75rem;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+}
+.plain.nl .signup .done[hidden] { display: none; }
+.plain .news button.sr { position: absolute; width: 1px; height: 1px; padding: 0; border: 0; overflow: hidden; clip: rect(0 0 0 0); }
+
+/* type a little smaller everywhere (2026-10-08): about 10% down from the previous sizes */
+body.plain { font-size: 17px; }
+.plain .about .words { font-size: 15.5px; }
+.plain .news input, .plain .news button, .plain.nl .signup .done { font-size: 15.5px; }
+.plain .signup .note, .plain .gate .note { font-size: 13px; }
+.plain .news { height: 2.6rem; }
+@media (max-width: 520px) { body.plain { font-size: 16px; } }
+
+/* about: the text sits at the bottom of the right-hand column (desktop); on phones it still follows the picture */
+@media (min-width: 721px) {
+  .plain .about.on .words {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding-top: 3.4rem;
+    padding-bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px));
+  }
+  .plain .about.on .words p { margin: 0; }
+  .plain .about.on .words p + p { margin-top: 1.3em; }
+}
+/* the five-item menu has to fit over the white column on About: slightly tighter menu spacing,
+   slightly wider text column */
+.plain .bar nav { gap: 2.5rem; }
+@media (min-width: 721px) { .plain .about { grid-template-columns: minmax(0, 1fr) minmax(30rem, 30%); } }
+
+/* boxes v5 (2026-10-08): a single line instead of a box, no visible button, press Enter.
+   Same for the newsletter email and the ? password. */
+.plain .news {
+  border: 0;
+  border-bottom: 1px solid #111;
+  background: transparent;
+  outline: none;
+}
+.plain .news:focus-within { outline: none; border-bottom-width: 1.5px; }
+.plain .news input { padding: 0 0.1rem; background: transparent; }
+.plain .news > button:not(.sr) { display: none; }
+/* both lines the same length, both words flush with the start of the line */
+.plain main.page.gate .news { width: min(calc(100vw - 3rem), 23rem); }
+.plain.nl main.page.signup { max-width: calc(23rem + 3rem); }
+.plain .news.bare input, .plain .news input { padding: 0 0.1rem; }
+
+/* type v3 (2026-10-08): just a little bigger than sebastiansangha.com (Cargo base 14.5px, Diatype) */
+body.plain { font-size: 15.5px; }
+.plain .about .words { font-size: 14.5px; }
+.plain .news input, .plain .news button, .plain.nl .signup .done { font-size: 14.5px; }
+.plain .signup .note, .plain .gate .note { font-size: 12.5px; }
+.plain .news { height: 2.4rem; }
+.plain .inside .welcome { font-size: 1.5em; }
+@media (max-width: 520px) { body.plain { font-size: 15px; } }
+
+/* About: the picture is dark, so the name over it is white */
+body.plain.about-dark .bar .who { color: #fff; }
+@media (max-width: 720px) { body.plain.about-dark .bar .who { color: #111; } }
+@media (max-width: 720px) { .plain .bar nav { gap: 0.3rem 1.1rem; } }
+
+/* research: the ink plate, centred under the menu */
+.plain .plate { margin: 0 auto; padding: 4.5rem 1.5rem 0; max-width: 46rem; }
+.plain .plate img { display: block; width: 100%; height: auto; }
+.plain .plate + main.page.research { padding-top: 3.5rem; margin: 0 auto; }
+@media (max-width: 720px) { .plain .plate { padding-top: 1.5rem; } .plain .plate + main.page.research { padding-top: 2rem; } }
+/* the citation under the plate: as small as stays legible */
+.plain .plate figcaption { margin-top: 0.6rem; font-size: 8px; line-height: 1.35; letter-spacing: 0.01em; color: rgba(17, 17, 17, 0.5); text-align: center; }
+.plain .plate figcaption { color: #111; }
+
+/* research: the orrery, eight patterns scattered across the full width at different sizes */
+.plain .plate.orrery { max-width: 72rem; padding-top: 4rem; }
+.plain .orrery .field { position: relative; width: 100%; aspect-ratio: 100 / 40; }
+.plain .orrery .field img { position: absolute; height: auto; display: block; }
+.plain .orrery figcaption { margin-top: 1.5rem; }
+@media (max-width: 720px) {
+  .plain .orrery .field { aspect-ratio: auto; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .plain .orrery .field img { position: static; width: 100% !important; }
+}
+
+/* About: two Jupiter photographs side by side in the picture area */
+.plain .about .pic.pair { display: grid; grid-template-columns: 1fr 1fr; gap: 0; background: #000; }
+.plain .about .pic.pair img { width: 100%; height: 100%; object-fit: cover; display: block; min-width: 0; min-height: 0; }
+@media (max-width: 720px) { .plain .about .pic.pair { grid-template-columns: 1fr 1fr; } }
+.plain .about .pic.pair img:first-child { object-position: 66% 40%; }
+.plain .about .pic.pair img:last-child { object-position: 30% 50%; }
+
+/* Curious: the geometry, very small, dead centre */
+.plain main.page.curious { position: fixed; inset: 0; padding: 0; max-width: none; display: grid; place-items: center; pointer-events: none; }
+.plain main.page.curious img { width: 150px; height: auto; display: block; }
+
+/* About pair v2: no cropping. Both photos whole, side by side at the same height (flex weights =
+   their aspect ratios: Voyager 5489:4637 ≈ 1.18, Juno 1:1), centred in the white picture area */
+.plain .about .pic.pair {
+  display: flex; align-items: center; justify-content: center; gap: 0;
+  background: #fff; padding: 4rem 0 2rem;
+}
+.plain .about .pic.pair img { height: auto; object-fit: contain; min-width: 0; }
+.plain .about .pic.pair img:first-child { flex: 1.1837 1 0; }
+.plain .about .pic.pair img:last-child { flex: 1 1 0; }
+@media (max-width: 720px) { .plain .about .pic.pair { padding: 0.5rem 0 0; } }
+@media (max-width: 720px) { .plain .about { grid-template-rows: auto auto; } .plain .about.on .words { padding-top: 1.5rem; } }
+@media (max-width: 720px) { .plain .about { align-content: start; } }
+@media (max-width: 720px) { .plain .about .pic.pair { padding-top: 5.25rem; } }
+
+/* About: one photograph, whole, as large as the picture area allows */
+.plain .about .pic.pair.single { padding: 3.25rem 1.5rem 1.5rem; }
+.plain .about .pic.pair.single img:first-child { flex: none; width: auto; height: auto; max-width: 100%; max-height: 100%; }
+@media (max-width: 720px) { .plain .about .pic.pair.single { padding: 5.25rem 0 0; } .plain .about .pic.pair.single img:first-child { width: 100%; max-height: none; } }
+
+/* About v3, after Cargo's portfolio templates: a 12-column grid with the menu's 1.5rem margins and
+   gutters. The photograph spans columns 1-8, whole; the text sits in columns 10-12, top-aligned
+   with the photograph (Cargo's "image + caption column"). Everything starts under the menu. */
+@media (min-width: 721px) {
+  .plain .about.on {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: 1.5rem;
+    align-items: start;
+    padding: 4.25rem 1.5rem 1.5rem;
+    overflow-y: auto;
+  }
+  .plain .about.on .pic.pair.single { grid-column: 1 / span 8; padding: 0; display: block; background: none; }
+  .plain .about.on .pic.pair.single img:first-child { display: block; width: 100%; height: auto; max-height: none; }
+  .plain .about.on .words {
+    grid-column: 10 / span 3;
+    display: block; padding: 0; overflow: visible;
+  }
+  .plain .about.on .words p { margin: 0; }
+  .plain .about.on .words p + p { margin-top: 1.3em; }
+}
+
+/* ?: inside, after Cargo's quiet index pages: Welcome, then the calendar in a hairline frame,
+   monochrome, full width under the menu margins */
+.plain main.page.inside-wrap { max-width: none; padding: 4.25rem 1.5rem 2rem; }
+.plain .inside .cal { margin: 2.5rem 0 0; }
+.plain .inside .cal figcaption {
+  display: flex; justify-content: space-between; font-size: 12px; letter-spacing: 0.02em;
+  color: #111; padding-bottom: 0.5rem; border-bottom: 1px solid #111;
+}
+.plain .inside .cal iframe {
+  display: block; width: 100%; height: min(72vh, 760px); border: 0;
+  filter: grayscale(1) contrast(1.05);
+}
+@media (max-width: 720px) { .plain .inside .cal iframe { height: 70vh; } }
+
+/* ---------- no page scrolls (2026-10-08) ---------- */
+
+/* About: the photograph runs the full height of the screen, edge to edge on the left, whole;
+   the text column takes what is left on the right, top-aligned under the menu */
+@media (min-width: 721px) {
+  .plain .about.on { display: flex; padding: 0; overflow: hidden; gap: 0; }
+  .plain .about.on .pic.pair.single { flex: none; height: 100vh; height: 100svh; max-width: calc(100vw - 20rem); padding: 0; }
+  .plain .about.on .pic.pair.single img:first-child { height: 100%; width: auto; max-width: 100%; object-fit: contain; object-position: left top; }
+  .plain .about.on .words { flex: 1; min-width: 16rem; padding: 4.25rem 1.5rem 1.5rem 1.75rem; }
+}
+
+/* Research: the circles scale with the screen height so circles, credit and the three sections
+   all fit; the sections sit side by side in three columns */
+.plain .plate.orrery { padding-top: 3.75rem; max-width: min(72rem, calc((100svh - 15.5rem) / 0.4)); }
+.plain .orrery figcaption { margin-top: 0.9rem; }
+.plain .plate + main.page.research {
+  max-width: min(72rem, calc((100svh - 15.5rem) / 0.4)); padding: 1.75rem 1.5rem 0;
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 1.5rem;
+}
+.plain .plate + main.page.research section + section { margin-top: 0; }
+@media (max-width: 720px) {
+  .plain .plate.orrery { max-width: none; padding-top: 0.75rem; }
+  .plain .orrery .field { grid-template-columns: repeat(4, 1fr); gap: 0.5rem; }
+  .plain .plate + main.page.research { max-width: none; grid-template-columns: 1fr; padding-top: 1.25rem; row-gap: 1rem; }
+}
+
+/* Home on a phone: the two photographs side by side so both fit on one screen */
+@media (max-width: 720px) {
+  .plain .spread { grid-template-columns: 1fr 1fr; align-items: start; }
+  .plain .spread .left { height: auto; }
+  .plain .spread .right { width: 100%; margin-top: 0; justify-self: stretch; }
+}
+
+/* ?: the calendar smaller, a contained panel rather than full width */
+.plain .inside .cal { max-width: 34rem; margin-top: 2rem; }
+.plain .inside .cal iframe { height: min(46vh, 380px); }
+@media (max-width: 720px) { .plain .inside .cal iframe { height: 52vh; } }
+
+/* type v4 (2026-10-08): a little bigger everywhere, about 6% up from 15.5px */
+body.plain { font-size: 16.5px; }
+.plain .about .words { font-size: 15.5px; }
+.plain .news input, .plain .news button, .plain.nl .signup .done { font-size: 15.5px; }
+.plain .signup .note, .plain .gate .note { font-size: 13px; }
+.plain .plate figcaption { font-size: 8.5px; }
+@media (max-width: 520px) { body.plain { font-size: 16px; } }
+
+/* ---------- research v3, after hlmagnus.cargo.site/work ---------- */
+/* one entry per row on a 12-column grid: the words in columns 4-6, the picture right-aligned,
+   alternating wide (columns 8-12) and narrow (columns 10-12). This page scrolls, as the reference does. */
+.plain main.page.works { max-width: none; padding: 4.75rem 1.5rem 4rem; }
+.plain .work {
+  display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 1.5rem;
+  align-items: start;
+}
+.plain .work + .work { margin-top: 4.5rem; }
+.plain .work .words { grid-column: 4 / span 3; }
+.plain .work h2 { font: inherit; font-weight: 500; margin: 0 0 1.1em; text-wrap: balance; }
+.plain .work p { margin: 0; }
+.plain .work p + p { margin-top: 1em; }
+.plain .work .who { color: rgba(17, 17, 17, 0.55); }
+.plain .work a { color: inherit; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.15em; }
+.plain .work a:hover { opacity: 0.6; }
+.plain .work figure { margin: 0; }
+.plain .work figure img { display: block; width: 100%; height: auto; }
+.plain .work.wide figure { grid-column: 8 / span 5; }
+.plain .work.narrow figure { grid-column: 10 / span 3; }
+@media (max-width: 1100px) {
+  .plain .work .words { grid-column: 1 / span 5; }
+  .plain .work.wide figure { grid-column: 7 / span 6; }
+  .plain .work.narrow figure { grid-column: 9 / span 4; }
+}
+@media (max-width: 720px) {
+  .plain main.page.works { padding-top: 1.5rem; }
+  .plain .work { display: block; }
+  .plain .work figure { margin-top: 1.25rem; }
+  .plain .work.narrow figure { width: 70%; margin-left: auto; }
+  .plain .work + .work { margin-top: 3rem; }
+}
+
+/* ---------- Work v4, after architecture.yale.edu ---------- */
+/* highlight cards on a 12-column grid, newest first; pictures whole, each a link */
+.plain main.page.cards {
+  max-width: none; padding: 4.75rem 1.5rem 3.5rem;
+  display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 1.5rem; row-gap: 3.5rem;
+  align-items: start;
+}
+.plain .card { min-width: 0; }
+.plain .card .pic { display: block; }
+.plain .card .pic img { display: block; width: 100%; height: auto; transition: opacity 160ms; }
+.plain .card .pic:hover img { opacity: 0.85; }
+.plain .card .kicker { margin: 0.9rem 0 0.35rem; font-size: 12.5px; letter-spacing: 0.04em; text-transform: uppercase; color: #111; }
+.plain .card h2 { margin: 0; font: inherit; font-size: 1.55em; line-height: 1.12; letter-spacing: -0.02em; font-weight: 500; text-wrap: balance; }
+.plain .card h2 a { color: inherit; text-decoration: none; }
+.plain .card h2 a:hover { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.12em; }
+.plain .card .desc { margin: 0.6rem 0 0; max-width: 36em; }
+.plain .card .src { margin: 0.6rem 0 0; font-size: 13px; }
+.plain .card .src a { color: inherit; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.15em; }
+/* placement: the newest teaching card leads, large; the Marshall Plan card is the smallest */
+.plain .c-ypei { grid-column: 1 / span 7; }
+.plain .c-gas { grid-column: 8 / span 5; }
+.plain .c-marshall { grid-column: 1 / span 3; }
+.plain .c-nsf { grid-column: 4 / span 3; }
+.plain .c-nsf .pic img { width: 62%; }
+.plain .c-pra { grid-column: 7 / span 6; }
+.plain .c-marshall h2, .plain .c-nsf h2 { font-size: 1.3em; }
+@media (max-width: 900px) {
+  .plain .c-ypei, .plain .c-gas, .plain .c-pra { grid-column: 1 / -1; }
+  .plain .c-marshall { grid-column: 1 / span 6; }
+  .plain .c-nsf { grid-column: 7 / span 6; }
+}
+@media (max-width: 560px) {
+  .plain main.page.cards { padding-top: 1.5rem; row-gap: 2.5rem; }
+  .plain .card { grid-column: 1 / -1 !important; }
+  .plain .c-marshall .pic img { width: 75%; }
+}
+
+/* hover captions: a small white card over the corner of a photograph, with its source */
+.plain .capwrap { position: relative; margin: 0; outline: none; }
+.plain .hovercap {
+  position: absolute; left: 0.75rem; bottom: 0.75rem; max-width: min(23rem, calc(100% - 1.5rem));
+  background: #fff; color: #111; font-size: 13px; line-height: 1.35; padding: 0.6rem 0.75rem;
+  opacity: 0; transform: translateY(4px); transition: opacity 160ms, transform 160ms; pointer-events: none;
+}
+.plain .hovercap .src { display: block; margin-top: 0.4rem; color: rgba(17, 17, 17, 0.55); }
+.plain .hovercap a { color: inherit; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.15em; }
+.plain .capwrap:hover .hovercap, .plain .capwrap:focus-within .hovercap { opacity: 1; transform: none; pointer-events: auto; }
+/* home: the figures take the images' grid places */
+.plain .spread .capwrap img { display: block; }
+.plain .spread .cw-left .hovercap { bottom: 1.25rem; left: 1.25rem; }
+@media (max-width: 720px) { .plain .spread .cw-right { justify-self: stretch; } .plain .hovercap { font-size: 12px; } }
+/* about: the figure is as tall as the screen and as wide as the photograph */
+@media (min-width: 721px) {
+  .plain .about.on .pic.pair.single .capwrap { height: 100%; width: fit-content; max-width: 100%; }
+  .plain .about.on .pic.pair.single .capwrap img { height: 100%; width: auto; max-width: 100%; display: block; }
+}
+
+/* Work list: pictures link to their source; the Marshall Plan photo smaller; the NSF logo modest */
+.plain .work figure a { display: block; }
+.plain .work figure a:hover img { opacity: 0.85; }
+.plain .work.small figure { grid-column: 10 / span 3; }
+.plain .work.small figure img { width: 75%; margin-left: auto; }
+.plain .work.logo figure { grid-column: 10 / span 3; }
+.plain .work.logo figure img { width: 55%; margin-left: auto; }
+@media (max-width: 1100px) { .plain .work.small figure, .plain .work.logo figure { grid-column: 9 / span 4; } }
+@media (max-width: 720px) { .plain .work.small figure, .plain .work.logo figure { width: 60%; margin-left: auto; } .plain .work.small figure img, .plain .work.logo figure img { width: 100%; } }
+
+/* ---------- Work v5: drawers ---------- */
+.plain main.page.drawers { max-width: none; padding: 4.25rem 1.5rem 3rem; }
+.plain .drawer { border-top: 1px solid #111; }
+.plain .drawer:last-of-type { border-bottom: 1px solid #111; }
+.plain .drawer summary {
+  list-style: none; cursor: pointer; display: flex; align-items: baseline; gap: 0.75rem;
+  padding: 0.85rem 0; font-size: 1.55em; letter-spacing: -0.02em; font-weight: 500;
+}
+.plain .drawer summary::-webkit-details-marker { display: none; }
+.plain .drawer summary::after { content: "+"; margin-left: auto; font-weight: 400; }
+.plain .drawer[open] summary::after { content: "\2212"; }
+.plain .drawer summary .count { font-size: 12.5px; letter-spacing: 0.04em; color: rgba(17,17,17,.5); font-weight: 400; }
+.plain .drawer summary:hover span:first-child { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.12em; }
+.plain .drawer .row { display: grid; grid-template-columns: 1fr 1fr; column-gap: 1.5rem; row-gap: 2.5rem; padding: 0.5rem 0 2.5rem; }
+.plain .item { min-width: 0; }
+.plain .item .frame { display: block; aspect-ratio: 3 / 2; background: #fff; }
+.plain .item .frame img { display: block; width: 100%; height: 100%; object-fit: contain; object-position: left center; transition: opacity 160ms; }
+.plain .item .frame:hover img { opacity: 0.85; }
+.plain .item.logo .frame img { width: 45%; object-position: left center; }
+.plain .item .kicker { margin: 0.9rem 0 0.35rem; font-size: 12.5px; letter-spacing: 0.04em; text-transform: uppercase; }
+.plain .item h2 { margin: 0; font: inherit; font-size: 1.3em; line-height: 1.15; letter-spacing: -0.015em; font-weight: 500; text-wrap: balance; }
+.plain .item h2 a { color: inherit; text-decoration: none; }
+.plain .item h2 a:hover { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.12em; }
+.plain .item .who { margin: 0.45rem 0 0; color: rgba(17,17,17,.55); }
+.plain .item .desc { margin: 0.5rem 0 0; max-width: 40em; }
+.plain .item .src { margin: 0.5rem 0 0; font-size: 13px; }
+.plain .item .src a { color: inherit; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.15em; }
+@media (max-width: 720px) {
+  .plain main.page.drawers { padding-top: 1.5rem; }
+  .plain .drawer .row { grid-template-columns: 1fr; }
+  .plain .drawer summary { font-size: 1.3em; }
+}
+
+/* Work and News: plain shelves, a heading over a hairline, entries side by side */
+.plain .shelf + .shelf { margin-top: 1.5rem; }
+.plain .shelf-head {
+  margin: 0; padding: 0.85rem 0; border-top: 1px solid #111;
+  font: inherit; font-size: 1.55em; letter-spacing: -0.02em; font-weight: 500;
+}
+.plain .shelf .row { display: grid; grid-template-columns: 1fr 1fr; column-gap: 1.5rem; row-gap: 2.5rem; padding: 0.5rem 0 1.5rem; }
+@media (max-width: 720px) { .plain .shelf .row { grid-template-columns: 1fr; } .plain .shelf-head { font-size: 1.3em; } }
+
+/* fit on one screen: picture frames take what height is left */
+@media (min-width: 721px) {
+  .plain .shelf .item .frame { aspect-ratio: auto; height: clamp(12rem, calc(100svh - 24rem), 30rem); }
+  /* News: Fellowships (two entries) and Teaching (one) share one row of three */
+  .plain main.news-row { display: grid; grid-template-columns: 2fr 1fr; column-gap: 1.5rem; }
+  .plain main.news-row .shelf + .shelf { margin-top: 0; }
+  .plain main.news-row .shelf:last-child .row { grid-template-columns: 1fr; }
+}
+@media (min-width: 721px) {
+  .plain main.page.drawers { padding-bottom: 1rem; }
+  .plain .shelf .item .frame { height: clamp(10rem, calc(100svh - 27.5rem), 30rem); }
+  .plain .shelf .row { padding-bottom: 0.5rem; }
+}
+
+/* Work/News: picture and title only; titles are links without underlines */
+.plain .shelf.bare { border: 0; }
+.plain .shelf.bare .row { padding-top: 0.25rem; }
+.plain .item h2 { margin-top: 0.9rem; }
+@media (min-width: 721px) {
+  .plain .shelf.bare .item .frame { height: clamp(12rem, calc(100svh - 12rem), 40rem); }
+}
+
+/* every picture centred in its frame (the NSF logo too); titles centred under them */
+.plain .item .frame { display: flex; align-items: center; justify-content: center; }
+.plain .item .frame img { object-position: center center; }
+.plain .item.logo .frame img { width: 45%; height: 70%; object-fit: contain; }
+.plain .item h2 { text-align: center; }
+.plain .item .frame { overflow: hidden; } .plain .item .frame img { min-height: 0; min-width: 0; max-height: 100%; }
+
+/* ---------- Work and News v6: tiles, picture + name, one link each ---------- */
+.plain main.page.tiles { max-width: none; padding: 4.5rem 1.5rem 1.5rem; display: grid; column-gap: 1.5rem; row-gap: 2rem; align-items: start; }
+.plain main.page.tiles.cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.plain main.page.tiles.cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.plain .tile { display: block; color: #111; text-decoration: none; }
+.plain .tile .frame { display: flex; align-items: center; justify-content: center; height: clamp(12rem, calc(100svh - 11rem), 40rem); overflow: hidden; }
+.plain .tile .frame img { display: block; max-width: 100%; max-height: 100%; width: auto; height: auto; min-width: 0; min-height: 0; object-fit: contain; transition: opacity 160ms; }
+.plain .tile.logo .frame img { max-width: 45%; max-height: 60%; }
+.plain .tile .name { display: block; margin-top: 0.9rem; text-align: center; font-size: 1.3em; line-height: 1.15; letter-spacing: -0.015em; font-weight: 500; text-wrap: balance; transition: color 140ms; }
+.plain .tile:hover .name, .plain .tile:focus-visible .name { color: var(--pink); }
+.plain .tile:hover .frame img { opacity: 0.9; }
+.plain .tile:focus-visible { outline: none; }
+@media (max-width: 720px) {
+  .plain main.page.tiles { padding-top: 1.5rem; }
+  .plain main.page.tiles.cols-2, .plain main.page.tiles.cols-3 { grid-template-columns: 1fr; }
+  .plain .tile .frame { height: auto; }
+  .plain .tile.logo .frame img { max-width: 40%; }
+}
+
+/* links turn pink, not orange, when you're about to click */
+:root { --pink: #e2799a; --accent: #e2799a; }
+body.plain a:hover, body.plain .bar a:hover { color: var(--pink); opacity: 1; }
+.plain main.page.tiles > * + * { margin-top: 0; }
+@media (min-width: 721px) { .plain .tile .frame { height: clamp(12rem, calc(100svh - 13.5rem), 40rem); } }
+
+/* ---------- Work and News v7: the hlmagnus list, simple ---------- */
+.plain main.page.entries { max-width: none; padding: 4.75rem 1.5rem 4rem; }
+.plain main.page.entries > * + * { margin-top: 4.5rem; }
+.plain .entry {
+  display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 1.5rem; align-items: start;
+  color: #111; text-decoration: none;
+}
+.plain .entry .title { grid-column: 4 / span 3; font-weight: 500; text-wrap: balance; transition: color 140ms; }
+.plain .entry .pic { display: block; }
+.plain .entry .pic img { display: block; width: 100%; height: auto; transition: opacity 160ms; }
+.plain .entry.wide .pic { grid-column: 8 / span 5; }
+.plain .entry.narrow .pic { grid-column: 10 / span 3; }
+.plain .entry.logo .pic { grid-column: 11 / span 2; }
+.plain .entry:hover .title, .plain .entry:focus-visible .title { color: var(--pink); }
+.plain .entry:hover .pic img { opacity: 0.9; }
+.plain .entry:focus-visible { outline: none; }
+@media (max-width: 1100px) {
+  .plain .entry .title { grid-column: 1 / span 5; }
+  .plain .entry.wide .pic { grid-column: 7 / span 6; }
+  .plain .entry.narrow .pic { grid-column: 9 / span 4; }
+  .plain .entry.logo .pic { grid-column: 10 / span 3; }
+}
+@media (max-width: 720px) {
+  .plain main.page.entries { padding-top: 1.5rem; }
+  .plain main.page.entries > * + * { margin-top: 3rem; }
+  .plain .entry { display: block; }
+  .plain .entry .pic { margin-top: 1rem; }
+  .plain .entry.narrow .pic { width: 70%; margin-left: auto; }
+  .plain .entry.logo .pic { width: 40%; margin-left: auto; }
+}
+.plain main.page.entries .entry { max-width: none; } .plain main.page.entries .entry > * + * { margin-top: 0; }
+/* a size between wide and narrow (the physics course photograph) */
+.plain .entry.medium .pic { grid-column: 9 / span 4; }
+@media (max-width: 1100px) { .plain .entry.medium .pic { grid-column: 8 / span 5; } }
+@media (max-width: 720px) { .plain .entry.medium .pic { width: 85%; margin-left: auto; } }
+
+/* Work/News: the title, then a one-sentence blurb, in the narrow column (after hlmagnus) */
+.plain .entry .words { grid-column: 4 / span 3; }
+.plain .entry .words .title { display: block; }
+.plain .entry .blurb { display: block; margin-top: 1.1em; font-weight: 400; color: #111; }
+@media (max-width: 1100px) { .plain .entry .words { grid-column: 1 / span 5; } }
+
+/* ---------- one typeface everywhere (2026-10-08) ----------
+   Archivo, the closest free match to Gerstner Programm (architecture.yale.edu): compact, slightly
+   condensed, neutral. One family, two weights (400 text, 500 titles), set a touch tight.
+   Every element inherits it, including form fields, captions and the calendar caption. */
+:root { --font: "Archivo", "Helvetica Neue", Helvetica, Arial, sans-serif; --mono: var(--font); }
+body.plain { font-family: var(--font); letter-spacing: -0.01em; font-feature-settings: "kern" 1; }
+body.plain *, body.plain input, body.plain button, body.plain textarea { font-family: inherit; }
+body.plain .m, body.plain .sep { font-family: var(--font); }
+
+/* one type scale: everything 16.5px (titles 500 weight), except the tiny citation-style notes */
+body.plain .about .words, body.plain .entry .title, body.plain .entry .blurb, body.plain .tile .name,
+body.plain .news input, body.plain .news button, body.plain.nl .signup .done,
+body.plain .inside .welcome, body.plain .hovercap { font-size: 16.5px; }
+body.plain .inside .welcome { font-weight: 500; }
+body.plain .hovercap, body.plain .signup .note, body.plain .gate .note, body.plain .inside .cal figcaption { font-size: 13px; }
+
+/* newsletter: restore centring (Jupiter dead centre; the email line pinned near the bottom, centred) */
+body.plain.nl .planet:has(+ .signup) { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; padding: 0 1.5rem; }
+body.plain.nl main.page.signup { position: fixed; left: 0; right: 0; bottom: 0; margin: 0 auto; width: 100%; max-width: calc(23rem + 3rem); padding: 0 1.5rem calc(1.35rem + env(safe-area-inset-bottom, 0px)); }
+
+/* type v6 (2026-10-08): the same size as sebastiansangha.com/research-1 — 21px on a 1440px-wide
+   screen, scaling with the window like Cargo does (1.46vw), never below 17px or above 24px.
+   One size for everything; small notes stay small. */
+body.plain { font-size: clamp(17px, 1.46vw, 24px); }
+body.plain .about .words, body.plain .entry .title, body.plain .entry .blurb, body.plain .tile .name,
+body.plain .news input, body.plain .news button, body.plain.nl .signup .done,
+body.plain .inside .welcome { font-size: clamp(17px, 1.46vw, 24px); }
+body.plain .hovercap, body.plain .signup .note, body.plain .gate .note, body.plain .inside .cal figcaption { font-size: clamp(13px, 0.95vw, 15px); }
+body.plain .plate figcaption { font-size: 9px; }
+.plain .news { height: 2.9rem; }
+.plain main.page.gate .news, body.plain.nl main.page.signup { max-width: calc(26rem + 3rem); }
+.plain main.page.gate .news { width: min(100%, 26rem); }
+@media (min-width: 721px) { .plain .about.on .words { min-width: 20rem; } .plain .about.on .pic.pair.single { max-width: calc(100vw - 24rem); } }
+@media (max-width: 720px) { .plain .bar nav { gap: 0.3rem 1rem; } }
+
+/* Work/News: every row the same height, so titles are evenly spaced. Each picture sits whole in an
+   equal box (columns 7-12), right-aligned and top-aligned; smaller pictures simply sit smaller. */
+.plain main.page.entries > * + * { margin-top: 3rem; }
+.plain .entry .pic, .plain .entry.wide .pic, .plain .entry.medium .pic, .plain .entry.narrow .pic, .plain .entry.logo .pic {
+  grid-column: 7 / span 6; height: clamp(14rem, 26vw, 24rem); display: flex; justify-content: flex-end; align-items: flex-start;
+}
+.plain .entry .pic img { width: auto; height: auto; max-width: 100%; max-height: 100%; }
+.plain .entry.logo .pic img { max-height: 55%; }
+@media (max-width: 1100px) { .plain .entry .words { grid-column: 1 / span 5; } }
+@media (max-width: 720px) {
+  .plain .entry .pic, .plain .entry.wide .pic, .plain .entry.medium .pic, .plain .entry.narrow .pic, .plain .entry.logo .pic { height: 14rem; width: 100%; margin-left: 0; justify-content: flex-start; }
+}
+@media (max-width: 720px) { .plain .bar nav { gap: 0.2rem 0.75rem; } }
+
+/* a bolder, more saturated pink for links on hover */
+:root { --pink: #e8338a; --accent: #e8338a; }
+
+/* what you type into the email and password lines shows in the pink; the cursor too */
+body.plain .news input { color: var(--pink); caret-color: var(--pink); }
+body.plain .news input::placeholder { color: rgba(17, 17, 17, 0.35); }
+
+/* Work/News: the words start at the left margin and run wider (columns 1-6), no empty band on the left */
+.plain .entry .words, .plain .entry .title { grid-column: 1 / span 6; }
+.plain .entry .words { max-width: 36rem; }
+@media (max-width: 1100px) { .plain .entry .words { grid-column: 1 / span 6; } }
+
+/* News only: photographs in black and white (colour returns on hover) */
+body.plain.news-page .entry .pic img { filter: grayscale(1) contrast(1.05); transition: filter 200ms, opacity 160ms; }
+
+/* Work/News: the title turns pink only while the pointer is on the words themselves, not the photo */
+.plain .entry:hover .title { color: #111; }
+.plain .entry .words:hover .title, .plain .entry:focus-visible .title { color: var(--pink); }
+/* the hover zone is the whole left half of each row (columns 1-6, full row height), not just the words */
+.plain .entry .words { align-self: stretch; max-width: none; }
+.plain .entry .words .title, .plain .entry .words .blurb { max-width: 36rem; }
+
+/* About (Moon): the photograph fills the full height of the left side, ending before the menu */
+@media (min-width: 721px) {
+  .plain .about.on .pic.pair.single { width: min(58vw, calc(100vw - 30rem)); max-width: none; height: 100vh; height: 100svh; }
+  .plain .about.on .pic.pair.single .capwrap { width: 100%; height: 100%; }
+  .plain .about.on .pic.pair.single .capwrap img { width: 100%; height: 100%; max-width: none; object-fit: cover; object-position: 40% 50%; }
+}
+
+/* About (Moon), as in the earlier version: the photograph fills everything left of the text column,
+   edge to edge and full height; the name sits over it in white */
+@media (min-width: 721px) {
+  .plain .about.on .pic.pair.single { width: min(56vw, calc(100vw - 34rem)); max-width: none; height: 100vh; height: 100svh; }
+  .plain .about.on .words { min-width: 0; }
+}
+
+/* ---------- type v7 (2026-10-09): one face, one weight, one size, like sebastiansangha.cargo.site ----------
+   Hanken Grotesk, the closest free match to Cargo's ABC Diatype (same width and letterforms).
+   Everything 400 weight in near-black #222 at the one size; small notes stay smaller. */
+:root { --font: "Hanken Grotesk", "Helvetica Neue", Helvetica, Arial, sans-serif; }
+body.plain { font-family: var(--font); color: #222; letter-spacing: 0; font-weight: 400; }
+body.plain *, body.plain h1, body.plain h2, body.plain h3, body.plain b, body.plain strong,
+body.plain .entry .title, body.plain .tile .name, body.plain .inside .welcome { font-weight: 400; }
+body.plain .bar a, body.plain .entry, body.plain .entry .blurb, body.plain .about .words { color: #222; }
+body.plain .entry .title { margin-bottom: 0; }
+body.plain.about-dark .bar .who { color: #fff; }
+@media (max-width: 720px) { body.plain.about-dark .bar .who { color: #222; } }
+
+/* no hover captions anywhere */
+.plain .hovercap { display: none !important; }
+
+/* About, the original proportions: the Moon fills everything left of a narrow text column
+   (about a quarter of the width), full height. The menu reads over both: white on the photo,
+   dark on the paper. */
+@media (min-width: 721px) {
+  .plain .about.on .pic.pair.single { width: calc(100vw - max(18rem, 26vw)); max-width: none; }
+  body.plain.about-dark .bar { color: #fff; mix-blend-mode: difference; }
+  body.plain.about-dark .bar a, body.plain.about-dark .bar .who { color: #fff; }
+  body.plain.about-dark .bar a:hover { color: #fff; opacity: 0.6; }
+}
+@media (min-width: 721px) {
+  body.plain.about-dark .bar { mix-blend-mode: normal; }
+  body.plain.about-dark .bar nav { background: #fff; padding: 0.1rem 0 0.25rem 0.75rem; margin-top: -0.1rem; }
+  body.plain.about-dark .bar nav a { color: #222; }
+  body.plain.about-dark .bar nav a:hover { color: var(--pink); opacity: 1; }
+  body.plain.about-dark .bar .who { color: #fff; }
+}
+/* News/Work photos never move or resize on hover */
+.plain .entry .pic img, .plain .entry:hover .pic img, .plain .entry .pic:hover img { transform: none !important; transition: opacity 160ms; }
+
+/* ---------- type v8 (2026-10-09): Archivo (closest free match to Gerstner Programm) at
+   architecture.yale.edu's size, 24px, one weight, everywhere ---------- */
+:root { --font: "Archivo", "Helvetica Neue", Helvetica, Arial, sans-serif; }
+body.plain { font-family: var(--font); font-size: 24px; letter-spacing: -0.01em; color: #111; }
+body.plain .about .words, body.plain .entry .title, body.plain .entry .blurb, body.plain .tile .name,
+body.plain .news input, body.plain .news button, body.plain.nl .signup .done, body.plain .inside .welcome,
+body.plain .sqtile .name { font-size: 24px; }
+body.plain .bar a, body.plain .entry, body.plain .entry .blurb, body.plain .about .words { color: #111; }
+@media (max-width: 720px) { body.plain, body.plain .about .words, body.plain .entry .title, body.plain .entry .blurb, body.plain .sqtile .name { font-size: 19px; } }
+
+/* ---------- News: the YSoA square grid ---------- */
+.plain main.page.sqgrid {
+  max-width: none; padding: 5rem 1.5rem 2rem;
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 1rem; row-gap: 2.5rem; align-items: start;
+}
+.plain main.page.sqgrid > * + * { margin-top: 0; }
+.plain .sqtile { display: block; color: #111; text-decoration: none; }
+.plain .sqtile .sq { display: flex; align-items: center; justify-content: center; aspect-ratio: 1; overflow: hidden; max-height: calc(100svh - 12rem); }
+.plain .sqtile .sq img { width: 100%; height: 100%; object-fit: cover; display: block; transform: scale(1); transition: transform 350ms ease; }
+.plain .sqgrid:has(.sqtile:hover) .sqtile:not(:hover) .sq img { transform: scale(0.5); }
+.plain .sqtile .name { display: block; margin-top: 0.6rem; text-align: center; text-wrap: balance; line-height: 1.2; }
+.plain .sqtile:hover .name { color: var(--pink); }
+@media (max-width: 720px) {
+  .plain main.page.sqgrid { grid-template-columns: 1fr; padding-top: 1.5rem; }
+  .plain .sqgrid:has(.sqtile:hover) .sqtile:not(:hover) .sq img { transform: none; }
+}
+@media (prefers-reduced-motion: reduce) { .plain .sqtile .sq img { transition: none; } }
+
+/* News grid v2: three equal squares, centred on the page horizontally and vertically, sized so
+   squares + titles always fit one screen; titles share a two-line band so every square lines up */
+@media (min-width: 721px) {
+  .plain main.page.sqgrid {
+    --side: min(calc((100vw - 3rem - 4rem) / 3), calc(100svh - 15rem), 26rem);
+    min-height: 100svh; padding: 4.5rem 1.5rem 2rem; box-sizing: border-box;
+    grid-template-columns: repeat(3, var(--side)); justify-content: center; align-content: center;
+    column-gap: 2rem;
+  }
+  .plain .sqtile .sq { width: var(--side); height: var(--side); max-height: none; }
+  .plain .sqtile .name { min-height: 2.4em; margin-top: 0.75rem; }
+}
+
+/* pulling past the top or bottom of a page (overscroll) shows the site's pink; the page itself stays white */
+html, html:has(body.plain) { background: var(--pink); }
+body.plain { background: #fff; min-height: 100vh; min-height: 100svh; }
+
+/* the site's pink, from Cecily's swatch */
+:root { --pink: #d82f8a; --accent: #d82f8a; }
+
+/* News: the hovered photo turns a pink duotone (dark tones become the pink, light tones stay pale),
+   like architecture.yale.edu's orange */
+.plain .sqtile .sq { position: relative; }
+.plain .sqtile .sq::after {
+  content: ""; position: absolute; inset: 0; background: var(--pink);
+  mix-blend-mode: screen; opacity: 0; transition: opacity 250ms ease; pointer-events: none;
+}
+.plain .sqtile:hover .sq::after, .plain .sqtile:focus-visible .sq::after { opacity: 1; }
+@media (prefers-reduced-motion: reduce) { .plain .sqtile .sq::after { transition: none; } }
+/* the shrink, driven by the script above (Safari mishandles :has with :hover) */
+.plain .sqgrid.hovering .sqtile:not(.hot) .sq img { transform: scale(0.5); }
+.plain .sqtile.hot .sq::after { opacity: 1; }
+.plain .sqtile.hot .name { color: var(--pink); }
+@media (max-width: 720px) { .plain .sqgrid.hovering .sqtile:not(.hot) .sq img { transform: none; } }
+/* News with more than three items: rows of three, the page scrolls; squares a fixed comfortable size */
+@media (min-width: 721px) {
+  .plain main.page.sqgrid:has(.sqtile:nth-child(4)) { --side: min(calc((100vw - 7rem) / 3), 24rem); min-height: 0; align-content: start; padding-top: 5rem; padding-bottom: 4rem; }
+}
+
+/* ---------- Work = Publications | News (after architecture.yale.edu) ---------- */
+.plain main.page.split {
+  max-width: none; padding: 3.75rem 1.5rem 3rem;
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 3rem; align-items: start;
+}
+.plain main.page.split > * + * { margin-top: 0; }
+.plain .split .col { padding-top: 1.1rem; min-width: 0; }
+.plain .split h1 { margin: 0 0 1.6rem; font: inherit; font-size: clamp(44px, 5.4vw, 96px); line-height: 1; letter-spacing: -0.035em; font-weight: 400; }
+.plain .split .sqgrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem 1.25rem; align-items: start; padding: 0; min-height: 0; }
+.plain .split .sqgrid > * + * { margin-top: 0; }
+.plain .split .sqtile .sq { width: auto; height: auto; aspect-ratio: 1; max-height: none; }
+.plain .split .sqtile .name { min-height: 2.4em; margin-top: 0.6rem; font-size: 0.8em; }
+/* paper first pages: portrait, whole, light frame so the white page reads on white */
+.plain .split .paper .sq { aspect-ratio: 1 / 1.3; background: #fff; }
+.plain .split .paper .sq img { object-fit: contain; outline: 1px solid rgba(17,17,17,.12); outline-offset: -1px; }
+.plain .split .sqgrid.hovering .sqtile:not(.hot) .sq img { transform: scale(0.5); }
+@media (max-width: 900px) {
+  .plain main.page.split { grid-template-columns: 1fr; row-gap: 3rem; padding-top: 1.5rem; }
+  .plain .split .sqgrid.hovering .sqtile:not(.hot) .sq img { transform: none; }
+}
+/* fit both columns on one laptop screen: the grids size from the screen height */
+@media (min-width: 901px) {
+  .plain .split .g-news { width: min(100%, calc(100svh - 19rem)); }
+  .plain .split .g-pubs { width: min(100%, calc((100svh - 15.5rem) / 1.3 * 2)); }
+}
+@media (min-width: 901px) {
+  .plain .split .g-news { width: min(100%, calc(100svh - 22rem)); row-gap: 1rem; }
+  .plain .split .sqtile .name { font-size: 0.7em; margin-top: 0.45rem; min-height: 2.5em; }
+  .plain .split h1 { margin-bottom: 1.2rem; }
+  .plain main.page.split { padding-bottom: 1.5rem; }
+}
+
+/* About: the bio in the Work headings' size and face; "Cecily" and "Lowe" each on its own line.
+   The Moon takes the left half, the words the right half. */
+@media (min-width: 721px) {
+  .plain .about.on .words { padding: 3.75rem 1.5rem 1.5rem 1.5rem; overflow: hidden; height: 100vh; height: 100svh; box-sizing: border-box; }
+}
+.plain .about .words .big { font-size: clamp(44px, 5.4vw, 96px); line-height: 1; letter-spacing: -0.035em; margin: 0 0 0.5em; text-wrap: pretty; }
+@media (max-width: 720px) { .plain .about .words .big { font-size: 44px; } }
+
+/* the email link on About turns pink on hover */
+.plain .about .words a:hover { color: var(--pink); opacity: 1; }
+
+/* About: only the name is large; the bio, email and CV line stay at the normal size */
+.plain .about .words h1.big { font: inherit; font-size: clamp(44px, 5.4vw, 96px); line-height: 1; letter-spacing: -0.035em; font-weight: 400; margin: 0 0 1.2rem; }
+/* About scrolls with the page (not pinned), so pulling past the top or bottom shows the pink */
+@media (min-width: 721px) {
+  .plain .about.on { position: relative; inset: auto; min-height: 100vh; min-height: 100svh; height: 100svh; }
+}
+
+/* About (2026-10-09): the Moon runs right up to the left edge of the "About" link and the text
+   column starts on that same line, so there is no white strip or white notch beside the photo.
+   --about-x is measured from the menu by the script on about.html; the old width is the fallback. */
+@media (min-width: 721px) {
+  .plain .about.on .pic.pair.single { width: var(--about-x, calc(100vw - max(18rem, 26vw))); }
+  body.plain.about-dark .bar nav { background: none; padding: 0; margin-top: 0; }
+  .plain .about.on .words { padding-left: 1rem; }
+}
+
+/* ---------- type v9 (2026-10-09): Lowe Grotesk, the site's own face ----------
+   Archivo (OFL) reproportioned to the measured lettering of architecture.yale.edu: lower x-height,
+   Gerstner's widths and spacing, same stem weight. Built by tools/font/build.py. Spacing as on the YSoA
+   site: 24px with 0.5px tracking. */
+@font-face {
+  font-family: "Lowe Grotesk"; src: url("assets/fonts/LoweGrotesk-Regular.woff2") format("woff2");
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+:root { --font: "Lowe Grotesk", "Helvetica Neue", Helvetica, Arial, sans-serif; --mono: var(--font); }
+body.plain { letter-spacing: 0.02em; }
+
+/* ---------- Work: the full lists (2026-10-09) ----------
+   An arrow beside each heading opens a panel that slides up from the bottom with a 6px pink line along
+   its top, like the menu on architecture.yale.edu. Close sits top left in a thin box. Rows follow the
+   YSoA publications table: hairline between rows, title black, the rest grey, the picture at the end;
+   on hover a row grows to 105% inside a thin black box. */
+.plain .split h1 .opener { color: inherit; text-decoration: none; display: inline-flex; align-items: baseline; gap: 0.3em; }
+.plain .split h1 .opener .arr { font-size: 0.62em; transition: transform 160ms; }
+.plain .split h1 .opener:hover { color: var(--pink); }
+.plain .split h1 .opener:hover .arr { transform: translateX(0.12em); }
+html.panel-open, html.panel-open body { overflow: hidden; }
+.listpanel {
+  position: fixed; inset: 0; z-index: 50; background: #fff; border-top: 6px solid var(--pink);
+  overflow-y: auto; overscroll-behavior: contain; transform: translateY(100%);
+  transition: transform 420ms cubic-bezier(0.22, 0.7, 0.2, 1);
+  padding: 1rem 1.5rem 4rem; box-sizing: border-box; color: #111;
+}
+.listpanel.up { transform: translateY(0); }
+.listpanel[hidden] { display: block; visibility: hidden; }
+.listpanel .close {
+  font: inherit; color: #111; background: #fff; border: 1px solid #111; padding: 3px 12px; margin: 0;
+  cursor: pointer; line-height: 1.2; border-radius: 0;
+}
+.listpanel .close:hover { color: var(--pink); border-color: var(--pink); }
+.listpanel h1 { font: inherit; font-weight: 400; font-size: clamp(44px, 5.4vw, 96px); line-height: 1; letter-spacing: -0.035em; margin: 2.2rem 0 2.4rem; }
+.ltable { display: block; }
+.ltable .lhead, .ltable .lrow { display: grid; column-gap: 2rem; align-items: start; }
+.pubs-table .lhead, .pubs-table .lrow { grid-template-columns: minmax(0, 5fr) minmax(0, 1.2fr) minmax(0, 5fr) 6.5rem; }
+.news-table .lhead, .news-table .lrow { grid-template-columns: minmax(0, 1fr) 6.5rem; }
+.ltable .lhead { padding: 0 1rem 0.5rem; border-bottom: 1px solid #ddd; }
+.ltable .lhead .c-auth, .ltable .lhead .c-year { color: #8c8c8c; }
+.ltable .lrow {
+  position: relative; padding: 1rem; color: #111; text-decoration: none; background: #fff;
+  border: 1px solid transparent; border-bottom-color: #ddd;
+  transition: transform 0.1s linear, z-index 0s linear 0.05s;
+}
+.ltable .lrow .c-year, .ltable .lrow .c-auth { color: #8c8c8c; }
+.ltable .lrow .c-img img { display: block; width: 100%; height: auto; }
+.ltable .lrow:hover, .ltable .lrow:focus-visible { transform: scale(1.05); z-index: 2; border-color: #111; outline: none; }
+.ltable .lrow:hover .c-title { color: var(--pink); }
+@media (max-width: 720px) {
+  .listpanel { padding: 0.8rem 1rem 3rem; }
+  .listpanel h1 { margin: 1.6rem 0 1.6rem; }
+  .pubs-table .lhead { display: none; }
+  .pubs-table .lrow { grid-template-columns: minmax(0, 1fr) 4.5rem; row-gap: 0.4rem; column-gap: 1rem; }
+  .pubs-table .lrow .c-title { grid-column: 1; grid-row: 1; }
+  .pubs-table .lrow .c-year { grid-column: 1; grid-row: 2; }
+  .pubs-table .lrow .c-auth { grid-column: 1; grid-row: 3; font-size: 0.8em; }
+  .pubs-table .lrow .c-img { grid-column: 2; grid-row: 1 / span 3; }
+  .news-table .lhead, .news-table .lrow { grid-template-columns: minmax(0, 1fr) 4.5rem; column-gap: 1rem; }
+  .ltable .lrow { padding: 0.8rem 0.25rem; }
+  .ltable .lrow:hover { transform: none; }
+}
+@media (prefers-reduced-motion: reduce) { .listpanel { transition: none; } }
+.listpanel .close:focus { outline: none; }
+
+/* Work list openers v2: a ">" beside each heading; on hover the heading fills pink with white letters,
+   like the buttons on architecture.yale.edu/publications fill black. A 6px pink line sits along the
+   bottom of the screen, and the lists rise from it. */
+.plain .split h1 .opener { align-items: center; gap: 0.22em; padding: 0.04em 0.18em 0.08em; margin: -0.04em -0.18em -0.08em; transition: background-color 120ms, color 120ms; }
+.plain .split h1 .opener .arr { width: 0.3em; height: 0.5em; font-size: 1em; flex: none; transition: none; }
+.plain .split h1 .opener:hover, .plain .split h1 .opener:focus-visible { background: var(--pink); color: #fff; outline: none; }
+.plain .split h1 .opener:hover .arr { transform: none; }
+.pinkline { position: fixed; left: 0; right: 0; bottom: 0; height: 6px; background: var(--pink); z-index: 40; pointer-events: none; }
+
+/* loading circle (site.js), after architecture.yale.edu: 180px, black with two white quarters, one turn a second */
+.loadcircle { position: fixed; left: 50%; top: 50%; width: 180px; height: 180px; margin: -90px 0 0 -90px; z-index: 100;
+  pointer-events: none; display: none; animation: loadspin 1s linear infinite; }
+.loadcircle.on { display: block; }
+.loadcircle svg { display: block; width: 100%; height: 100%; }
+@keyframes loadspin { to { transform: rotate(360deg); } }
+@media (max-width: 720px) { .loadcircle { width: 120px; height: 120px; margin: -60px 0 0 -60px; } }
+@media (prefers-reduced-motion: reduce) { .loadcircle { animation-duration: 3s; } }
+
+/* ? page (2026-10-09): totally pink while locked (the password screen); once open, white like every page. Ink stays near-black; what you type shows in white. */
+html:has(body.qpage.locked), body.plain.qpage.locked { background: var(--pink); }
+body.plain.qpage.locked .news, body.plain.qpage.locked .news:focus-within { background: transparent; }
+body.plain.qpage.locked .news input { color: #fff; caret-color: #fff; background: transparent; }
+body.plain.qpage.locked .news input::placeholder { color: rgba(17, 17, 17, 0.5); }
+body.plain.qpage.locked .bar a:hover, body.plain.qpage.locked a:hover { color: #fff; }
+body.plain.qpage.locked .bar nav, body.plain.qpage.locked .bar .who { background: transparent; }
+
+
+/* ---------- About v12 (2026-10-09) ----------
+   The vortex-street photograph framed in white on the left; "Cecily Lowe" on one line across it into
+   the right column, like the wordmark over the picture on architecture.yale.edu; the bio small below;
+   a full-width black Newsletter bar (pink on hover) that slides up the sign-up with a pink top line. */
+body.plain.about2 { display: flex; flex-direction: column; min-height: 100vh; min-height: 100svh; --frame: clamp(16px, 2.2vw, 36px); }
+body.plain.about2 main.me {
+  position: relative; flex: 1; max-width: none; margin: 0;
+  padding: calc(3.6rem + env(safe-area-inset-top, 0px)) 0 0;
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: start;
+}
+.about2 .me .pic { padding: var(--frame); }
+.about2 .me .pic img { display: block; width: 100%; aspect-ratio: 1600 / 1569; object-fit: cover;
+  max-height: calc(100svh - 3.6rem - 2 * var(--frame) - clamp(30px, 3.6vw, 64px) * 1.8 - var(--frame) - 14px); }
+.about2 .me .name {
+  position: absolute; z-index: 1; left: calc(var(--frame) + 12%); top: calc(3.6rem + var(--frame) * 2.2);
+  margin: 0; font: inherit; font-weight: 400; color: #111; white-space: nowrap;
+  font-size: clamp(56px, 12.4vw, 230px); line-height: 0.86; letter-spacing: -0.045em;
+}
+.about2 .me .words { grid-column: 2; align-self: end; padding: 0 1.5rem var(--frame); max-width: 34rem;
+  display: grid; gap: 0.9rem; line-height: 1.35; color: #111; }
+.about2 .me .words p { margin: 0; }
+.about2 .me .words .quiet { color: #8c8c8c; }
+.about2 .me .words a { color: inherit; text-decoration: none; }
+.about2 .me .words a:hover { color: var(--pink); }
+.about2 .newsbtn {
+  display: flex; justify-content: space-between; align-items: center; margin: 0 var(--frame) calc(var(--frame) + 6px);
+  padding: 0.35em 0.45em 0.42em 0.5em; background: #000; color: #fff; text-decoration: none;
+  font-size: clamp(30px, 3.6vw, 64px); letter-spacing: -0.02em; line-height: 1; transition: background-color 120ms;
+}
+.about2 .newsbtn svg { width: 0.32em; height: 0.52em; flex: none; }
+.about2 .newsbtn:hover, .about2 .newsbtn:focus-visible { background: var(--pink); color: #fff; opacity: 1; outline: none; }
+.nlpanel {
+  position: fixed; inset: 0; z-index: 50; background: #fff; border-top: 6px solid var(--pink);
+  transform: translateY(100%); transition: transform 420ms cubic-bezier(0.22, 0.7, 0.2, 1);
+  padding: 1rem 1.5rem calc(2.2rem + env(safe-area-inset-bottom, 0px)); box-sizing: border-box;
+  display: grid; grid-template-rows: auto 1fr auto; justify-items: center; color: #111;
+}
+.nlpanel.up { transform: translateY(0); }
+.nlpanel[hidden] { display: grid; visibility: hidden; }
+.nlpanel .close { justify-self: start; font: inherit; color: #111; background: #fff; border: 1px solid #111; padding: 3px 12px; margin: 0;
+  cursor: pointer; line-height: 1.2; border-radius: 0; }
+.nlpanel .close:hover { color: var(--pink); border-color: var(--pink); }
+.nlpanel .close:focus { outline: none; }
+.nlpanel .art { align-self: center; width: 150px; }
+.nlpanel .art img { display: block; width: 100%; height: auto; }
+.nlpanel .signup { width: min(23rem, 100%); position: relative; text-align: center; }
+.nlpanel .signup .note { position: absolute; left: 0; right: 0; bottom: calc(100% + 0.3rem); margin: 0; }
+.nlpanel .signup .done[hidden], .nlpanel .news.bare[hidden] { display: none; }
+@media (max-width: 720px) {
+  body.plain.about2 main.me { grid-template-columns: minmax(0, 1fr); padding-top: calc(3.2rem + env(safe-area-inset-top, 0px)); }
+  .about2 .me .pic { padding: 16px 16px 0; }
+  .about2 .me .pic img { max-height: none; }
+  .about2 .me .name { position: relative; left: auto; top: auto; margin: -0.5em 16px 0; font-size: 15.5vw; }
+  .about2 .me .words { grid-column: 1; padding: 1.2rem 16px 1.6rem; }
+  .about2 .newsbtn { margin: 0 16px calc(22px + 6px); font-size: 30px; }
+  .nlpanel { padding: 0.8rem 1rem calc(2rem + env(safe-area-inset-bottom, 0px)); }
+}
+@media (prefers-reduced-motion: reduce) { .nlpanel, .about2 .newsbtn { transition: none; } }
+
+/* About v12.1 (2026-10-09): the name centred across the screen; in the Newsletter panel the Email box
+   sits at the left edge, under Close, instead of centred */
+.about2 .me .name { left: 50%; transform: translateX(-50%); }
+.nlpanel .signup { justify-self: start; text-align: left; }
+.nlpanel .signup .note { text-align: left; }
+@media (max-width: 720px) {
+  .about2 .me .name { left: auto; transform: none; text-align: center; margin-inline: 0; }
+}
+
+/* About v12.2 (2026-10-09): the name dead centre on the screen, at the size of "Yale Architecture" on
+   architecture.yale.edu (96px, line-height 0.95, letter-spacing 1px; 55px on phones) */
+.about2 .me .name {
+  top: 50vh; top: 50svh; left: 50%; transform: translate(-50%, -50%);
+  font-size: 96px; line-height: 0.95; letter-spacing: 1px; text-align: center;
+}
+@media (max-width: 720px) {
+  .about2 .me .name { top: auto; left: auto; transform: none; font-size: 55px; letter-spacing: 0.2px; margin: -0.5em 0 0; }
+}
+
+/* Lowe Sans (2026-10-09): the site's typeface is now Geist (OFL) reproportioned to ABC Diatype at weight 500,
+   the face on davidricogomez.com (tools/font/build_sans.py). Lowe Grotesk stays in assets/fonts/ to go back. */
+@font-face {
+  font-family: "Lowe Sans"; src: url("assets/fonts/LoweSans-Regular.woff2") format("woff2");
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+:root { --font: "Lowe Sans", "Helvetica Neue", Helvetica, Arial, sans-serif; --mono: var(--font); }
+
+/* About v12.3 (2026-10-09): the name a little above the middle of the screen */
+.about2 .me .name { top: 44vh; top: 44svh; }
+@media (max-width: 720px) { .about2 .me .name { top: auto; } }
+
+/* About v12.4 (2026-10-09): the picture spot rotates through black-and-white squares (assets/about/) */
+.about2 .me .pic img { aspect-ratio: 1 / 1; }
+
+/* About v12.5 (2026-10-09): the picture a little smaller, a square 60% of the screen's height, centred on
+   the name's line (as YSoA centres its picture on "Yale Architecture"), its right edge on the left side of
+   the "l" in "Cecily" (--lx, measured by the page script) */
+@media (min-width: 721px) {
+  .about2 .me .pic.rot {
+    --side: min(60svh, calc(var(--lx, 50vw) - var(--frame)));
+    position: absolute; padding: 0; width: var(--side);
+    left: calc(var(--lx, 50vw) - var(--side)); top: calc(44svh - var(--side) / 2);
+  }
+  .about2 .me .pic.rot img { max-height: none; }
+}
+
+/* pink past the top and bottom again: Chrome only bounces a page that can scroll, so every page is 1px taller
+   than the screen (too little to see); the pink (html background) shows in the bounce */
+html:has(body.plain) body.plain { min-height: calc(100vh + 1px); min-height: calc(100svh + 1px); }
+
+/* Newsletter panel v3 (2026-10-09): the email box centred at the bottom again; "Email" stays at the left of its line */
+.nlpanel .signup { justify-self: center; }
+.nlpanel .news.bare input { text-align: left; }
+
+/* Home (2026-10-09): the bio and email, small, in the bottom-right corner */
+.plain .homebio { position: fixed; right: 1.5rem; bottom: 1.25rem; z-index: 2; max-width: 21rem; margin: 0;
+  font-size: 14px; line-height: 1.35; color: #111; display: grid; gap: 0.5rem; }
+.plain .homebio p { margin: 0; }
+.plain .homebio a { color: inherit; text-decoration: none; }
+.plain .homebio a:hover { color: var(--pink); opacity: 1; }
+@media (max-width: 720px) {
+  .plain .homebio { position: static; max-width: none; padding: 1.25rem 1rem 1.75rem; }
+}
+
+/* About: the Newsletter bar centred, its left end on the picture's left edge (--picl, set by the page script) */
+@media (min-width: 721px) {
+  .about2 .newsbtn { margin-left: var(--picl, var(--frame)); margin-right: var(--picl, var(--frame)); }
+}
+
+/* Home (2026-10-09): the bio starts on the right side of the left photo (the middle of the screen) */
+@media (min-width: 721px) {
+  .plain .homebio { left: 50%; right: auto; padding-left: 0; }
+}
+
+/* About without the bio (2026-10-09): on phones the name stays tucked under the picture */
+@media (max-width: 720px) { body.plain.about2 main.me { align-content: start; } }
+
+/* About v13 (2026-10-09): the picture stays where it was (its right edge 56px left of the middle, where the
+   centred name's "l" used to start); the name moves to the right of the picture, top-aligned with it, and the
+   bio and email sit below the name. The bio is off the home page again. */
+.plain .homebio { display: none; }
+@media (min-width: 721px) {
+  body.plain.about2 main.me { --side: min(60svh, calc(50% - 56px - var(--frame))); --lx: calc(50% - 56px); }
+  .about2 .me .pic.rot { --side: min(60svh, calc(50vw - 56px - var(--frame))); }
+  .about2 .me .side {
+    position: absolute; left: calc(50% - 56px + var(--frame)); right: 1.5rem;
+    top: calc(44svh - min(60svh, calc(50vw - 56px - var(--frame))) / 2);
+  }
+  .about2 .me .side .name { position: static; left: auto; top: auto; transform: none; margin: -0.13em 0 0; text-align: left; }
+  .about2 .me .side .words { grid-column: auto; padding: 0; margin-top: 2rem; max-width: 30rem; }
+}
+@media (max-width: 720px) {
+  .about2 .me .side .name { margin: 1.1rem 16px 0; text-align: left; }
+  .about2 .me .side .words { padding: 1rem 16px 1.6rem; }
+}
+
+/* About v13.1: the name, bio and email sit toward the bottom of the right-hand side, the column ending level
+   with the picture's bottom edge; the bio and email at the home page's small size (14px) */
+@media (min-width: 721px) {
+  .about2 .me .side {
+    height: min(60svh, calc(50vw - 56px - var(--frame)));
+    display: flex; flex-direction: column; justify-content: flex-end;
+  }
+  .about2 .me .side .name { margin: 0; }
+  .about2 .me .side .words { margin-top: 1.4rem; max-width: 21rem; }
+}
+.about2 .me .side .words { font-size: 14px; line-height: 1.35; gap: 0.5rem; }
+
+/* About v13.2: one size for the picture and the text column, so the text ends level with the picture */
+@media (min-width: 721px) {
+  body.plain.about2 main.me { --pside: min(60svh, calc(50vw - 56px - var(--frame))); }
+  .about2 .me .pic.rot { --side: var(--pside); top: calc(44svh - var(--pside) / 2); }
+  .about2 .me .side { top: calc(44svh - var(--pside) / 2); height: var(--pside); margin: 0; }
+  .about2 .me .side .words { align-self: flex-start; }
+}
+
+/* About v14 (2026-10-09): no big name; the bio alone at the bottom of the right-hand side, wider and a little
+   bigger (16px); one random picture per visit */
+.about2 .me .side .words { font-size: 16px; line-height: 1.4; gap: 0.6rem; }
+@media (min-width: 721px) { .about2 .me .side .words { margin-top: 0; max-width: 36rem; } }
+@media (max-width: 720px) { .about2 .me .side .words { padding-top: 1.4rem; } }
+
+/* About v14.1 (2026-10-09): on laptops the bio is 24px, the size of the Publications and News lists */
+@media (min-width: 721px) {
+  .about2 .me .side .words { font-size: 24px; line-height: 1.3; gap: 0.7rem; max-width: 44rem; }
+}
+
+/* About v14.2 (2026-10-09): less crunched. The picture moves 32px left (right edge 88px left of the middle),
+   the text 32px right (starts 8px right of the middle), so they are 96px apart; the Newsletter bar follows the
+   picture's left edge, so it is wider too. */
+@media (min-width: 721px) {
+  body.plain.about2 main.me { --pside: min(60svh, calc(50vw - 88px - var(--frame))); --lx: calc(50% - 88px); }
+  .about2 .me .pic.rot { --side: var(--pside); left: calc(50% - 88px - var(--pside)); }
+  .about2 .me .side { left: calc(50% + 8px); }
+}
+@media (min-width: 721px) { .about2 .me .side { right: var(--picl, 1.5rem); } }   /* text ends where the Newsletter bar ends */
