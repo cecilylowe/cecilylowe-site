@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Newsletter, Small Jupiter</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;1,400&display=swap">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/icon-32.png?v=jupiter">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/icon-192.png?v=jupiter">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=jupiter">
+<style>
+  /* VARIANT: Jupiter very small, alone in the middle of the white page, still turning */
+  body.plain.nl .planet:has(+ .signup) img { width: 7.5rem; max-width: 7.5rem; max-height: 7.5rem; }
+</style>
+</head>
+<body class="plain nl">
+
+<header class="bar">
+  <a class="who" href="#" data-edit="site.name">Cecily Lowe</a>
+  <nav>
+    <a href="#">About</a>
+    <a href="#">Work</a>
+    <a href="#">News</a>
+    <a href="#">Thoughts</a>
+    <a href="#" aria-current="page">Newsletter</a>
+    <a href="#">?</a>
+  </nav>
+</header>
+
+<!-- Newsletter: Jupiter front and centre, the sign-up box underneath -->
+<section class="planet">
+  <img src="assets/jupiter.webp" srcset="assets/jupiter-800.webp 800w, assets/jupiter.webp 1600w" sizes="(max-width: 720px) 90vw, 80vh" alt="Jupiter, seen by NASA's Juno spacecraft: swirling blue, white and rust-coloured cloud bands.">
+</section>
+
+<main class="page signup">
+  <!-- Sign-ups go to Cecily's own Google Apps Script (signups/Code.js), which adds them to the Google
+       Sheet "cecilylowe.com newsletter" and emails her from newsletter@cecilylowe.com.
+       The box is just a box: type an email and press Enter. On success the box goes and "You're in."
+       takes its place; nothing is remembered, so reloading the page brings the empty box back. -->
+  <form class="news bare" name="newsletter" method="POST" novalidate autocomplete="off">
+    <p class="sr"><label>Leave this empty <input name="company" tabindex="-1" autocomplete="off"></label></p>
+    <input id="email" name="email" type="email" placeholder="Email" aria-label="Email address, then press Enter" autocomplete="off" required>
+    <button type="submit" class="sr" tabindex="-1">Sign up</button>
+  </form>
+  <p class="done" hidden>You&rsquo;re in.</p>
+  <p class="note" aria-live="polite"></p>
+</main>
+
+<script>
+  var SIGNUPS = ""; // preview: nothing is sent
+  (function () {
+    var form = document.querySelector("form.news"), note = document.querySelector(".signup .note");
+    var done = document.querySelector(".signup .done");
+    form.reset();                                        // a fresh, empty box on every load
+    var busy = false;
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      if (busy) return;
+      var email = form.email.value.trim();
+      if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { note.textContent = "Please enter an email address."; return; }
+      busy = true; note.textContent = "";
+      (SIGNUPS ? fetch : function () { return Promise.resolve(); })(SIGNUPS, {
+        method: "POST",
+        mode: "no-cors",
+        body: new URLSearchParams(new FormData(form))
+      }).then(function () {                         // no-cors: the reply is opaque; a network error throws
+        form.hidden = true;
+        done.hidden = false;
+      }).catch(function () {
+        note.textContent = "Something went wrong. Please try again.";
+      }).then(function () { busy = false; });
+    });
+    window.addEventListener("pageshow", function (e) {  // coming back with the browser's Back button
+      if (e.persisted) { form.reset(); form.hidden = false; done.hidden = true; note.textContent = ""; }
+    });
+  })();
+</script>
+
+</body>
+</html>
