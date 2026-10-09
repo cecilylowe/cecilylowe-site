@@ -27,10 +27,15 @@ for f in pathlib.Path(sys.argv[1]).glob("*.html"):
     # freshness check: GitHub lets browsers reuse a saved page for 10 minutes, and Back shows a page
     # from memory. Every page asks for /version.txt (never cached) and, if a newer publish exists,
     # reloads itself once so you always see the current version.
-    fresh = ('<script>(function(){var V="%s";function check(){fetch("/version.txt?"+Date.now(),{cache:"no-store"})'
-             '.then(function(r){return r.ok?r.text():""}).then(function(v){v=(v||"").trim();if(!v||v===V)return;'
-             'var k="cl-reload-"+v;try{if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,"1")}catch(e){}'
-             'location.reload()}).catch(function(){})}check();addEventListener("pageshow",function(e){if(e.persisted)check()})})();</script>') % sys.argv[2]
+    fresh = ('<script>(function(){var V="%s";'
+             # arriving with ?fresh=… : tidy the address bar back to the clean URL
+             'try{var u=new URL(location.href);if(u.searchParams.has("fresh")){u.searchParams.delete("fresh");history.replaceState(null,"",u.pathname+(u.search||"")+u.hash)}}catch(e){}'
+             'function check(){fetch("/version.txt?"+Date.now(),{cache:"no-store"}).then(function(r){return r.ok?r.text():""})'
+             '.then(function(v){v=(v||"").trim();if(!v||v===V)return;var k="cl-fresh-"+v+location.pathname;'
+             'try{if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,"1")}catch(e){}'
+             # a brand-new address the browser has never cached, so the newest page always arrives
+             'location.replace(location.pathname+"?fresh="+v+location.hash)}).catch(function(){})}'
+             'check();addEventListener("pageshow",function(e){if(e.persisted)check()})})();</script>') % sys.argv[2]
     s = s.replace("</head>", fresh + "\n</head>", 1)
     f.write_text(s)
 PY
