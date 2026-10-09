@@ -1432,3 +1432,14 @@ body.plain { background: #fff; min-height: 100vh; min-height: 100svh; }
   body.plain.about-dark .bar nav { background: none; padding: 0; margin-top: 0; }
   .plain .about.on .words { padding-left: 1rem; }
 }
+
+/* ---------- type v9 (2026-10-09): Lowe Grotesk, the site's own face ----------
+   Archivo (OFL) reproportioned to the measured lettering of architecture.yale.edu: lower x-height,
+   Gerstner's widths and spacing, same stem weight. Built by tools/font/build.py. Spacing as on the YSoA
+   site: 24px with 0.5px tracking. */
+@font-face {
+  font-family: "Lowe Grotesk"; src: url("assets/fonts/LoweGrotesk-Regular.woff2") format("woff2");
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+:root { --font: "Lowe Grotesk", "Helvetica Neue", Helvetica, Arial, sans-serif; --mono: var(--font); }
+body.plain { letter-spacing: 0.02em; }

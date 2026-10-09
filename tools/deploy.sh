@@ -22,8 +22,9 @@ for f in pathlib.Path(sys.argv[1]).glob("*.html"):
     s = re.sub(r'href="index\.html(#[^"]*)?"', lambda m: f'href="/{m.group(1) or ""}"', s)
     s = re.sub(r'href="([a-z0-9-]+)\.html(#[^"]*)?"', lambda m: f'href="/{m.group(1)}{m.group(2) or ""}"', s)
     # a version stamp on the stylesheet and pictures, so browsers fetch the new ones at once
-    # instead of mixing in copies they saved from an earlier publish
-    s = re.sub(r'(href|src)="(style\.css|assets/[^"?]+)"', lambda m: f'{m.group(1)}="{m.group(2)}?v={sys.argv[2]}"', s)
+    # instead of mixing in copies they saved from an earlier publish (not the font: its preload must match
+    # the stylesheet's address exactly, or the browser downloads it twice)
+    s = re.sub(r'(href|src)="(style\.css|assets/(?!fonts/)[^"?]+)"', lambda m: f'{m.group(1)}="{m.group(2)}?v={sys.argv[2]}"', s)
     # freshness check: GitHub lets browsers reuse a saved page for 10 minutes, and Back shows a page
     # from memory. Every page asks for /version.txt (never cached) and, if a newer publish exists,
     # reloads itself once so you always see the current version.
