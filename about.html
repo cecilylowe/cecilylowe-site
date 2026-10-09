@@ -131,6 +131,8 @@
       var at = t.data.indexOf("l"); r.setStart(t, at); r.setEnd(t, at + 1);
       var x = r.getBoundingClientRect().left + 0.069 * parseFloat(getComputedStyle(name).fontSize) - me.getBoundingClientRect().left;
       me.style.setProperty("--lx", Math.round(x) + "px");
+      var pic = document.querySelector(".pic.rot");            // the Newsletter bar starts where the picture does
+      if (pic) document.documentElement.style.setProperty("--picl", Math.round(pic.getBoundingClientRect().left) + "px");
     }
     addEventListener("resize", line); if (document.fonts) document.fonts.ready.then(line); line();
   })();
