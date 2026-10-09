@@ -16,7 +16,7 @@ rm -f .deploy/assets/cover.jpg            # not used by the current pages
 # (GitHub serves /about from about.html.) The source pages keep .html so local previews still work.
 STAMP=$(date +%s)
 python3 - .deploy "$STAMP" <<'PY'
-import re, sys, pathlib
+import re, sys, pathlib, json
 for f in pathlib.Path(sys.argv[1]).glob("*.html"):
     s = f.read_text()
     s = re.sub(r'href="index\.html(#[^"]*)?"', lambda m: f'href="/{m.group(1) or ""}"', s)
@@ -38,7 +38,14 @@ for f in pathlib.Path(sys.argv[1]).glob("*.html"):
              # overwrite the browser's saved copy of this very address, then reload it, so Back/Forward
              # later find the new page under the same clean URL (no ?fresh address left in history)
              'fetch(location.pathname,{cache:"reload"}).catch(function(){}).then(function(){location.reload()})}).catch(function(){})}'
-             'check();addEventListener("pageshow",function(e){if(e.persisted)check()})})();</script>') % sys.argv[2]
+             # when this page is current, overwrite the browser's saved copies of every other page once
+             # per version, so a click never opens an old copy saved before this publish
+             'function warm(){var k="cl-warm-"+V;try{if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,"1")}catch(e){}'
+             'fetch("/version.txt?"+Date.now(),{cache:"no-store"}).then(function(r){return r.ok?r.text():""}).then(function(v){'
+             'if((v||"").trim()!==V)return;PAGES.forEach(function(p){if(p!==location.pathname)fetch(p,{cache:"reload"}).catch(function(){})})}).catch(function(){})}'
+             'check();addEventListener("load",function(){setTimeout(warm,300)});addEventListener("pageshow",function(e){if(e.persisted)check()})})();</script>') % sys.argv[2]
+    pages = sorted("/" if g.stem == "index" else "/" + g.stem for g in pathlib.Path(sys.argv[1]).glob("*.html"))
+    fresh = fresh.replace("PAGES", json.dumps(pages), 1)
     s = s.replace("</head>", fresh + "\n</head>", 1)
     f.write_text(s)
 PY

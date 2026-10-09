@@ -56,13 +56,13 @@
   })();
 </script>
 <script>
-  // the Moon ends exactly where the "About" link begins, and the text column starts on that line
+  // the Moon ends a little (16px) before the "About" link; the text column starts on the About line
   (function () {
     var a = document.querySelector('.bar nav a[href="about.html"]'), pic = document.querySelector(".about.on .pic.pair.single");
     if (!a || !pic) return;
     function line() {
       if (innerWidth <= 720) { document.documentElement.style.removeProperty("--about-x"); return; }
-      document.documentElement.style.setProperty("--about-x", Math.round(a.getBoundingClientRect().left) + "px");
+      document.documentElement.style.setProperty("--about-x", Math.round(a.getBoundingClientRect().left - 16) + "px");
     }
     addEventListener("resize", line); if (document.fonts) document.fonts.ready.then(line); line();
   })();
