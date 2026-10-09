@@ -1,0 +1,181 @@
+<title>Cecily Lowe Index</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&display=swap">
+<style>
+  /* Layout: after davidricogomez.com/work. A three-point header (Work · name · About) in pink;
+     an index of bold black titles, each with a corner-triangle marker; each title opens a project
+     view: pictures left, a pink-keyed fact list and the text right, arrows at the screen edges.
+     Deliberately single-theme (white paper, black ink, one pink), like the real site. */
+  :root {
+    --paper: #ffffff;
+    --ink: #111111;
+    --pink: #e8338a;
+    --quiet: rgba(17, 17, 17, 0.45);
+    --font: "Archivo", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --size: clamp(17px, 1.46vw, 24px);
+    --gutter: clamp(16px, 1.5rem, 24px);
+    color-scheme: light;
+  }
+  html, body { height: 100%; }
+  body { background: var(--paper); color: var(--ink); font: 400 var(--size) / 1.25 var(--font); letter-spacing: -0.01em; padding-inline: var(--gutter); }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--pink); outline-offset: 3px; }
+
+  /* header: three points spread across, all pink */
+  header { display: grid; grid-template-columns: 1fr auto 1fr; align-items: baseline; padding-block: 1rem 0; color: var(--pink); font-weight: 500; }
+  header .w { justify-self: start; padding-left: 2.5rem; }
+  header .a { justify-self: end; padding-right: 2.5rem; }
+  header a:hover { color: var(--ink); }
+
+  /* the corner-triangle marker */
+  .tri { display: inline-block; width: 0.7em; height: 0.7em; margin-right: 0.15em; background: currentColor; clip-path: polygon(0 0, 100% 0, 0 100%); vertical-align: 0.05em; }
+
+  /* index */
+  #index { padding-block: 2.6rem 3rem; }
+  .group + .group { margin-top: 2.2rem; }
+  .group h2 { margin: 0 0 0.9rem; font: inherit; font-weight: 500; color: var(--ink); }
+  .group ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.62rem; }
+  .group li button { font-weight: 600; text-align: left; transition: color 120ms; }
+  .group li button:hover { color: var(--pink); }
+  .group li .yr { font-weight: 400; color: var(--quiet); margin-left: 0.4em; }
+
+  /* project view */
+  #project { padding-block: 2.6rem 3rem; }
+  .proj { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 3rem; align-items: start; padding-inline: 2.5rem; }
+  .pics { display: grid; gap: 2rem; }
+  .pics figure { margin: 0; }
+  .pics img { display: block; width: 100%; height: auto; }
+  .pics figcaption { margin-top: 0.5rem; font-size: 0.72em; color: var(--quiet); letter-spacing: 0.01em; }
+  .facts h1 { margin: 0 0 1.2rem; font: inherit; font-weight: 600; text-wrap: balance; }
+  .facts h1 .yr { color: var(--pink); }
+  .facts dl { margin: 0; display: grid; gap: 0.15rem; font-weight: 600; }
+  .facts dl div { display: block; }
+  .facts dt { display: inline; }
+  .facts dd { display: inline; margin: 0; color: var(--pink); }
+  .facts .body { margin: 1.4rem 0 0; font-weight: 600; max-width: 30em; }
+  .facts .link { display: inline-block; margin-top: 1.4rem; color: var(--pink); font-weight: 600; }
+  .facts .link:hover { color: var(--ink); }
+  .arrow { position: fixed; top: 50%; transform: translateY(-50%); color: var(--pink); font-size: 1.5em; padding: 0.5rem; }
+  .arrow.prev { left: calc(var(--gutter) - 0.5rem); }
+  .arrow.next { right: calc(var(--gutter) - 0.5rem); }
+  .arrow:hover { color: var(--ink); }
+
+  /* about */
+  #about { padding-block: 2.6rem 3rem; max-width: 34em; font-weight: 600; }
+  #about p { margin: 0 0 1.2rem; }
+  #about .k { color: var(--pink); }
+
+  @media (max-width: 760px) {
+    header .w { padding-left: 0; } header .a { padding-right: 0; }
+    .proj { grid-template-columns: minmax(0, 1fr); gap: 1.8rem; padding-inline: 0; }
+    .facts { order: -1; }
+    .arrow { position: static; transform: none; display: inline-block; margin-top: 1.5rem; }
+    .arrows-row { display: flex; justify-content: space-between; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<header>
+  <a class="w" href="#index" data-go="index">Work</a>
+  <a href="#index" data-go="index">Cecily Lowe</a>
+  <a class="a" href="#about" data-go="about">About</a>
+</header>
+
+<main>
+  <section id="index">
+    <div class="group">
+      <h2>Papers</h2>
+      <ul data-kind="paper"></ul>
+    </div>
+    <div class="group">
+      <h2>News</h2>
+      <ul data-kind="news"></ul>
+    </div>
+  </section>
+
+  <section id="project" hidden></section>
+
+  <section id="about" hidden>
+    <p>Cecily Lowe is a Ph.D. student at Yale University building novel levitated optomechanical sensors to study the interaction between dark matter and ordinary matter.</p>
+    <p><span class="tri"></span>Email: <span class="k">cecily.lowe@yale.edu</span><br><span class="tri"></span>CV: <span class="k">on request</span></p>
+  </section>
+</main>
+
+<script>
+  // newest first within each group; ids double as #anchors
+  var P = [
+    { id: "prison-course", kind: "news", year: "2026", title: "Developing Physics Course at Women’s Federal Prison",
+      facts: [["Type", "Teaching"], ["Location", "FCI Danbury, Connecticut"], ["Through", "Yale Prison Education Initiative"]],
+      body: "Designed and taught a new Physics of Light course for women at the Danbury Federal Correctional Institution, through the Yale Prison Education Initiative.",
+      link: ["Yale Wright Laboratory", "https://wlab.yale.edu/posts/2026-08-11-lowe-creates-the-physics-of-light-course-for-women-in-prison"],
+      pics: [["assets/research/news-ypei.jpg", "outside FCI Danbury"]] },
+    { id: "gas-collisions", kind: "paper", year: "2026", title: "Optomechanical detection of individual gas collisions",
+      facts: [["Type", "Paper"], ["Venue", "arXiv:2604.18371"], ["Authors", "Y.-H. Tseng, C. A. Hardy, T. W. Penny, C. Lowe, J. Baeza-Rubio, D. Carney, D. C. Moore"]],
+      body: "Single krypton, xenon and SF₆ molecules caught one at a time by the kick each gives an optically levitated nanoparticle. The measured rates match theory, and the spectrum reads out the particle’s surface properties.",
+      link: ["Read on arXiv", "https://arxiv.org/abs/2604.18371"],
+      pics: [["assets/research/paper-gas-collisions.png", "impulse event rates for Kr, Xe and SF₆"]] },
+    { id: "marshall-plan", kind: "news", year: "2025", title: "Marshall Plan Foundation Fellowship",
+      facts: [["Type", "Fellowship"], ["Location", "TU Wien, Vienna"], ["Lab", "Uroš Delić"]],
+      body: "Awarded the Marshall Plan Foundation Fellowship and worked with Uroš Delić’s lab for four months at TU Wien. Here she developed a nanoparticle loading technique for the science goal of coupling a neutral Cs atom with a silica nanoparticle for the first time to create non-Gaussian states of nanoparticle motion.",
+      link: ["Yale Wright Laboratory", "https://wlab.yale.edu/posts/2025-10-22-lowe-awarded-marshall-plan-fellowship"],
+      pics: [["assets/research/news-marshall-plan.jpg", "at the optical table"]] },
+    { id: "nsf-grfp", kind: "news", year: "2025", title: "NSF Graduate Research Fellowship",
+      facts: [["Type", "Award"], ["From", "National Science Foundation"]],
+      body: "Awarded the 2025 National Science Foundation Graduate Research Fellowship to develop arrays of levitated sensors for detecting dark matter directly.",
+      link: ["Yale Wright Laboratory", "https://wlab.yale.edu/posts/2025-06-13-wright-lab-students-awarded-2025-nsf-graduate-research-fellowships"],
+      pics: [["assets/research/nsf-flag.jpg", "NSF flag"]] },
+    { id: "microsphere-arrays", kind: "paper", year: "2025", title: "Optical levitation of arrays of microspheres",
+      facts: [["Type", "Paper, Editors’ Suggestion"], ["Venue", "Physical Review A 111, 033514"], ["Authors", "B. Siegel, G. Afek, C. Lowe, J. Wang, Y.-H. Tseng, T. W. Penny, D. C. Moore"]],
+      body: "Defect-free two-dimensional arrays of more than 25 silica microspheres, trapped in vacuum with each sphere’s optical trap controlled on its own and every sphere tracked at once.",
+      link: ["Physical Review A", "https://doi.org/10.1103/PhysRevA.111.033514"],
+      pics: [["assets/research/paper-arrays.png", "trapped arrays, sorted into lines, grids and a Y"]] }
+  ];
+
+  var views = { index: document.getElementById("index"), project: document.getElementById("project"), about: document.getElementById("about") };
+  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+
+  document.querySelectorAll("#index ul").forEach(function (ul) {
+    P.filter(function (p) { return p.kind === ul.dataset.kind; }).forEach(function (p) {
+      var li = el("li"), b = el("button");
+      b.appendChild(el("span", "tri")); b.appendChild(document.createTextNode(p.title)); b.appendChild(el("span", "yr", p.year));
+      b.onclick = function () { location.hash = p.id; };
+      li.appendChild(b); ul.appendChild(li);
+    });
+  });
+
+  function showProject(i) {
+    var p = P[i], v = views.project; v.textContent = "";
+    var wrap = el("div", "proj"), pics = el("div", "pics"), facts = el("div", "facts");
+    p.pics.forEach(function (q) { var f = el("figure"), im = el("img"); im.src = q[0]; im.alt = q[1]; f.appendChild(im); f.appendChild(el("figcaption", null, q[1])); pics.appendChild(f); });
+    var h = el("h1"); h.appendChild(document.createTextNode(p.title + ", ")); h.appendChild(el("span", "yr", p.year)); facts.appendChild(h);
+    var dl = el("dl");
+    p.facts.forEach(function (f) { var d = el("div"), dt = el("dt"); dt.appendChild(el("span", "tri")); dt.appendChild(document.createTextNode(f[0] + ": ")); d.appendChild(dt); d.appendChild(el("dd", null, f[1])); dl.appendChild(d); });
+    facts.appendChild(dl); facts.appendChild(el("p", "body", p.body));
+    var a = el("a", "link"); a.href = p.link[1]; a.target = "_blank"; a.rel = "noopener"; a.appendChild(el("span", "tri")); a.appendChild(document.createTextNode(p.link[0] + " →")); facts.appendChild(a);
+    wrap.appendChild(pics); wrap.appendChild(facts); v.appendChild(wrap);
+    var row = el("div", "arrows-row");
+    var prev = el("a", "arrow prev", "←"), next = el("a", "arrow next", "→");
+    prev.href = "#" + P[(i - 1 + P.length) % P.length].id; prev.setAttribute("aria-label", "Previous");
+    next.href = "#" + P[(i + 1) % P.length].id; next.setAttribute("aria-label", "Next");
+    row.appendChild(prev); row.appendChild(next); v.appendChild(row);
+  }
+
+  function route() {
+    var h = (location.hash || "#index").slice(1), i = P.findIndex(function (p) { return p.id === h; });
+    views.index.hidden = !(h === "index" || (i < 0 && h !== "about"));
+    views.about.hidden = h !== "about";
+    views.project.hidden = i < 0;
+    if (i >= 0) showProject(i);
+    window.scrollTo(0, 0);
+  }
+  window.addEventListener("hashchange", route);
+  document.addEventListener("keydown", function (e) {
+    if (views.project.hidden) return;
+    if (e.key === "ArrowRight") document.querySelector(".arrow.next").click();
+    if (e.key === "ArrowLeft") document.querySelector(".arrow.prev").click();
+    if (e.key === "Escape") location.hash = "index";
+  });
+  route();
+</script>
