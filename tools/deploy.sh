@@ -24,8 +24,17 @@ for f in pathlib.Path(sys.argv[1]).glob("*.html"):
     # a version stamp on the stylesheet and pictures, so browsers fetch the new ones at once
     # instead of mixing in copies they saved from an earlier publish
     s = re.sub(r'(href|src)="(style\.css|assets/[^"?]+)"', lambda m: f'{m.group(1)}="{m.group(2)}?v={sys.argv[2]}"', s)
+    # freshness check: GitHub lets browsers reuse a saved page for 10 minutes, and Back shows a page
+    # from memory. Every page asks for /version.txt (never cached) and, if a newer publish exists,
+    # reloads itself once so you always see the current version.
+    fresh = ('<script>(function(){var V="%s";function check(){fetch("/version.txt?"+Date.now(),{cache:"no-store"})'
+             '.then(function(r){return r.ok?r.text():""}).then(function(v){v=(v||"").trim();if(!v||v===V)return;'
+             'var k="cl-reload-"+v;try{if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,"1")}catch(e){}'
+             'location.reload()}).catch(function(){})}check();addEventListener("pageshow",function(e){if(e.persisted)check()})})();</script>') % sys.argv[2]
+    s = s.replace("</head>", fresh + "\n</head>", 1)
     f.write_text(s)
 PY
+echo "$STAMP" > .deploy/version.txt
 echo "cecilylowe.com" > .deploy/CNAME     # the custom domain
 touch .deploy/.nojekyll                   # serve files exactly as they are
 cd .deploy
