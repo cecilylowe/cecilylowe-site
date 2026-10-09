@@ -9,7 +9,7 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 REPO=https://github.com/cecilylowe/cecilylowe-site.git
 rm -rf .deploy && mkdir .deploy
-cp ./*.html style.css favicon.ico .deploy/
+cp ./*.html style.css site.js favicon.ico .deploy/
 cp -R assets .deploy/assets
 rm -f .deploy/assets/cover.jpg            # not used by the current pages
 # clean addresses: links point at /about, /work … and / instead of about.html, index.html.
@@ -24,7 +24,7 @@ for f in pathlib.Path(sys.argv[1]).glob("*.html"):
     # a version stamp on the stylesheet and pictures, so browsers fetch the new ones at once
     # instead of mixing in copies they saved from an earlier publish (not the font: its preload must match
     # the stylesheet's address exactly, or the browser downloads it twice)
-    s = re.sub(r'(href|src)="(style\.css|assets/(?!fonts/)[^"?]+)"', lambda m: f'{m.group(1)}="{m.group(2)}?v={sys.argv[2]}"', s)
+    s = re.sub(r'(href|src)="(style\.css|site\.js|assets/(?!fonts/)[^"?]+)"', lambda m: f'{m.group(1)}="{m.group(2)}?v={sys.argv[2]}"', s)
     # freshness check: GitHub lets browsers reuse a saved page for 10 minutes, and Back shows a page
     # from memory. Every page asks for /version.txt (never cached) and, if a newer publish exists,
     # reloads itself once so you always see the current version.
