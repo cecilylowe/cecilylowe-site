@@ -380,7 +380,7 @@ dl.facts dd + dd { grid-column: 2; }
   background: none;
   border: 0;
   padding: 0;
-  cursor: pointer;
+  cursor: url("assets/cursor/hand.svg") 11 3, pointer;
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-decoration-color: var(--ink-3);
@@ -564,7 +564,7 @@ body.plain { font: 400 19px / 1.3 "Inter", "Helvetica Neue", Helvetica, Arial, s
 .plain .news input:focus { border-bottom-color: #111; }
 .plain .news input::placeholder { color: rgba(17, 17, 17, 0.4); }
 .plain .news button {
-  font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer;
+  font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: url("assets/cursor/hand.svg") 11 3, pointer;
   text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.2em;
 }
 .plain .news button:hover { opacity: 0.6; }
@@ -1055,7 +1055,7 @@ body.plain { font-size: 16.5px; }
 .plain .drawer { border-top: 1px solid #111; }
 .plain .drawer:last-of-type { border-bottom: 1px solid #111; }
 .plain .drawer summary {
-  list-style: none; cursor: pointer; display: flex; align-items: baseline; gap: 0.75rem;
+  list-style: none; cursor: url("assets/cursor/hand.svg") 11 3, pointer; display: flex; align-items: baseline; gap: 0.75rem;
   padding: 0.85rem 0; font-size: 1.55em; letter-spacing: -0.02em; font-weight: 500;
 }
 .plain .drawer summary::-webkit-details-marker { display: none; }
@@ -1464,7 +1464,7 @@ html.panel-open, html.panel-open body { overflow: hidden; }
 .listpanel[hidden] { display: block; visibility: hidden; }
 .listpanel .close {
   font: inherit; color: #111; background: #fff; border: 1px solid #111; padding: 3px 12px; margin: 0;
-  cursor: pointer; line-height: 1.2; border-radius: 0;
+  cursor: url("assets/cursor/hand.svg") 11 3, pointer; line-height: 1.2; border-radius: 0;
 }
 .listpanel .close:hover { color: var(--pink); border-color: var(--pink); }
 .listpanel h1 { font: inherit; font-weight: 400; font-size: clamp(44px, 5.4vw, 96px); line-height: 1; letter-spacing: -0.035em; margin: 2.2rem 0 2.4rem; }
@@ -1516,3 +1516,16 @@ html.panel-open, html.panel-open body { overflow: hidden; }
 @keyframes loadspin { to { transform: rotate(360deg); } }
 @media (max-width: 720px) { .loadcircle { width: 120px; height: 120px; margin: -60px 0 0 -60px; } }
 @media (prefers-reduced-motion: reduce) { .loadcircle { animation-duration: 3s; } }
+
+/* ? page (2026-10-09): totally pink. Ink stays near-black; what you type shows in white. */
+html:has(body.qpage), body.plain.qpage { background: var(--pink); }
+body.plain.qpage .news, body.plain.qpage .news:focus-within { background: transparent; }
+body.plain.qpage .news input { color: #fff; caret-color: #fff; background: transparent; }
+body.plain.qpage .news input::placeholder { color: rgba(17, 17, 17, 0.5); }
+body.plain.qpage .bar a:hover, body.plain.qpage a:hover { color: #fff; }
+body.plain.qpage .bar nav, body.plain.qpage .bar .who { background: transparent; }
+
+/* cursors (2026-10-09): arrow and pointing hand in the blue #b8c6e8, thin dark outline so they show on white */
+html, body { cursor: url("assets/cursor/arrow.svg") 3 2, auto; }
+a, button, summary, label, [role="button"], .sqgrid > *, input[type="submit"] { cursor: url("assets/cursor/hand.svg") 11 3, pointer; }
+input[type="email"], input[type="text"], input[type="password"], textarea { cursor: text; }
