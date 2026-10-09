@@ -1706,3 +1706,8 @@ html:has(body.plain) body.plain { min-height: calc(100vh + 1px); min-height: cal
 .about2 .me .side .words { font-size: 16px; line-height: 1.4; gap: 0.6rem; }
 @media (min-width: 721px) { .about2 .me .side .words { margin-top: 0; max-width: 36rem; } }
 @media (max-width: 720px) { .about2 .me .side .words { padding-top: 1.4rem; } }
+
+/* About v14.1 (2026-10-09): on laptops the bio is 24px, the size of the Publications and News lists */
+@media (min-width: 721px) {
+  .about2 .me .side .words { font-size: 24px; line-height: 1.3; gap: 0.7rem; max-width: 44rem; }
+}
