@@ -32,7 +32,14 @@
   <div class="pic rot">
     <img src="assets/about/01.jpg" alt="Satellite view of a von Kármán vortex street: dark spiralling eddies in a field of white cloud.">
   </div>
-  <h1 class="name">Cecily Lowe</h1>
+  <!-- to the right of the picture: the name, then the bio and email below it (2026-10-09) -->
+  <div class="side">
+    <h1 class="name">Cecily Lowe</h1>
+    <div class="words">
+      <p data-edit="about.bio">Cecily is a Ph.D. student at Yale University building levitated optomechanical sensors to study the interaction between dark matter and ordinary matter.</p>
+      <p data-edit="about.contact"><a href="mailto:cecily.lowe@yale.edu">cecily.lowe@yale.edu</a></p>
+    </div>
+  </div>
 </main>
 
 <a class="newsbtn" href="#newsletter">
@@ -117,18 +124,10 @@
     }, 2500);
   })();
 
-  // the picture's right edge sits on the left side of the "l" in "Cecily": measure where that letter's
-  // ink starts (its box plus the font's 0.069em side bearing) and hand it to the stylesheet as --lx
+  // the Newsletter bar starts where the picture does: hand the picture's left edge to the stylesheet as --picl
   (function () {
-    var name = document.querySelector(".me .name"), me = document.querySelector("main.me"); if (!name || !me) return;
-    function line() {
-      var t = name.firstChild, r = document.createRange(); if (!t || t.nodeType !== 3) return;
-      var at = t.data.indexOf("l"); r.setStart(t, at); r.setEnd(t, at + 1);
-      var x = r.getBoundingClientRect().left + 0.069 * parseFloat(getComputedStyle(name).fontSize) - me.getBoundingClientRect().left;
-      me.style.setProperty("--lx", Math.round(x) + "px");
-      var pic = document.querySelector(".pic.rot");            // the Newsletter bar starts where the picture does
-      if (pic) document.documentElement.style.setProperty("--picl", Math.round(pic.getBoundingClientRect().left) + "px");
-    }
+    var pic = document.querySelector(".pic.rot"); if (!pic) return;
+    function line() { document.documentElement.style.setProperty("--picl", Math.round(pic.getBoundingClientRect().left) + "px"); }
     addEventListener("resize", line); if (document.fonts) document.fonts.ready.then(line); line();
   })();
 
@@ -141,7 +140,7 @@
       document.documentElement.classList.add("panel-open");
       p.getBoundingClientRect();                      // start from below the screen
       requestAnimationFrame(function () { p.classList.add("up"); });
-      setTimeout(function () { document.getElementById("email").focus({ preventScroll: true }); }, 450);
+      setTimeout(function () { p.querySelector(".close").focus({ preventScroll: true }); }, 450);   // the email box waits for a click
     }
     function hide() {
       p.classList.remove("up");

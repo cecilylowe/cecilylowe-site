@@ -1661,3 +1661,42 @@ html:has(body.plain) body.plain { min-height: calc(100vh + 1px); min-height: cal
 
 /* About without the bio (2026-10-09): on phones the name stays tucked under the picture */
 @media (max-width: 720px) { body.plain.about2 main.me { align-content: start; } }
+
+/* About v13 (2026-10-09): the picture stays where it was (its right edge 56px left of the middle, where the
+   centred name's "l" used to start); the name moves to the right of the picture, top-aligned with it, and the
+   bio and email sit below the name. The bio is off the home page again. */
+.plain .homebio { display: none; }
+@media (min-width: 721px) {
+  body.plain.about2 main.me { --side: min(60svh, calc(50% - 56px - var(--frame))); --lx: calc(50% - 56px); }
+  .about2 .me .pic.rot { --side: min(60svh, calc(50vw - 56px - var(--frame))); }
+  .about2 .me .side {
+    position: absolute; left: calc(50% - 56px + var(--frame)); right: 1.5rem;
+    top: calc(44svh - min(60svh, calc(50vw - 56px - var(--frame))) / 2);
+  }
+  .about2 .me .side .name { position: static; left: auto; top: auto; transform: none; margin: -0.13em 0 0; text-align: left; }
+  .about2 .me .side .words { grid-column: auto; padding: 0; margin-top: 2rem; max-width: 30rem; }
+}
+@media (max-width: 720px) {
+  .about2 .me .side .name { margin: 1.1rem 16px 0; text-align: left; }
+  .about2 .me .side .words { padding: 1rem 16px 1.6rem; }
+}
+
+/* About v13.1: the name, bio and email sit toward the bottom of the right-hand side, the column ending level
+   with the picture's bottom edge; the bio and email at the home page's small size (14px) */
+@media (min-width: 721px) {
+  .about2 .me .side {
+    height: min(60svh, calc(50vw - 56px - var(--frame)));
+    display: flex; flex-direction: column; justify-content: flex-end;
+  }
+  .about2 .me .side .name { margin: 0; }
+  .about2 .me .side .words { margin-top: 1.4rem; max-width: 21rem; }
+}
+.about2 .me .side .words { font-size: 14px; line-height: 1.35; gap: 0.5rem; }
+
+/* About v13.2: one size for the picture and the text column, so the text ends level with the picture */
+@media (min-width: 721px) {
+  body.plain.about2 main.me { --pside: min(60svh, calc(50vw - 56px - var(--frame))); }
+  .about2 .me .pic.rot { --side: var(--pside); top: calc(44svh - var(--pside) / 2); }
+  .about2 .me .side { top: calc(44svh - var(--pside) / 2); height: var(--pside); margin: 0; }
+  .about2 .me .side .words { align-self: flex-start; }
+}
