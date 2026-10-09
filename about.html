@@ -11,59 +11,111 @@
 <link rel="icon" type="image/png" sizes="192x192" href="assets/icon-192.png?v=jupiter">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=jupiter">
 </head>
-<body class="plain about-dark">
+<body class="plain about2">
 
 <header class="bar">
   <a class="who" href="index.html" data-edit="site.name">Cecily Lowe</a>
   <nav>
     <a href="about.html" aria-current="page">About</a>
     <a href="work.html">Work</a>
-    <a href="thoughts.html">Thoughts</a>
     <a href="question.html">?</a>
   </nav>
 </header>
 
-<!-- about: a picture on the left, a column of text on the right. Placeholders until the real
-     image and words are chosen: put the image at assets/about.jpg and swap the .pic div for
-     <img class="pic" src="assets/about.jpg" alt="…">. -->
-<section class="about on" id="about">
-  <div class="pic pair single">
-    <figure class="capwrap">
-      <img src="assets/moon.jpg" alt="Close-up of the Moon's surface: grey highlands and dark maria, scattered with craters and bright ray streaks.">
-    </figure>
-  </div>
+<!-- About (2026-10-09): the vortex-street photograph framed in white on the left, the name running
+     across it into the right column (like the wordmark over the picture on architecture.yale.edu),
+     the bio small below, and a black Newsletter bar that slides up the sign-up (what was Thoughts).
+     The Moon version is kept in _unused/about-moon.html. -->
+<main class="me">
+  <div class="pic"><img src="assets/vortex-square.jpg" alt="Satellite view of a von Kármán vortex street: a chain of dark spiralling eddies trailing through a field of white cloud."></div>
+  <h1 class="name">Cecily Lowe</h1>
   <div class="words">
-    <h1 class="big">Cecily<br>Lowe</h1>
-    <p data-edit="about.bio">is a Ph.D. student at Yale University building levitated optomechanical sensors to study the interaction between dark matter and ordinary matter.</p>
+    <p data-edit="about.bio">Cecily is a Ph.D. student at Yale University building levitated optomechanical sensors to study the interaction between dark matter and ordinary matter.</p>
     <p data-edit="about.contact"><a href="mailto:cecily.lowe@yale.edu">cecily.lowe@yale.edu</a></p>
-    <p data-edit="about.cv">CV on request</p>
+    <p class="quiet" data-edit="about.cv">CV on request</p>
+  </div>
+</main>
+
+<a class="newsbtn" href="#newsletter">
+  <span>Newsletter</span>
+  <svg viewBox="0 0 12 20" aria-hidden="true"><polyline points="1.5,1.5 10,10 1.5,18.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square"/></svg>
+</a>
+
+<div class="pinkline" aria-hidden="true"></div>
+
+<!-- the sign-up, sliding up from the bottom with a pink line along its top like the Work lists.
+     Sign-ups go to Cecily's own Google Apps Script (signups/Code.js), which adds them to the Google
+     Sheet "cecilylowe.com newsletter" and emails her from newsletter@cecilylowe.com. -->
+<section class="nlpanel" id="newsletter" role="dialog" aria-modal="true" aria-label="Newsletter" hidden>
+  <button class="close" type="button">Close</button>
+  <div class="art"><img src="assets/calabi-yau.jpg" alt="A Calabi–Yau manifold etched in a glass cube." loading="lazy"></div>
+  <div class="signup">
+    <form class="news bare" name="newsletter" method="POST" novalidate autocomplete="off">
+      <p class="sr"><label>Leave this empty <input name="company" tabindex="-1" autocomplete="off"></label></p>
+      <input id="email" name="email" type="email" placeholder="Email" aria-label="Email address, then press Enter" autocomplete="off" required>
+      <button type="submit" class="sr" tabindex="-1">Sign up</button>
+    </form>
+    <p class="done" hidden>You&rsquo;re in.</p>
+    <p class="note" aria-live="polite"></p>
   </div>
 </section>
 
-
 <script>
-  // the large About text is set at the Work headings' size, and steps down only if the screen is too short for it
+  var SIGNUPS = "https://script.google.com/macros/s/AKfycby7s0fRSxo36XJLCaGEm_sIB0D9JA1B5tILmcGSNA5L21HjQaaic8HagWgCz2CincqKUg/exec";
   (function () {
-    var w = document.querySelector(".about.on .words"), p = w && w.querySelector(".big"); if (!p) return;
-    function fit() {
-      p.style.fontSize = "";
-      if (innerWidth <= 720) return;
-      var size = parseFloat(getComputedStyle(p).fontSize);
-      while (w.scrollHeight > w.clientHeight + 1 && size > 20) { size -= 1; p.style.fontSize = size + "px"; }
-    }
-    addEventListener("resize", fit); document.fonts ? document.fonts.ready.then(fit) : fit(); fit();
+    var form = document.querySelector("form.news"), note = document.querySelector(".nlpanel .note");
+    var done = document.querySelector(".nlpanel .done");
+    form.reset();                                        // a fresh, empty box on every load
+    var busy = false;
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      if (busy) return;
+      var email = form.email.value.trim();
+      if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { note.textContent = "Please enter an email address."; return; }
+      busy = true; note.textContent = "";
+      fetch(SIGNUPS, {
+        method: "POST",
+        mode: "no-cors",
+        body: new URLSearchParams(new FormData(form))
+      }).then(function () {                         // no-cors: the reply is opaque; a network error throws
+        form.hidden = true;
+        done.hidden = false;
+      }).catch(function () {
+        note.textContent = "Something went wrong. Please try again.";
+      }).then(function () { busy = false; });
+    });
+    window.addEventListener("pageshow", function (e) {  // coming back with the browser's Back button
+      if (e.persisted) { form.reset(); form.hidden = false; done.hidden = true; note.textContent = ""; }
+    });
   })();
-</script>
-<script>
-  // the Moon ends a little (16px) before the "About" link; the text column starts on the About line
+
+  // the panel: the address carries #newsletter, so Back closes it and old /thoughts links open it
   (function () {
-    var a = document.querySelector('.bar nav a[href="about.html"]'), pic = document.querySelector(".about.on .pic.pair.single");
-    if (!a || !pic) return;
-    function line() {
-      if (innerWidth <= 720) { document.documentElement.style.removeProperty("--about-x"); return; }
-      document.documentElement.style.setProperty("--about-x", Math.round(a.getBoundingClientRect().left - 16) + "px");
+    var p = document.getElementById("newsletter"), btn = document.querySelector(".newsbtn"), opened = false;
+    function show() {
+      if (!p.hidden && p.classList.contains("up")) return;
+      p.hidden = false;
+      document.documentElement.classList.add("panel-open");
+      p.getBoundingClientRect();                      // start from below the screen
+      requestAnimationFrame(function () { p.classList.add("up"); });
+      setTimeout(function () { document.getElementById("email").focus({ preventScroll: true }); }, 450);
     }
-    addEventListener("resize", line); if (document.fonts) document.fonts.ready.then(line); line();
+    function hide() {
+      p.classList.remove("up");
+      document.documentElement.classList.remove("panel-open");
+      setTimeout(function () { if (!p.classList.contains("up")) p.hidden = true; }, 450);
+    }
+    function route() { location.hash === "#newsletter" ? show() : (p.hidden || hide()); }
+    btn.addEventListener("click", function (e) { e.preventDefault(); opened = true; history.pushState(null, "", "#newsletter"); route(); });
+    function close() {
+      if (opened) { opened = false; history.back(); }
+      else { history.replaceState(null, "", location.pathname + location.search); route(); }
+    }
+    p.querySelector(".close").addEventListener("click", close);
+    addEventListener("keydown", function (e) { if (e.key === "Escape" && !p.hidden) close(); });
+    addEventListener("popstate", function () { opened = false; route(); });
+    addEventListener("hashchange", route);
+    route();
   })();
 </script>
 </body>

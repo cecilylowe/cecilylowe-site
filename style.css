@@ -380,7 +380,7 @@ dl.facts dd + dd { grid-column: 2; }
   background: none;
   border: 0;
   padding: 0;
-  cursor: url("assets/cursor/hand.svg") 11 3, pointer;
+  cursor: pointer;
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-decoration-color: var(--ink-3);
@@ -564,7 +564,7 @@ body.plain { font: 400 19px / 1.3 "Inter", "Helvetica Neue", Helvetica, Arial, s
 .plain .news input:focus { border-bottom-color: #111; }
 .plain .news input::placeholder { color: rgba(17, 17, 17, 0.4); }
 .plain .news button {
-  font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: url("assets/cursor/hand.svg") 11 3, pointer;
+  font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer;
   text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.2em;
 }
 .plain .news button:hover { opacity: 0.6; }
@@ -1055,7 +1055,7 @@ body.plain { font-size: 16.5px; }
 .plain .drawer { border-top: 1px solid #111; }
 .plain .drawer:last-of-type { border-bottom: 1px solid #111; }
 .plain .drawer summary {
-  list-style: none; cursor: url("assets/cursor/hand.svg") 11 3, pointer; display: flex; align-items: baseline; gap: 0.75rem;
+  list-style: none; cursor: pointer; display: flex; align-items: baseline; gap: 0.75rem;
   padding: 0.85rem 0; font-size: 1.55em; letter-spacing: -0.02em; font-weight: 500;
 }
 .plain .drawer summary::-webkit-details-marker { display: none; }
@@ -1464,7 +1464,7 @@ html.panel-open, html.panel-open body { overflow: hidden; }
 .listpanel[hidden] { display: block; visibility: hidden; }
 .listpanel .close {
   font: inherit; color: #111; background: #fff; border: 1px solid #111; padding: 3px 12px; margin: 0;
-  cursor: url("assets/cursor/hand.svg") 11 3, pointer; line-height: 1.2; border-radius: 0;
+  cursor: pointer; line-height: 1.2; border-radius: 0;
 }
 .listpanel .close:hover { color: var(--pink); border-color: var(--pink); }
 .listpanel h1 { font: inherit; font-weight: 400; font-size: clamp(44px, 5.4vw, 96px); line-height: 1; letter-spacing: -0.035em; margin: 2.2rem 0 2.4rem; }
@@ -1525,7 +1525,62 @@ body.plain.qpage .news input::placeholder { color: rgba(17, 17, 17, 0.5); }
 body.plain.qpage .bar a:hover, body.plain.qpage a:hover { color: #fff; }
 body.plain.qpage .bar nav, body.plain.qpage .bar .who { background: transparent; }
 
-/* cursors (2026-10-09): arrow and pointing hand in the blue #b8c6e8, thin dark outline so they show on white */
-html, body { cursor: url("assets/cursor/arrow.svg") 3 2, auto; }
-a, button, summary, label, [role="button"], .sqgrid > *, input[type="submit"] { cursor: url("assets/cursor/hand.svg") 11 3, pointer; }
-input[type="email"], input[type="text"], input[type="password"], textarea { cursor: text; }
+
+/* ---------- About v12 (2026-10-09) ----------
+   The vortex-street photograph framed in white on the left; "Cecily Lowe" on one line across it into
+   the right column, like the wordmark over the picture on architecture.yale.edu; the bio small below;
+   a full-width black Newsletter bar (pink on hover) that slides up the sign-up with a pink top line. */
+body.plain.about2 { display: flex; flex-direction: column; min-height: 100vh; min-height: 100svh; --frame: clamp(16px, 2.2vw, 36px); }
+body.plain.about2 main.me {
+  position: relative; flex: 1; max-width: none; margin: 0;
+  padding: calc(3.6rem + env(safe-area-inset-top, 0px)) 0 0;
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: start;
+}
+.about2 .me .pic { padding: var(--frame); }
+.about2 .me .pic img { display: block; width: 100%; aspect-ratio: 1600 / 1569; object-fit: cover;
+  max-height: calc(100svh - 3.6rem - 2 * var(--frame) - clamp(30px, 3.6vw, 64px) * 1.8 - var(--frame) - 14px); }
+.about2 .me .name {
+  position: absolute; z-index: 1; left: calc(var(--frame) + 12%); top: calc(3.6rem + var(--frame) * 2.2);
+  margin: 0; font: inherit; font-weight: 400; color: #111; white-space: nowrap;
+  font-size: clamp(56px, 12.4vw, 230px); line-height: 0.86; letter-spacing: -0.045em;
+}
+.about2 .me .words { grid-column: 2; align-self: end; padding: 0 1.5rem var(--frame); max-width: 34rem;
+  display: grid; gap: 0.9rem; line-height: 1.35; color: #111; }
+.about2 .me .words p { margin: 0; }
+.about2 .me .words .quiet { color: #8c8c8c; }
+.about2 .me .words a { color: inherit; text-decoration: none; }
+.about2 .me .words a:hover { color: var(--pink); }
+.about2 .newsbtn {
+  display: flex; justify-content: space-between; align-items: center; margin: 0 var(--frame) calc(var(--frame) + 6px);
+  padding: 0.35em 0.45em 0.42em 0.5em; background: #000; color: #fff; text-decoration: none;
+  font-size: clamp(30px, 3.6vw, 64px); letter-spacing: -0.02em; line-height: 1; transition: background-color 120ms;
+}
+.about2 .newsbtn svg { width: 0.32em; height: 0.52em; flex: none; }
+.about2 .newsbtn:hover, .about2 .newsbtn:focus-visible { background: var(--pink); color: #fff; opacity: 1; outline: none; }
+.nlpanel {
+  position: fixed; inset: 0; z-index: 50; background: #fff; border-top: 6px solid var(--pink);
+  transform: translateY(100%); transition: transform 420ms cubic-bezier(0.22, 0.7, 0.2, 1);
+  padding: 1rem 1.5rem calc(2.2rem + env(safe-area-inset-bottom, 0px)); box-sizing: border-box;
+  display: grid; grid-template-rows: auto 1fr auto; justify-items: center; color: #111;
+}
+.nlpanel.up { transform: translateY(0); }
+.nlpanel[hidden] { display: grid; visibility: hidden; }
+.nlpanel .close { justify-self: start; font: inherit; color: #111; background: #fff; border: 1px solid #111; padding: 3px 12px; margin: 0;
+  cursor: pointer; line-height: 1.2; border-radius: 0; }
+.nlpanel .close:hover { color: var(--pink); border-color: var(--pink); }
+.nlpanel .close:focus { outline: none; }
+.nlpanel .art { align-self: center; width: 150px; }
+.nlpanel .art img { display: block; width: 100%; height: auto; }
+.nlpanel .signup { width: min(23rem, 100%); position: relative; text-align: center; }
+.nlpanel .signup .note { position: absolute; left: 0; right: 0; bottom: calc(100% + 0.3rem); margin: 0; }
+.nlpanel .signup .done[hidden], .nlpanel .news.bare[hidden] { display: none; }
+@media (max-width: 720px) {
+  body.plain.about2 main.me { grid-template-columns: minmax(0, 1fr); padding-top: calc(3.2rem + env(safe-area-inset-top, 0px)); }
+  .about2 .me .pic { padding: 16px 16px 0; }
+  .about2 .me .pic img { max-height: none; }
+  .about2 .me .name { position: relative; left: auto; top: auto; margin: -0.5em 16px 0; font-size: 15.5vw; }
+  .about2 .me .words { grid-column: 1; padding: 1.2rem 16px 1.6rem; }
+  .about2 .newsbtn { margin: 0 16px calc(22px + 6px); font-size: 30px; }
+  .nlpanel { padding: 0.8rem 1rem calc(2rem + env(safe-area-inset-bottom, 0px)); }
+}
+@media (prefers-reduced-motion: reduce) { .nlpanel, .about2 .newsbtn { transition: none; } }
