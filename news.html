@@ -44,5 +44,17 @@
   </a>
 </main>
 
+<script>
+  // hover: the photo under the pointer stays full size, the rest shrink (works in every browser)
+  (function () {
+    var grid = document.querySelector(".sqgrid"); if (!grid) return;
+    grid.querySelectorAll(".sqtile").forEach(function (t) {
+      t.addEventListener("mouseenter", function () { grid.classList.add("hovering"); t.classList.add("hot"); });
+      t.addEventListener("mouseleave", function () { grid.classList.remove("hovering"); t.classList.remove("hot"); });
+      t.addEventListener("focus", function () { grid.classList.add("hovering"); t.classList.add("hot"); });
+      t.addEventListener("blur", function () { grid.classList.remove("hovering"); t.classList.remove("hot"); });
+    });
+  })();
+</script>
 </body>
 </html>
