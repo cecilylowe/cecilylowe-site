@@ -6,3 +6,12 @@ ascenders/descenders, stem weight and each character's advance width (measuremen
 rendered page at 1000px). No outlines come from any other font.
 
 Rebuild: put Archivo[wdth,wght].ttf here as Archivo-var.ttf, then `python3 build.py`; copy the .woff2 to assets/fonts/.
+
+# Lowe Sans (2026-10-09, the site's typeface now)
+
+Geist (SIL Open Font License 1.1, assets/fonts/OFL-Geist.txt) reproportioned to ABC Diatype at weight 500, the
+face on davidricogomez.com, from measurements only (measurements-diatype.json): cap height, x-height,
+ascenders/descenders, stem weight and each character's advance width. No outlines come from any other font.
+
+Rebuild: `python3 build_sans.py` (reads Geist-Variable.woff2 here); copy LoweSans-Regular.woff2 to assets/fonts/.
+To go back to Lowe Grotesk, delete the "Lowe Sans" block at the end of style.css and point the preload links back.

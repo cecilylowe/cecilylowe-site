@@ -1603,3 +1603,11 @@ body.plain.about2 main.me {
 @media (max-width: 720px) {
   .about2 .me .name { top: auto; left: auto; transform: none; font-size: 55px; letter-spacing: 0.2px; margin: -0.5em 0 0; }
 }
+
+/* Lowe Sans (2026-10-09): the site's typeface is now Geist (OFL) reproportioned to ABC Diatype at weight 500,
+   the face on davidricogomez.com (tools/font/build_sans.py). Lowe Grotesk stays in assets/fonts/ to go back. */
+@font-face {
+  font-family: "Lowe Sans"; src: url("assets/fonts/LoweSans-Regular.woff2") format("woff2");
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+:root { --font: "Lowe Sans", "Helvetica Neue", Helvetica, Arial, sans-serif; --mono: var(--font); }
