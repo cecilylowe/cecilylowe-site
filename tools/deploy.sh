@@ -32,9 +32,12 @@ for f in pathlib.Path(sys.argv[1]).glob("*.html"):
              'try{var u=new URL(location.href);if(u.searchParams.has("fresh")){u.searchParams.delete("fresh");history.replaceState(null,"",u.pathname+(u.search||"")+u.hash)}}catch(e){}'
              'function check(){fetch("/version.txt?"+Date.now(),{cache:"no-store"}).then(function(r){return r.ok?r.text():""})'
              '.then(function(v){v=(v||"").trim();if(!v||v===V)return;var k="cl-fresh-"+v+location.pathname;'
-             'try{if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,"1")}catch(e){}'
-             # a brand-new address the browser has never cached, so the newest page always arrives
-             'location.replace(location.pathname+"?fresh="+v+location.hash)}).catch(function(){})}'
+             # guard only against a reload loop (one try per 15 s), not against later visits: Back/Forward
+             # can bring up an old saved copy again, and that copy must refresh too
+             'try{var t=+sessionStorage.getItem(k)||0;if(Date.now()-t<15000)return;sessionStorage.setItem(k,Date.now())}catch(e){}'
+             # overwrite the browser's saved copy of this very address, then reload it, so Back/Forward
+             # later find the new page under the same clean URL (no ?fresh address left in history)
+             'fetch(location.pathname,{cache:"reload"}).catch(function(){}).then(function(){location.reload()})}).catch(function(){})}'
              'check();addEventListener("pageshow",function(e){if(e.persisted)check()})})();</script>') % sys.argv[2]
     s = s.replace("</head>", fresh + "\n</head>", 1)
     f.write_text(s)
