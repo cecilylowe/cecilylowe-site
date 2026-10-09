@@ -6,6 +6,7 @@ advance width of each character.
   - scale so the capitals are 700/1000 em
   - lowercase: x-height 530 -> 485, ascenders to the cap height, descenders deeper (-148 -> -206)
   - each character set to the measured advance width (outline scaled by at most +-8%, the rest in the spacing)
+  - l (and l-slash) drawn as a plain straight stem, no tail (her request 2026-10-09)
 Run: python3 build_sans.py  (writes LoweSans-Regular.ttf / .woff2; copy the .woff2 to assets/fonts/)"""
 import json, unicodedata
 from fontTools.ttLib import TTFont
@@ -66,6 +67,23 @@ for n in f.getGlyphOrder():
                 co[i] = (round(x * K * s + dx), round(y2))
             start = e + 1
     hmtx[n] = (max(0, adv), hmtx[n][1])
+
+# l without the tail (Cecily, 2026-10-09): a plain straight stem, as thick as the i's and centred in the l's
+# width, baseline to ascender like Diatype's. l-slash gets the same stem with its bar across it.
+from fontTools.pens.ttGlyphPen import TTGlyphPen
+glyf["dotlessi"].recalcBounds(glyf)
+SX0, SX1 = glyf["dotlessi"].xMin, glyf["dotlessi"].xMax                 # the i's stem
+def stem_glyph(adv, bar=False):
+    w = SX1 - SX0; x0 = round((adv - w) / 2); x1 = x0 + w; cx = (x0 + x1) / 2
+    pen = TTGlyphPen(None)
+    pen.moveTo((x0, 0)); pen.lineTo((x0, AN)); pen.lineTo((x1, AN)); pen.lineTo((x1, 0)); pen.closePath()
+    if bar:
+        pen.moveTo((round(cx - 118), 262)); pen.lineTo((round(cx - 118), 344)); pen.lineTo((round(cx + 118), 462)); pen.lineTo((round(cx + 118), 380)); pen.closePath()
+    return pen.glyph(), x0
+for gname, bar in (("l", False), ("lslash", True)):
+    if gname in glyf.keys():
+        adv = hmtx[gname][0]; glyf[gname], lsb = stem_glyph(adv, bar)
+        hmtx[gname] = (adv, lsb)                     # bounds-based lsb is set again below
 
 # hinting no longer matches the outlines
 for t in ("prep", "fpgm", "cvt ", "gasp"):

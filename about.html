@@ -123,13 +123,13 @@
   })();
 
   // the picture's right edge sits on the left side of the "l" in "Cecily": measure where that letter's
-  // ink starts (its box plus the font's 0.051em side bearing) and hand it to the stylesheet as --lx
+  // ink starts (its box plus the font's 0.069em side bearing) and hand it to the stylesheet as --lx
   (function () {
     var name = document.querySelector(".me .name"), me = document.querySelector("main.me"); if (!name || !me) return;
     function line() {
       var t = name.firstChild, r = document.createRange(); if (!t || t.nodeType !== 3) return;
       var at = t.data.indexOf("l"); r.setStart(t, at); r.setEnd(t, at + 1);
-      var x = r.getBoundingClientRect().left + 0.051 * parseFloat(getComputedStyle(name).fontSize) - me.getBoundingClientRect().left;
+      var x = r.getBoundingClientRect().left + 0.069 * parseFloat(getComputedStyle(name).fontSize) - me.getBoundingClientRect().left;
       me.style.setProperty("--lx", Math.round(x) + "px");
     }
     addEventListener("resize", line); if (document.fonts) document.fonts.ready.then(line); line();
