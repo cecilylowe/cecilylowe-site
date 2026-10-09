@@ -1334,3 +1334,20 @@ body.plain .bar a, body.plain .entry, body.plain .entry .blurb, body.plain .abou
   .plain .sqgrid:has(.sqtile:hover) .sqtile:not(:hover) .sq img { transform: none; }
 }
 @media (prefers-reduced-motion: reduce) { .plain .sqtile .sq img { transition: none; } }
+
+/* News grid v2: three equal squares, centred on the page horizontally and vertically, sized so
+   squares + titles always fit one screen; titles share a two-line band so every square lines up */
+@media (min-width: 721px) {
+  .plain main.page.sqgrid {
+    --side: min(calc((100vw - 3rem - 4rem) / 3), calc(100svh - 15rem), 26rem);
+    min-height: 100svh; padding: 4.5rem 1.5rem 2rem; box-sizing: border-box;
+    grid-template-columns: repeat(3, var(--side)); justify-content: center; align-content: center;
+    column-gap: 2rem;
+  }
+  .plain .sqtile .sq { width: var(--side); height: var(--side); max-height: none; }
+  .plain .sqtile .name { min-height: 2.4em; margin-top: 0.75rem; }
+}
+
+/* pulling past the top or bottom of a page (overscroll) shows the site's pink; the page itself stays white */
+html, html:has(body.plain) { background: var(--pink); }
+body.plain { background: #fff; min-height: 100vh; min-height: 100svh; }
