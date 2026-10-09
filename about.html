@@ -27,7 +27,11 @@
      the bio small below, and a black Newsletter bar that slides up the sign-up (what was Thoughts).
      The Moon version is kept in _unused/about-moon.html. -->
 <main class="me">
-  <div class="pic"><img src="assets/vortex-square.jpg" alt="Satellite view of a von Kármán vortex street: a chain of dark spiralling eddies trailing through a field of white cloud."></div>
+  <!-- the picture spot rotates through black-and-white images, all cropped to the same square
+       (assets/about/01-08.jpg, made from the site's own pictures); a new one every 3 seconds -->
+  <div class="pic rot">
+    <img src="assets/about/01.jpg" alt="Satellite view of a von Kármán vortex street: dark spiralling eddies in a field of white cloud.">
+  </div>
   <h1 class="name">Cecily Lowe</h1>
   <div class="words">
     <p data-edit="about.bio">Cecily is a Ph.D. student at Yale University building levitated optomechanical sensors to study the interaction between dark matter and ordinary matter.</p>
@@ -87,6 +91,48 @@
     window.addEventListener("pageshow", function (e) {  // coming back with the browser's Back button
       if (e.persisted) { form.reset(); form.hidden = false; done.hidden = true; note.textContent = ""; }
     });
+  })();
+
+  // About pictures: a new one every 3 seconds, cut straight over, as the picture changes on
+  // architecture.yale.edu. Each is loaded before it is shown. Still when reduced motion is asked for.
+  (function () {
+    var img = document.querySelector(".pic.rot img"); if (!img) return;
+    var pics = [
+      ["assets/about/01.jpg", "Satellite view of a von Kármán vortex street: dark spiralling eddies in a field of white cloud."],
+      ["assets/about/02.jpg", "Jupiter's Great Red Spot and the turbulent bands around it, from Voyager."],
+      ["assets/about/03.jpg", "Bubble-chamber photograph: charged particle tracks curling into spirals in a magnetic field."],
+      ["assets/about/04.jpg", "Close-up of the Moon's cratered surface."],
+      ["assets/about/05.jpg", "Bubble-chamber photograph of a particle shower, tracks fanning out and spiralling."],
+      ["assets/about/06.jpg", "Swirling cloud bands on Jupiter, from the Juno spacecraft."],
+      ["assets/about/07.jpg", "A deep field of galaxies around the Bullet Cluster."],
+      ["assets/about/08.jpg", "Étienne Léopold Trouvelot's drawing of the November meteors streaking across the night sky."]
+    ];
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    var base = img.getAttribute("src");                // keeps the ?v= stamp the publish adds
+    function url(k) { return base.replace("01.jpg", pics[k][0].slice(-6)); }
+    var i = 0, loaded = { 0: true };
+    function load(k) { var im = new Image(); im.onload = function () { loaded[k] = true; }; im.src = url(k); }
+    load(1);
+    setInterval(function () {
+      if (document.hidden) return;
+      var k = (i + 1) % pics.length;
+      if (!loaded[k]) return;                         // not here yet: try again next tick
+      i = k; img.src = url(k); img.alt = pics[k][1];
+      var n = (k + 1) % pics.length; if (!loaded[n]) load(n);
+    }, 3000);
+  })();
+
+  // the picture's right edge sits on the left side of the "l" in "Cecily": measure where that letter's
+  // ink starts (its box plus the font's 0.051em side bearing) and hand it to the stylesheet as --lx
+  (function () {
+    var name = document.querySelector(".me .name"), me = document.querySelector("main.me"); if (!name || !me) return;
+    function line() {
+      var t = name.firstChild, r = document.createRange(); if (!t || t.nodeType !== 3) return;
+      var at = t.data.indexOf("l"); r.setStart(t, at); r.setEnd(t, at + 1);
+      var x = r.getBoundingClientRect().left + 0.051 * parseFloat(getComputedStyle(name).fontSize) - me.getBoundingClientRect().left;
+      me.style.setProperty("--lx", Math.round(x) + "px");
+    }
+    addEventListener("resize", line); if (document.fonts) document.fonts.ready.then(line); line();
   })();
 
   // the panel: the address carries #newsletter, so Back closes it and old /thoughts links open it
