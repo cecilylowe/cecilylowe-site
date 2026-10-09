@@ -1369,3 +1369,7 @@ body.plain { background: #fff; min-height: 100vh; min-height: 100svh; }
 .plain .sqtile.hot .sq::after { opacity: 1; }
 .plain .sqtile.hot .name { color: var(--pink); }
 @media (max-width: 720px) { .plain .sqgrid.hovering .sqtile:not(.hot) .sq img { transform: none; } }
+/* News with more than three items: rows of three, the page scrolls; squares a fixed comfortable size */
+@media (min-width: 721px) {
+  .plain main.page.sqgrid:has(.sqtile:nth-child(4)) { --side: min(calc((100vw - 7rem) / 3), 24rem); min-height: 0; align-content: start; padding-top: 5rem; padding-bottom: 4rem; }
+}
