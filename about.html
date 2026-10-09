@@ -35,12 +35,25 @@
     </figure>
   </div>
   <div class="words">
-    <p data-edit="about.bio">Cecily Lowe is a Ph.D. student at Yale University building levitated optomechanical sensors to study the interaction between dark matter and ordinary matter.</p>
+    <p class="big" data-edit="about.bio">Cecily<br>Lowe<br>is a Ph.D. student at Yale University building levitated optomechanical sensors to study the interaction between dark matter and ordinary matter.</p>
     <p data-edit="about.contact"><a href="mailto:cecily.lowe@yale.edu">cecily.lowe@yale.edu</a></p>
     <p data-edit="about.cv">CV on request</p>
   </div>
 </section>
 
 
+<script>
+  // the large About text is set at the Work headings' size, and steps down only if the screen is too short for it
+  (function () {
+    var w = document.querySelector(".about.on .words"), p = w && w.querySelector(".big"); if (!p) return;
+    function fit() {
+      p.style.fontSize = "";
+      if (innerWidth <= 720) return;
+      var size = parseFloat(getComputedStyle(p).fontSize);
+      while (w.scrollHeight > w.clientHeight + 1 && size > 20) { size -= 1; p.style.fontSize = size + "px"; }
+    }
+    addEventListener("resize", fit); document.fonts ? document.fonts.ready.then(fit) : fit(); fit();
+  })();
+</script>
 </body>
 </html>
