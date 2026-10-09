@@ -1498,3 +1498,12 @@ html.panel-open, html.panel-open body { overflow: hidden; }
 }
 @media (prefers-reduced-motion: reduce) { .listpanel { transition: none; } }
 .listpanel .close:focus { outline: none; }
+
+/* Work list openers v2: a ">" beside each heading; on hover the heading fills pink with white letters,
+   like the buttons on architecture.yale.edu/publications fill black. A 6px pink line sits along the
+   bottom of the screen, and the lists rise from it. */
+.plain .split h1 .opener { align-items: center; gap: 0.22em; padding: 0.04em 0.18em 0.08em; margin: -0.04em -0.18em -0.08em; transition: background-color 120ms, color 120ms; }
+.plain .split h1 .opener .arr { width: 0.3em; height: 0.5em; font-size: 1em; flex: none; transition: none; }
+.plain .split h1 .opener:hover, .plain .split h1 .opener:focus-visible { background: var(--pink); color: #fff; outline: none; }
+.plain .split h1 .opener:hover .arr { transform: none; }
+.pinkline { position: fixed; left: 0; right: 0; bottom: 0; height: 6px; background: var(--pink); z-index: 40; pointer-events: none; }

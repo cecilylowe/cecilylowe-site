@@ -28,7 +28,7 @@
        hairline rule and a large heading. Left: first pages of the papers, side by side (no titles yet).
        Right: the news, a 2x2 of squares. In both, the hovered item turns pink and the rest shrink. -->
   <section class="col pubs">
-    <h1><a class="opener" href="#publications" aria-label="All publications">Publications <span class="arr" aria-hidden="true">&rarr;</span></a></h1>
+    <h1><a class="opener" href="#publications" aria-label="All publications">Publications <svg class="arr" viewBox="0 0 12 20" aria-hidden="true"><polyline points="1.5,1.5 10,10 1.5,18.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square" stroke-linejoin="miter"/></svg></a></h1>
     <div class="sqgrid g-pubs">
       <a class="sqtile paper" data-date="2026-04" href="https://arxiv.org/abs/2604.18371">
         <span class="sq"><img src="assets/research/page1-gas.jpg" alt="First page of Optomechanical detection of individual gas collisions (arXiv:2604.18371)."></span>
@@ -39,7 +39,7 @@
     </div>
   </section>
   <section class="col newscol" id="news">
-    <h1><a class="opener" href="#all-news" aria-label="All news">News <span class="arr" aria-hidden="true">&rarr;</span></a></h1>
+    <h1><a class="opener" href="#all-news" aria-label="All news">News <svg class="arr" viewBox="0 0 12 20" aria-hidden="true"><polyline points="1.5,1.5 10,10 1.5,18.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square" stroke-linejoin="miter"/></svg></a></h1>
     <div class="sqgrid g-news">
       <a class="sqtile" data-date="2026-09" href="https://www.linkedin.com/feed/update/urn:li:activity:7511234610639421440/">
         <span class="sq"><img src="assets/research/sq-candidacy-bw.jpg" alt="Cecily Lowe beside her prospectus title slide, Searching for Dark Matter with an Array of Levitated Microparticles."></span>
@@ -76,6 +76,9 @@
 <!-- The full lists. Each opens from the arrow beside its heading and slides up from the bottom of the
      screen with a pink line along its top edge, the way the menu opens on architecture.yale.edu.
      Close (top left), Esc or the browser's Back button slides it away again. Rows grow on hover. -->
+<!-- the thin pink line along the bottom of the screen, as on architecture.yale.edu; the lists rise from it -->
+<div class="pinkline" aria-hidden="true"></div>
+
 <section class="listpanel" id="publications" role="dialog" aria-modal="true" aria-label="Publications" hidden>
   <button class="close" type="button">Close</button>
   <h1>Publications</h1>
