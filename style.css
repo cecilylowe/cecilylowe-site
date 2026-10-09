@@ -1282,3 +1282,5 @@ body.plain *, body.plain h1, body.plain h2, body.plain h3, body.plain b, body.pl
 body.plain .entry .title, body.plain .tile .name, body.plain .inside .welcome { font-weight: 400; }
 body.plain .bar a, body.plain .entry, body.plain .entry .blurb, body.plain .about .words { color: #222; }
 body.plain .entry .title { margin-bottom: 0; }
+body.plain.about-dark .bar .who { color: #fff; }
+@media (max-width: 720px) { body.plain.about-dark .bar .who { color: #222; } }
