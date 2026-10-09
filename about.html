@@ -55,5 +55,17 @@
     addEventListener("resize", fit); document.fonts ? document.fonts.ready.then(fit) : fit(); fit();
   })();
 </script>
+<script>
+  // the Moon ends exactly where the "About" link begins, and the text column starts on that line
+  (function () {
+    var a = document.querySelector('.bar nav a[href="about.html"]'), pic = document.querySelector(".about.on .pic.pair.single");
+    if (!a || !pic) return;
+    function line() {
+      if (innerWidth <= 720) { document.documentElement.style.removeProperty("--about-x"); return; }
+      document.documentElement.style.setProperty("--about-x", Math.round(a.getBoundingClientRect().left) + "px");
+    }
+    addEventListener("resize", line); if (document.fonts) document.fonts.ready.then(line); line();
+  })();
+</script>
 </body>
 </html>

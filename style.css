@@ -1423,3 +1423,12 @@ body.plain { background: #fff; min-height: 100vh; min-height: 100svh; }
 @media (min-width: 721px) {
   .plain .about.on { position: relative; inset: auto; min-height: 100vh; min-height: 100svh; height: 100svh; }
 }
+
+/* About (2026-10-09): the Moon runs right up to the left edge of the "About" link and the text
+   column starts on that same line, so there is no white strip or white notch beside the photo.
+   --about-x is measured from the menu by the script on about.html; the old width is the fallback. */
+@media (min-width: 721px) {
+  .plain .about.on .pic.pair.single { width: var(--about-x, calc(100vw - max(18rem, 26vw))); }
+  body.plain.about-dark .bar nav { background: none; padding: 0; margin-top: 0; }
+  .plain .about.on .words { padding-left: 1rem; }
+}
