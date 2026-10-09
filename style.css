@@ -1517,13 +1517,13 @@ html.panel-open, html.panel-open body { overflow: hidden; }
 @media (max-width: 720px) { .loadcircle { width: 120px; height: 120px; margin: -60px 0 0 -60px; } }
 @media (prefers-reduced-motion: reduce) { .loadcircle { animation-duration: 3s; } }
 
-/* ? page (2026-10-09): totally pink. Ink stays near-black; what you type shows in white. */
-html:has(body.qpage), body.plain.qpage { background: var(--pink); }
-body.plain.qpage .news, body.plain.qpage .news:focus-within { background: transparent; }
-body.plain.qpage .news input { color: #fff; caret-color: #fff; background: transparent; }
-body.plain.qpage .news input::placeholder { color: rgba(17, 17, 17, 0.5); }
-body.plain.qpage .bar a:hover, body.plain.qpage a:hover { color: #fff; }
-body.plain.qpage .bar nav, body.plain.qpage .bar .who { background: transparent; }
+/* ? page (2026-10-09): totally pink while locked (the password screen); once open, white like every page. Ink stays near-black; what you type shows in white. */
+html:has(body.qpage.locked), body.plain.qpage.locked { background: var(--pink); }
+body.plain.qpage.locked .news, body.plain.qpage.locked .news:focus-within { background: transparent; }
+body.plain.qpage.locked .news input { color: #fff; caret-color: #fff; background: transparent; }
+body.plain.qpage.locked .news input::placeholder { color: rgba(17, 17, 17, 0.5); }
+body.plain.qpage.locked .bar a:hover, body.plain.qpage.locked a:hover { color: #fff; }
+body.plain.qpage.locked .bar nav, body.plain.qpage.locked .bar .who { background: transparent; }
 
 
 /* ---------- About v12 (2026-10-09) ----------
