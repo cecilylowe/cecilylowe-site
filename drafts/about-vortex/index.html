@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>About, Vortex</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;1,400&display=swap">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/icon-32.png?v=jupiter">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/icon-192.png?v=jupiter">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=jupiter">
+<style>
+  /* the vortices sit at the bottom left of the picture, so it is cropped to keep the bottom */
+  .plain .about.on .pic.pair.single .capwrap img { object-position: 0% 100%; }
+</style>
+</head>
+<body class="plain about-dark">
+
+<header class="bar">
+  <a class="who" href="index.html" data-edit="site.name">Cecily Lowe</a>
+  <nav>
+    <a href="about.html" aria-current="page">About</a>
+    <a href="work.html">Work</a>
+    <a href="thoughts.html">Thoughts</a>
+    <a href="question.html">?</a>
+  </nav>
+</header>
+
+<!-- about: a picture on the left, a column of text on the right. Placeholders until the real
+     image and words are chosen: put the image at assets/about.jpg and swap the .pic div for
+     <img class="pic" src="assets/about.jpg" alt="…">. -->
+<section class="about on" id="about">
+  <div class="pic pair single">
+    <figure class="capwrap">
+      <img src="assets/vortex.jpg" alt="Satellite view of a von Kármán vortex street: dark spiralling eddies in a field of white clouds.">
+    </figure>
+  </div>
+  <div class="words">
+    <h1 class="big">Cecily<br>Lowe</h1>
+    <p data-edit="about.bio">is a Ph.D. student at Yale University building levitated optomechanical sensors to study the interaction between dark matter and ordinary matter.</p>
+    <p data-edit="about.contact"><a href="mailto:cecily.lowe@yale.edu">cecily.lowe@yale.edu</a></p>
+    <p data-edit="about.cv">CV on request</p>
+  </div>
+</section>
+
+
+<script>
+  // the large About text is set at the Work headings' size, and steps down only if the screen is too short for it
+  (function () {
+    var w = document.querySelector(".about.on .words"), p = w && w.querySelector(".big"); if (!p) return;
+    function fit() {
+      p.style.fontSize = "";
+      if (innerWidth <= 720) return;
+      var size = parseFloat(getComputedStyle(p).fontSize);
+      while (w.scrollHeight > w.clientHeight + 1 && size > 20) { size -= 1; p.style.fontSize = size + "px"; }
+    }
+    addEventListener("resize", fit); document.fonts ? document.fonts.ready.then(fit) : fit(); fit();
+  })();
+</script>
+<script>
+  // the Moon ends a little (16px) before the "About" link; the text column starts on the About line
+  (function () {
+    var a = document.querySelector('.bar nav a[href="about.html"]'), pic = document.querySelector(".about.on .pic.pair.single");
+    if (!a || !pic) return;
+    function line() {
+      if (innerWidth <= 720) { document.documentElement.style.removeProperty("--about-x"); return; }
+      document.documentElement.style.setProperty("--about-x", Math.round(a.getBoundingClientRect().left - 16) + "px");
+    }
+    addEventListener("resize", line); if (document.fonts) document.fonts.ready.then(line); line();
+  })();
+</script>
+</body>
+</html>
