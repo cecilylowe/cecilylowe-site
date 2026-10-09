@@ -1284,3 +1284,25 @@ body.plain .bar a, body.plain .entry, body.plain .entry .blurb, body.plain .abou
 body.plain .entry .title { margin-bottom: 0; }
 body.plain.about-dark .bar .who { color: #fff; }
 @media (max-width: 720px) { body.plain.about-dark .bar .who { color: #222; } }
+
+/* no hover captions anywhere */
+.plain .hovercap { display: none !important; }
+
+/* About, the original proportions: the Moon fills everything left of a narrow text column
+   (about a quarter of the width), full height. The menu reads over both: white on the photo,
+   dark on the paper. */
+@media (min-width: 721px) {
+  .plain .about.on .pic.pair.single { width: calc(100vw - max(18rem, 26vw)); max-width: none; }
+  body.plain.about-dark .bar { color: #fff; mix-blend-mode: difference; }
+  body.plain.about-dark .bar a, body.plain.about-dark .bar .who { color: #fff; }
+  body.plain.about-dark .bar a:hover { color: #fff; opacity: 0.6; }
+}
+@media (min-width: 721px) {
+  body.plain.about-dark .bar { mix-blend-mode: normal; }
+  body.plain.about-dark .bar nav { background: #fff; padding: 0.1rem 0 0.25rem 0.75rem; margin-top: -0.1rem; }
+  body.plain.about-dark .bar nav a { color: #222; }
+  body.plain.about-dark .bar nav a:hover { color: var(--pink); opacity: 1; }
+  body.plain.about-dark .bar .who { color: #fff; }
+}
+/* News/Work photos never move or resize on hover */
+.plain .entry .pic img, .plain .entry:hover .pic img, .plain .entry .pic:hover img { transform: none !important; transition: opacity 160ms; }
