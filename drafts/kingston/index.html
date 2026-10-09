@@ -1,0 +1,69 @@
+<title>Cecily Lowe Homepage</title>
+<style>
+  /* Layout: after jameskingston1.github.io/root — one long hand-made page: a centred name, plain
+     paragraphs, bold section headings, underlined links and a numbered publication list, all in
+     white Times over a full-bleed night picture (here Trouvelot's hand-drawn November meteors, 1868).
+     Deliberately single-theme: white type on a dark picture in every viewer theme. */
+  :root {
+    --night: #0d1612;
+    --type: #ffffff;
+    --link: #ffffff;
+    --veil: rgba(4, 12, 10, 0.3);
+    --serif: "Times New Roman", Times, "Liberation Serif", serif;
+    color-scheme: dark;
+  }
+  html { background: var(--night); }
+  body {
+    background: var(--night) url("assets/trouvelot-november-meteors.jpg") center / cover fixed no-repeat;
+    color: var(--type);
+    font: 16px / 1.15 var(--serif);
+    padding-inline: max(16px, 0.5rem);
+    padding-block: 1.6rem 3rem;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.55);
+    min-height: 100%;
+  }
+  body::before { content: ""; position: fixed; inset: 0; background: var(--veil); z-index: -1; }
+  h1 { font-size: 2em; text-align: center; margin: 0 0 1.4rem; }
+  h2 { font-size: 1.17em; margin: 1.6rem 0 1.1rem; }
+  p { margin: 0 0 1rem; max-width: none; }
+  a { color: var(--link); text-decoration: underline; }
+  a:hover { color: #ffd6ea; }
+  a:focus-visible { outline: 1px dotted var(--type); outline-offset: 2px; }
+  ol { margin: 0; padding-left: 1.75rem; }
+  ol li { margin-bottom: 1rem; padding-left: 0.2rem; }
+  .links a { display: block; width: fit-content; }
+  .credit { margin-top: 2.5rem; font-size: 0.8em; opacity: 0.8; }
+  @media (max-width: 600px) { body { background-attachment: scroll; } }
+</style>
+
+<h1>Cecily Lowe</h1>
+
+<p>My name is Cecily Lowe. I am a Ph.D. student in physics at Yale University, where I work in David Moore&rsquo;s lab at the Wright Laboratory. My field of research is levitated optomechanics: I build sensors out of silica microspheres and nanoparticles trapped with light in vacuum, and use them to study the interaction between dark matter and ordinary matter.</p>
+<p>Before Yale I studied physics and data science at the University of California, Berkeley.</p>
+
+<h2>Professional Work</h2>
+<p>At Yale I lead the microsphere array experiment: a two-dimensional array of optically levitated microspheres, each one a force sensor, built to search for dark matter through the tiny momentum kicks it would give ordinary matter. An array lets the experiment reject noise that every sphere feels at once, and catch interactions too rare for a single sensor.</p>
+<p>In 2025 I was awarded a National Science Foundation Graduate Research Fellowship and a Marshall Plan Foundation Fellowship. Through the Marshall Plan fellowship I spent four months in Uro&scaron; Deli&cacute;&rsquo;s lab at TU Wien, developing a nanoparticle loading technique for the science goal of coupling a neutral Cs atom with a silica nanoparticle for the first time, to create non-Gaussian states of nanoparticle motion.</p>
+
+<h2>Teaching</h2>
+<div class="links">
+  <a href="https://wlab.yale.edu/posts/2026-08-11-lowe-creates-the-physics-of-light-course-for-women-in-prison">The Physics of Light, a course for women at FCI Danbury (2026)</a>
+</div>
+
+<h2>News</h2>
+<div class="links">
+  <a href="https://wlab.yale.edu/posts/2026-08-11-lowe-creates-the-physics-of-light-course-for-women-in-prison">Developing Physics Course at Women&rsquo;s Federal Prison (August 2026)</a>
+  <a href="https://wlab.yale.edu/posts/2025-10-22-lowe-awarded-marshall-plan-fellowship">Marshall Plan Foundation Fellowship (October 2025)</a>
+  <a href="https://wlab.yale.edu/posts/2025-06-13-wright-lab-students-awarded-2025-nsf-graduate-research-fellowships">NSF Graduate Research Fellowship (June 2025)</a>
+</div>
+
+<h2>Selected Publications</h2>
+<ol>
+  <li>Y.-H. Tseng, C. A. Hardy, T. W. Penny, <b>C. Lowe</b>, J. Baeza-Rubio, D. Carney, D. C. Moore, &ldquo;<a href="https://arxiv.org/abs/2604.18371">Optomechanical detection of individual gas collisions</a>&rdquo;, arXiv:2604.18371 (April 2026)</li>
+  <li>B. Siegel, G. Afek, <b>C. Lowe</b>, J. Wang, Y.-H. Tseng, T. W. Penny, D. C. Moore, &ldquo;<a href="https://doi.org/10.1103/PhysRevA.111.033514">Optical levitation of arrays of microspheres</a>&rdquo;, Phys. Rev. A <b>111</b>, 033514 (March 2025), Editors&rsquo; Suggestion</li>
+</ol>
+
+<h2>Contact</h2>
+<p>cecily.lowe@yale.edu<br>CV available on request.</p>
+
+<p class="credit">Background: &Eacute;tienne L&eacute;opold Trouvelot, <i>The November Meteors</i>, as observed between midnight and 5 a.m. on the night of November 13&ndash;14, 1868. From the Trouvelot Astronomical Drawings.</p>
