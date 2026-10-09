@@ -1584,3 +1584,12 @@ body.plain.about2 main.me {
   .nlpanel { padding: 0.8rem 1rem calc(2rem + env(safe-area-inset-bottom, 0px)); }
 }
 @media (prefers-reduced-motion: reduce) { .nlpanel, .about2 .newsbtn { transition: none; } }
+
+/* About v12.1 (2026-10-09): the name centred across the screen; in the Newsletter panel the Email box
+   sits at the left edge, under Close, instead of centred */
+.about2 .me .name { left: 50%; transform: translateX(-50%); }
+.nlpanel .signup { justify-self: start; text-align: left; }
+.nlpanel .signup .note { text-align: left; }
+@media (max-width: 720px) {
+  .about2 .me .name { left: auto; transform: none; text-align: center; margin-inline: 0; }
+}
