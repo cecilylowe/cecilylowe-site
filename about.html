@@ -28,7 +28,7 @@
      The Moon version is kept in _unused/about-moon.html. -->
 <main class="me">
   <!-- the picture spot rotates through black-and-white images, all cropped to the same square
-       (assets/about/01-08.jpg, made from the site's own pictures); a new one every 3 seconds -->
+       (assets/about/01-08.jpg, made from the site's own pictures); a new one every 2.5 seconds -->
   <div class="pic rot">
     <img src="assets/about/01.jpg" alt="Satellite view of a von Kármán vortex street: dark spiralling eddies in a field of white cloud.">
   </div>
@@ -93,7 +93,7 @@
     });
   })();
 
-  // About pictures: a new one every 3 seconds, cut straight over, as the picture changes on
+  // About pictures: a new one every 2.5 seconds, cut straight over, as the picture changes on
   // architecture.yale.edu. Each is loaded before it is shown. Still when reduced motion is asked for.
   (function () {
     var img = document.querySelector(".pic.rot img"); if (!img) return;
@@ -119,7 +119,7 @@
       if (!loaded[k]) return;                         // not here yet: try again next tick
       i = k; img.src = url(k); img.alt = pics[k][1];
       var n = (k + 1) % pics.length; if (!loaded[n]) load(n);
-    }, 3000);
+    }, 2500);
   })();
 
   // the picture's right edge sits on the left side of the "l" in "Cecily": measure where that letter's
