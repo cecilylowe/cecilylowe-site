@@ -40,3 +40,15 @@
   addEventListener("pageshow", hide);                                           // Back/Forward from memory
   addEventListener("pagehide", hide);
 })();
+
+// Phone menu (2026-10-12): "Menu" opens the three rows under the header and becomes "Close"; a tap outside,
+// Escape, or choosing a row closes it. The button only shows on phones (style.css), so desktop is unaffected.
+(function () {
+  var btn = document.querySelector(".bar .menubtn"), bar = btn && btn.closest(".bar"); if (!btn) return;
+  function set(open) { bar.classList.toggle("open", open); btn.setAttribute("aria-expanded", open ? "true" : "false"); btn.textContent = open ? "Close" : "Menu"; }
+  btn.addEventListener("click", function (e) { e.stopPropagation(); set(!bar.classList.contains("open")); });
+  document.addEventListener("click", function (e) { if (bar.classList.contains("open") && !bar.contains(e.target)) set(false); });
+  addEventListener("keydown", function (e) { if (e.key === "Escape" && bar.classList.contains("open")) { set(false); btn.focus(); } });
+  bar.querySelectorAll("nav a").forEach(function (a) { a.addEventListener("click", function () { set(false); }); });
+  addEventListener("pageshow", function () { set(false); });
+})();

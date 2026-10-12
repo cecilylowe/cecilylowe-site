@@ -1811,3 +1811,45 @@ body.plain.about3 .stage { min-height: 100vh; min-height: 100svh; max-width: non
 .nlpanel .news input::-webkit-strong-password-auto-fill-button {
   visibility: hidden; display: none !important; pointer-events: none; position: absolute; right: 0; width: 0; height: 0; margin: 0;
 }
+
+/* ---------- Phones (2026-10-12) ----------
+   No fixed pink line: the pink shows only when you pull past the end of a page (the page background).
+   Header: "Cecily Lowe" left, "Menu" right; Menu opens three rows (About, Work, ?), each with the small
+   corner triangle davidricogomez.com uses, in the site's pink. On About the email sits centred just below,
+   with no Copy button. Desktop is unchanged: the Menu button only exists on phones. */
+.bar .menubtn { display: none; }
+@media (max-width: 720px) {
+  .pinkline { display: none; }
+
+  body.plain .bar { position: relative; display: grid; grid-template-columns: 1fr auto; align-items: baseline;
+    column-gap: 1rem; row-gap: 0; padding: calc(0.9rem + env(safe-area-inset-top, 0px)) 16px 0.9rem; z-index: 60; }
+  body.plain .bar .who { grid-column: 1; grid-row: 1; }
+  body.plain .bar .menubtn { display: block; grid-column: 2; grid-row: 1; font: inherit; color: inherit; background: none; border: 0;
+    padding: 0; margin: 0; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+  body.plain .bar .menubtn:focus-visible { outline: 1px solid currentColor; outline-offset: 3px; }
+
+  /* the menu: three rows dropping down under the header */
+  body.plain .bar nav { display: none; position: absolute; left: 0; right: 0; top: 100%; flex-direction: column; gap: 0;
+    background: var(--menu-bg, #fff); padding: 0.2rem 16px 1rem; border-bottom: 1px solid #ddd; }
+  body.plain .bar.open nav { display: flex; }
+  body.plain .bar nav a { display: flex; align-items: center; gap: 0.45em; padding: 0.55rem 0; text-decoration: none; }
+  body.plain .bar nav a::before { content: ""; flex: none; width: 0.72em; height: 0.72em; background: var(--pink);
+    clip-path: polygon(0 0, 100% 0, 0 100%); }
+  body.plain .bar nav a[aria-current="page"] { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.2em; }
+
+  /* About: the email centred a little below "Cecily Lowe" and Menu; no Copy */
+  body.plain.about3 .bar .mail { grid-column: 1 / -1; grid-row: 2; justify-self: center; position: static; transform: none;
+    margin-top: 1.1rem; order: 0; }
+  body.plain.about3 .bar .mail .copy { display: none; }
+  body.plain.about3 .stage { padding-top: 1.5rem; }
+}
+/* the ? page while locked is pink: its menu is pink too */
+@media (max-width: 720px) { body.plain.qpage.locked { --menu-bg: var(--pink); } body.plain.qpage.locked .bar nav a::before { background: #fff; } }
+@media (max-width: 720px) {
+  body.plain.locked .bar { display: grid; }                                    /* the ? page's header: same phone layout */
+  html body.plain.qpage.locked .bar nav { background: var(--pink); }           /* its menu solid pink, not see-through */
+}
+@media (max-width: 720px) {
+  html body.plain.qpage.locked .bar { background: transparent; }
+  html body.plain.qpage.locked .bar nav { border-bottom-color: rgba(17, 17, 17, 0.18); }
+}
