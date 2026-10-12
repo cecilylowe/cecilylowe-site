@@ -1880,3 +1880,9 @@ body.plain.about3 .stage { min-height: 100vh; min-height: 100svh; max-width: non
 @media (max-width: 720px) {   /* the slide-up pages (Publications, News, Newsletter) cover the whole screen, header included */
   .listpanel, .nlpanel { z-index: 80; padding-top: calc(0.8rem + env(safe-area-inset-top, 0px)); }
 }
+@media (max-width: 720px) {
+  /* Home: the photograph runs to the very bottom of the phone, behind Safari's floating search bar, instead of
+     stopping above it (100lvh = the full screen with the browser bars retracted; 100svh left a white strip) */
+  body.plain .spread { height: 100vh; height: 100lvh; }
+  body.plain:has(.spread) { min-height: 100lvh; }
+}
