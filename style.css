@@ -1853,3 +1853,27 @@ body.plain.about3 .stage { min-height: 100vh; min-height: 100svh; max-width: non
   html body.plain.qpage.locked .bar { background: transparent; }
   html body.plain.qpage.locked .bar nav { border-bottom-color: rgba(17, 17, 17, 0.18); }
 }
+
+/* ---------- Phones v2 (2026-10-12) ---------- */
+@media (max-width: 720px) {
+  /* the menu fills the whole screen; "Cecily Lowe" and Close stay on top of it */
+  body.plain .bar .who, body.plain .bar .menubtn { position: relative; z-index: 2; }
+  body.plain .bar nav { position: fixed; inset: 0; z-index: 1; border-bottom: 0; overflow-y: auto;
+    padding: calc(4.6rem + env(safe-area-inset-top, 0px)) 16px calc(2rem + env(safe-area-inset-bottom, 0px)); }
+  html:has(body.plain .bar.open), body.plain:has(.bar.open) { overflow: hidden; }
+
+  /* About: the email at the bottom of the screen, always in view; Jupiter moves up under the header */
+  body.plain.about3 .bar .mail { position: fixed; left: 0; right: 0; bottom: calc(1.4rem + env(safe-area-inset-bottom, 0px));
+    margin: 0; text-align: center; z-index: 1; grid-row: auto; }
+  body.plain.about3 .stage { padding-top: 0.5rem; padding-bottom: 5rem; }
+
+  /* Home: the right-hand photograph fills the whole screen, under the header too */
+  body.plain:has(.spread) .bar { position: absolute; left: 0; right: 0; top: 0; background: transparent; }
+  body.plain .spread { position: relative; display: block; height: 100vh; height: 100svh; padding: 0; margin: 0; }
+  body.plain .spread .cw-left { display: none; }
+  body.plain .spread .cw-right { position: absolute; inset: 0; margin: 0; width: auto; height: auto; }
+  body.plain .spread .cw-right img.right { width: 100%; height: 100%; object-fit: cover; margin: 0; max-width: none; }
+}
+@media (max-width: 720px) {   /* About: Jupiter centred between the header and the email at the bottom */
+  body.plain.about3 .stage { min-height: calc(100svh - 4rem - env(safe-area-inset-top, 0px)); place-items: center; padding-top: 0; padding-bottom: 4.5rem; }
+}
