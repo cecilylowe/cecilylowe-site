@@ -1877,3 +1877,6 @@ body.plain.about3 .stage { min-height: 100vh; min-height: 100svh; max-width: non
 @media (max-width: 720px) {   /* About: Jupiter centred between the header and the email at the bottom */
   body.plain.about3 .stage { min-height: calc(100svh - 4rem - env(safe-area-inset-top, 0px)); place-items: center; padding-top: 0; padding-bottom: 4.5rem; }
 }
+@media (max-width: 720px) {   /* the slide-up pages (Publications, News, Newsletter) cover the whole screen, header included */
+  .listpanel, .nlpanel { z-index: 80; padding-top: calc(0.8rem + env(safe-area-inset-top, 0px)); }
+}
