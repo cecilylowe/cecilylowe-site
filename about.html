@@ -12,10 +12,15 @@
 <link rel="icon" type="image/png" sizes="192x192" href="assets/icon-192.png?v=jupiter">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=jupiter">
 </head>
-<body class="plain about2">
+<body class="plain about3">
 
 <header class="bar">
   <a class="who" href="index.html" data-edit="site.name">Cecily Lowe</a>
+  <!-- the email, centred: click to write, or hover for a Copy button to its right -->
+  <div class="mail">
+    <a href="mailto:cecily.lowe@yale.edu" id="mail">cecily.lowe@yale.edu</a>
+    <button class="copy" type="button" id="copy">Copy</button>
+  </div>
   <nav>
     <a href="about.html" aria-current="page">About</a>
     <a href="work.html">Work</a>
@@ -23,53 +28,19 @@
   </nav>
 </header>
 
-<!-- About (2026-10-09): the vortex-street photograph framed in white on the left, the name running
-     across it into the right column (like the wordmark over the picture on architecture.yale.edu),
-     the bio small below, and a black Newsletter bar that slides up the sign-up (what was Thoughts).
-     The Moon version is kept in _unused/about-moon.html. -->
-<main class="me">
-  <!-- the picture spot rotates through black-and-white images, all cropped to the same square
-       (assets/about/01-08.jpg, made from the site's own pictures); in order, the next one on every refresh -->
-  <div class="pic rot">
-    <img src="assets/about/01.jpg" alt="Satellite view of a von Kármán vortex street: dark spiralling eddies in a field of white cloud.">
-    <script>
-      // the pictures in order, one per page load: a visit starts with the clouds (01) and each refresh shows the
-      // next (01 -> 08, then 01 again). The place in the cycle is kept for this browser tab only (sessionStorage),
-      // so a new visit always starts with the clouds again.
-      (function () {
-        var img = document.currentScript.previousElementSibling, pics = [
-          ["01", "Satellite view of a von Kármán vortex street: dark spiralling eddies in a field of white cloud."],
-          ["02", "Jupiter's Great Red Spot and the turbulent bands around it, from Voyager."],
-          ["03", "Bubble-chamber photograph: charged particle tracks curling into spirals in a magnetic field."],
-          ["04", "Close-up of the Moon's cratered surface."],
-          ["05", "Bubble-chamber photograph of a particle shower, tracks fanning out and spiralling."],
-          ["06", "Swirling cloud bands on Jupiter, from the Juno spacecraft."],
-          ["07", "A deep field of galaxies around the Bullet Cluster."],
-          ["08", "Étienne Léopold Trouvelot's drawing of the November meteors streaking across the night sky."]
-        ], k = 0;
-        try {
-          var last = parseInt(sessionStorage.getItem("aboutPic"), 10);
-          if (!isNaN(last)) k = (last + 1) % pics.length;
-          sessionStorage.setItem("aboutPic", String(k));
-        } catch (e) {}
-        img.src = img.getAttribute("src").replace("01.jpg", pics[k][0] + ".jpg"); img.alt = pics[k][1];
-      })();
-    </script>
-  </div>
-  <!-- to the right of the picture: the name, then the bio and email below it (2026-10-09) -->
-  <div class="side">
-    <h1 class="sr">Cecily Lowe</h1>
-    <div class="words">
-      <p data-edit="about.bio">Cecily Lowe is a Ph.D. student at Yale University building levitated optomechanical sensors to study the interaction between dark matter and ordinary matter.</p>
-      <p data-edit="about.contact"><a href="mailto:cecily.lowe@yale.edu">cecily.lowe@yale.edu</a></p>
-    </div>
-  </div>
+<!-- About v15 (2026-10-12): Jupiter turning slowly in the middle, the bio on a ring just outside its edge
+     (starting at the far left, running clockwise). Hover: Jupiter grows over the words and turns the pink
+     duotone. Click: the newsletter slides up. Earlier versions in _unused/about-*.html. -->
+<main class="stage">
+  <h1 class="sr">Cecily Lowe</h1>
+  <a class="orb" href="#newsletter" aria-label="Cecily Lowe is a Ph.D. student at Yale University building levitated optomechanical sensors to study the interaction between dark matter and ordinary matter. Open the newsletter sign-up.">
+    <span class="disc"><img src="assets/jupiter.webp" srcset="assets/jupiter-800.webp 800w, assets/jupiter.webp 1600w" sizes="(max-width: 720px) 80vw, 66svh" alt=""></span>
+    <svg viewBox="0 0 1000 1000" aria-hidden="true">
+      <defs><path id="ring" d="M 72 500 A 428 428 0 1 1 72 500.01"/></defs>
+      <text><textPath href="#ring" id="ringtext" lengthAdjust="spacing" data-edit="about.bio">Cecily Lowe is a Ph.D. student at Yale University building levitated optomechanical sensors to study the interaction between dark matter and ordinary matter.</textPath></text>
+    </svg>
+  </a>
 </main>
-
-<a class="newsbtn" href="#newsletter">
-  <span>Newsletter</span>
-  <svg viewBox="0 0 12 20" aria-hidden="true"><polyline points="1.5,1.5 10,10 1.5,18.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square"/></svg>
-</a>
 
 <div class="pinkline" aria-hidden="true"></div>
 
@@ -78,6 +49,7 @@
      Sheet "cecilylowe.com newsletter" and emails her from newsletter@cecilylowe.com. -->
 <section class="nlpanel" id="newsletter" role="dialog" aria-modal="true" aria-label="Newsletter" hidden>
   <button class="close" type="button">Close</button>
+  <h1>Newsletter</h1>
   <div class="art"><img src="assets/calabi-yau.jpg" alt="A Calabi–Yau manifold etched in a glass cube." loading="lazy"></div>
   <div class="signup">
     <form class="news bare" name="newsletter" method="POST" novalidate autocomplete="off">
@@ -120,16 +92,31 @@
   })();
 
 
-  // the Newsletter bar starts where the picture does: hand the picture's left edge to the stylesheet as --picl
+  // the ring: fit the sentence to exactly one turn, leaving a small gap where it starts and ends
   (function () {
-    var pic = document.querySelector(".pic.rot"); if (!pic) return;
-    function line() { document.documentElement.style.setProperty("--picl", Math.round(pic.getBoundingClientRect().left) + "px"); }
-    addEventListener("resize", line); if (document.fonts) document.fonts.ready.then(line); line();
+    var tp = document.getElementById("ringtext"), C = 2 * Math.PI * 428;
+    function fit() { tp.setAttribute("textLength", (C - 34).toFixed(1)); }
+    fit(); if (document.fonts) document.fonts.ready.then(fit);
+  })();
+
+  // Copy: puts the address on the clipboard ("Copied" for a moment, then the button goes until the pointer
+  // leaves the email and comes back); if the browser refuses, selects the address so Cmd+C works
+  (function () {
+    var copyBtn = document.getElementById("copy"), mail = document.getElementById("mail"), box = mail.parentNode, copyTimer = 0;
+    box.addEventListener("mouseleave", function () { box.classList.remove("rest"); });
+    copyBtn.addEventListener("click", function () {
+      function done(msg) {
+        clearTimeout(copyTimer); copyBtn.textContent = msg; copyBtn.classList.add("done"); box.classList.add("rest");
+        copyTimer = setTimeout(function () { copyBtn.classList.remove("done"); copyBtn.blur(); copyBtn.textContent = "Copy"; }, 1200);
+      }
+      function select() { var r = document.createRange(); r.selectNodeContents(mail); var sel = getSelection(); sel.removeAllRanges(); sel.addRange(r); done("Press \u2318C"); }
+      try { navigator.clipboard.writeText("cecily.lowe@yale.edu").then(function () { done("Copied"); }, select); } catch (e) { select(); }
+    });
   })();
 
   // the panel: the address carries #newsletter, so Back closes it and old /thoughts links open it
   (function () {
-    var p = document.getElementById("newsletter"), btn = document.querySelector(".newsbtn"), opened = false;
+    var p = document.getElementById("newsletter"), btn = document.querySelector(".orb"), opened = false;
     function show() {
       if (!p.hidden && p.classList.contains("up")) return;
       p.hidden = false;

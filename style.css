@@ -1721,3 +1721,67 @@ html:has(body.plain) body.plain { min-height: calc(100vh + 1px); min-height: cal
   .about2 .me .side { left: calc(50% + 8px); }
 }
 @media (min-width: 721px) { .about2 .me .side { right: var(--picl, 1.5rem); } }   /* text ends where the Newsletter bar ends */
+
+/* ---------- About v15 (2026-10-12): Jupiter with the bio on a ring ----------
+   Jupiter (assets/jupiter.webp, full colour) turns once every 2 minutes in the middle of the screen; the bio
+   runs on an SVG ring just outside its edge, starting at the far left. Hover: Jupiter grows over the words
+   (425 -> 463 of 1000) and turns the pink duotone of the News pictures (black and white under the pink).
+   Only the circle out to the letters' edge is clickable; a click slides up the newsletter. */
+body.plain.about3 .stage { min-height: 100vh; min-height: 100svh; max-width: none; margin: 0; box-sizing: border-box;
+  display: grid; place-items: center; padding: 4.5rem 16px 2rem; }
+.about3 .orb { position: relative; display: block; width: min(78svh, 86vw); aspect-ratio: 1; border-radius: 50%;
+  clip-path: circle(46.5% at 50% 50%); color: #111; text-decoration: none; }
+.about3 .orb:focus-visible { outline: none; }
+.about3 .orb .disc { position: absolute; inset: 7.5%; border-radius: 50%; z-index: 1; transition: transform 250ms ease; }
+.about3 .orb .disc img { position: absolute; inset: 0; width: 100%; height: 100%; border-radius: 50%;
+  animation: spin 120s linear infinite; will-change: transform; transition: filter 250ms ease; }
+.about3 .orb .disc::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: var(--pink);
+  mix-blend-mode: screen; opacity: 0; transition: opacity 250ms ease; pointer-events: none; }
+.about3 .orb svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.about3 .orb text { font-family: var(--font); font-size: 37px; letter-spacing: 0.02em; fill: #111; }
+.about3 .orb:hover .disc, .about3 .orb:focus-visible .disc { transform: scale(1.09); }
+.about3 .orb:hover .disc::after, .about3 .orb:focus-visible .disc::after { opacity: 1; }
+.about3 .orb:hover .disc img, .about3 .orb:focus-visible .disc img { filter: grayscale(1); }
+@media (max-width: 720px) { .about3 .orb { width: 92vw; } }
+@media (prefers-reduced-motion: reduce) {
+  .about3 .orb .disc img { animation: none; }
+  .about3 .orb .disc, .about3 .orb .disc img, .about3 .orb .disc::after { transition: none; }
+}
+
+/* the email, centred in the header; Copy appears to its right on hover */
+.about3 .bar .mail { position: absolute; left: 50%; transform: translateX(-50%); }
+.about3 .bar .mail a { white-space: nowrap; }
+.about3 .bar .mail .copy { position: absolute; left: 100%; top: 50%; transform: translateY(-50%); margin-left: 0.7rem;
+  font: inherit; font-size: 0.6em; color: #111; background: #fff; border: 1px solid #111; padding: 2px 10px; line-height: 1.2;
+  cursor: pointer; border-radius: 0; opacity: 0; visibility: hidden; transition: opacity 120ms; }
+.about3 .bar .mail:hover .copy, .about3 .bar .mail:has(:focus-visible) .copy, .about3 .bar .mail .copy.done { opacity: 1; visibility: visible; }
+.about3 .bar .mail.rest .copy:not(.done) { opacity: 0; visibility: hidden; }
+.about3 .bar .mail .copy:hover { color: var(--pink); border-color: var(--pink); }
+@media (max-width: 720px) {
+  .about3 .bar .mail { position: relative; left: auto; transform: none; order: 3; }
+}
+@media (hover: none) { .about3 .bar .mail .copy { opacity: 1; visibility: visible; } }
+
+/* the newsletter panel gets its heading, set like "Publications" and "News" on Work */
+.nlpanel { grid-template-rows: auto auto 1fr auto; }
+.nlpanel h1 { justify-self: start; font: inherit; font-weight: 400; font-size: clamp(44px, 5.4vw, 96px); line-height: 1;
+  letter-spacing: -0.035em; margin: 2.2rem 0 0; }
+@media (max-width: 720px) { .nlpanel h1 { margin-top: 1.6rem; } }
+@media (max-width: 720px) { body.plain.about3 .stage { min-height: 0; place-items: start center; padding-top: 2.5rem; } }   /* phones: the header is in the page flow, so Jupiter sits just under it */
+
+/* Newsletter panel (2026-10-12): the email box at the size of the Publications list text (24px; 19px on phones),
+   boxed in a thin black line like the Close button; "Email" stays at the left */
+.nlpanel .news.bare { border: 0; background: none; }
+.nlpanel .news.bare input { font-size: 24px; line-height: 1.3; height: auto; padding: 6px 12px; border: 1px solid #111; border-radius: 0;
+  background: #fff; text-align: left; box-sizing: border-box; width: 100%; }
+.nlpanel .news.bare input:focus { border-color: var(--pink); outline: none; }
+.nlpanel .signup .done { font-size: 24px; }
+@media (max-width: 720px) {
+  .nlpanel .news.bare input, .nlpanel .signup .done { font-size: 19px; }
+}
+
+/* Copy (2026-10-12): reachable. An invisible bridge covers the gap between the email and the button, so moving
+   across it never counts as leaving, and the button waits 0.4s before it goes. */
+.about3 .bar .mail .copy { transition: opacity 120ms ease 400ms, visibility 0s linear 520ms; }
+.about3 .bar .mail .copy::before { content: ""; position: absolute; right: 100%; top: -8px; bottom: -8px; width: calc(0.7rem + 2px); }
+.about3 .bar .mail:hover .copy, .about3 .bar .mail:has(:focus-visible) .copy, .about3 .bar .mail .copy.done { transition: opacity 120ms ease 0s, visibility 0s linear 0s; }
