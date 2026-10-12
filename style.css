@@ -1886,3 +1886,28 @@ body.plain.about3 .stage { min-height: 100vh; min-height: 100svh; max-width: non
   body.plain .spread { height: 100vh; height: 100lvh; }
   body.plain:has(.spread) { min-height: 100lvh; }
 }
+
+/* ? page (2026-10-12): the password in the same box as the newsletter email - a thin black frame, 24px text
+   (19px on phones), "Password" at the left, a ">" button at the right. On the pink screen the arrow cell fills
+   white with a pink arrow on hover (the newsletter's fills pink). */
+.plain .gate .news.boxed { display: flex; align-items: stretch; border: 1px solid #111; border-radius: 0; background: transparent;
+  height: auto; padding: 0; box-shadow: none; }
+.plain .gate .news.boxed input { flex: 1; min-width: 0; font-size: 24px; line-height: 1.3; height: auto; padding: 6px 12px; border: 0;
+  border-radius: 0; background: transparent; text-align: left; box-shadow: none; }
+.plain .gate .news.boxed input:focus { outline: none; }
+.plain .gate .news.boxed:focus-within { border-color: #111; }
+.plain .gate .news.boxed .go { flex: none; display: flex; align-items: center; justify-content: center; width: 2.6rem; padding: 0; margin: 0;
+  border: 0; background: transparent; color: #111; cursor: pointer; border-radius: 0; height: auto; font-size: inherit; }
+.plain .gate .news.boxed .go::after { content: none; }
+.plain .gate .news.boxed .go svg { width: 0.55rem; height: 0.95rem; }
+.plain .gate .news.boxed .go:hover, .plain .gate .news.boxed .go:focus-visible { background: #fff; color: var(--pink); opacity: 1; outline: none; }
+.plain .gate .news.boxed .go:active { transform: none; }
+.plain .gate .news.boxed input::-webkit-credentials-auto-fill-button,
+.plain .gate .news.boxed input::-webkit-contacts-auto-fill-button { visibility: hidden; display: none !important; pointer-events: none; width: 0; }
+@media (max-width: 720px) { .plain .gate .news.boxed input { font-size: 19px; } }
+
+/* Newsletter panel (2026-10-12): the email box in the middle of the screen; the Calabi-Yau picture is hidden
+   for now (still in the page, so it can come back by deleting the first rule) */
+.nlpanel .art { display: none; }
+.nlpanel .signup { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: min(23rem, calc(100% - 32px)); }
+.plain main.page.gate .news.boxed { width: min(23rem, calc(100vw - 32px)); max-width: none; }   /* same width as the newsletter box */
