@@ -69,7 +69,7 @@
     var done = document.querySelector(".nlpanel .done");
     form.reset();                                        // a fresh, empty box on every load
     form.email.addEventListener("keydown", function (e) {  // Enter signs up, whatever the browser does by default
-      if (e.key === "Enter") { e.preventDefault(); form.requestSubmit ? form.requestSubmit() : form.dispatchEvent(new Event("submit", { cancelable: true })); }
+      if (e.key === "Enter" && !e.isComposing) { e.preventDefault(); form.requestSubmit ? form.requestSubmit() : form.dispatchEvent(new Event("submit", { cancelable: true })); }
     });
     var busy = false;
     form.addEventListener("submit", function (e) {
@@ -78,14 +78,18 @@
       var email = form.email.value.trim();
       if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { note.textContent = "Please enter an email address."; return; }
       busy = true; note.textContent = "";
+      var body = new URLSearchParams(new FormData(form));
+      // "You're in." at once: Google's sign-up service can take a few seconds to answer, and a box that sits
+      // there looks as if Enter did nothing. If the request fails, the box comes back with a message.
+      form.hidden = true;
+      done.hidden = false;
       fetch(SIGNUPS, {
         method: "POST",
         mode: "no-cors",
-        body: new URLSearchParams(new FormData(form))
-      }).then(function () {                         // no-cors: the reply is opaque; a network error throws
-        form.hidden = true;
-        done.hidden = false;
-      }).catch(function () {
+        body: body
+      }).catch(function () {                        // no-cors: the reply is opaque; only a network error throws
+        done.hidden = true;
+        form.hidden = false;
         note.textContent = "Something went wrong. Please try again.";
       }).then(function () { busy = false; });
     });
