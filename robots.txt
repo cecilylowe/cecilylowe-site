@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /question
+
+Sitemap: https://cecilylowe.com/sitemap.xml

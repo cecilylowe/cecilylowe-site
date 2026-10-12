@@ -10,6 +10,7 @@ cd "$(dirname "$0")/.."
 REPO=https://github.com/cecilylowe/cecilylowe-site.git
 rm -rf .deploy && mkdir .deploy
 cp ./*.html style.css site.js favicon.ico .deploy/
+cp robots.txt sitemap.xml .deploy/                 # for search engines
 cp -R assets .deploy/assets
 rm -f .deploy/assets/cover.jpg            # not used by the current pages
 # clean addresses: links point at /about, /work … and / instead of about.html, index.html.
