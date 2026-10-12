@@ -1785,3 +1785,22 @@ body.plain.about3 .stage { min-height: 100vh; min-height: 100svh; max-width: non
 .about3 .bar .mail .copy { transition: opacity 120ms ease 400ms, visibility 0s linear 520ms; }
 .about3 .bar .mail .copy::before { content: ""; position: absolute; right: 100%; top: -8px; bottom: -8px; width: calc(0.7rem + 2px); }
 .about3 .bar .mail:hover .copy, .about3 .bar .mail:has(:focus-visible) .copy, .about3 .bar .mail .copy.done { transition: opacity 120ms ease 0s, visibility 0s linear 0s; }
+
+/* Newsletter box v2 (2026-10-12): the thin black box holds the email line and a ">" button at its right, the
+   same arrow as the Work openers; Enter or the arrow signs up; "You're in." then sits centred where the box was */
+.nlpanel .news.bare { display: flex; align-items: stretch; border: 1px solid #111; background: #fff; }
+.nlpanel .news.bare:focus-within { border-color: var(--pink); }
+.nlpanel .news.bare input { flex: 1; min-width: 0; border: 0; background: transparent; }
+.nlpanel .news.bare input:focus { border: 0; }
+.nlpanel .news.bare .go { flex: none; display: flex; align-items: center; justify-content: center; width: 2.6rem; padding: 0; margin: 0;
+  border: 0; border-left: 1px solid transparent; background: transparent; color: #111; cursor: pointer; border-radius: 0; }
+.nlpanel .news.bare .go svg { width: 0.55rem; height: 0.95rem; }
+.nlpanel .news.bare .go:hover, .nlpanel .news.bare .go:focus-visible { background: var(--pink); color: #fff; outline: none; }
+.nlpanel .signup .done { width: 100%; margin: 0; text-align: center; line-height: 46px; }
+.nlpanel .news.bare .go::after { content: none; }                 /* no second arrow from the older sign-up button style */
+.nlpanel .news.bare .go:hover { opacity: 1; }
+.nlpanel .news.bare .go:active { transform: none; }
+/* Copy v3 (2026-10-12): the page script shows it (.show) and keeps it a full second after the pointer leaves */
+.about3 .bar .mail.show .copy { opacity: 1; visibility: visible; transition: opacity 120ms ease 0s, visibility 0s linear 0s; }
+.about3 .bar .mail.show.rest .copy:not(.done) { opacity: 0; visibility: hidden; }
+.about3 .bar .mail .copy::before { width: calc(0.7rem + 6px); top: -12px; bottom: -12px; }

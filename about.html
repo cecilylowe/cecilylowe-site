@@ -55,7 +55,7 @@
     <form class="news bare" name="newsletter" method="POST" novalidate autocomplete="off">
       <p class="sr"><label>Leave this empty <input name="company" tabindex="-1" autocomplete="off"></label></p>
       <input id="email" name="email" type="email" placeholder="Email" aria-label="Email address, then press Enter" autocomplete="off" required>
-      <button type="submit" class="sr" tabindex="-1">Sign up</button>
+      <button type="submit" class="go" aria-label="Sign up"><svg viewBox="0 0 12 20" aria-hidden="true"><polyline points="1.5,1.5 10,10 1.5,18.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square"/></svg></button>
     </form>
     <p class="done" hidden>You&rsquo;re in.</p>
     <p class="note" aria-live="polite"></p>
@@ -68,6 +68,9 @@
     var form = document.querySelector("form.news"), note = document.querySelector(".nlpanel .note");
     var done = document.querySelector(".nlpanel .done");
     form.reset();                                        // a fresh, empty box on every load
+    form.email.addEventListener("keydown", function (e) {  // Enter signs up, whatever the browser does by default
+      if (e.key === "Enter") { e.preventDefault(); form.requestSubmit ? form.requestSubmit() : form.dispatchEvent(new Event("submit", { cancelable: true })); }
+    });
     var busy = false;
     form.addEventListener("submit", function (e) {
       e.preventDefault();
@@ -103,7 +106,13 @@
   // leaves the email and comes back); if the browser refuses, selects the address so Cmd+C works
   (function () {
     var copyBtn = document.getElementById("copy"), mail = document.getElementById("mail"), box = mail.parentNode, copyTimer = 0;
-    box.addEventListener("mouseleave", function () { box.classList.remove("rest"); });
+    // shown while the pointer is on the email or on Copy, and for a full second after it leaves either,
+    // so there is always time to reach the button (does not rely on the browser's hover alone)
+    var hideTimer = 0;
+    function keep() { clearTimeout(hideTimer); box.classList.add("show"); }
+    function later() { clearTimeout(hideTimer); hideTimer = setTimeout(function () { box.classList.remove("show"); box.classList.remove("rest"); }, 1000); }
+    [mail, copyBtn].forEach(function (el) { el.addEventListener("pointerenter", keep); el.addEventListener("pointerleave", later); });
+    mail.addEventListener("focus", keep); copyBtn.addEventListener("focus", keep); copyBtn.addEventListener("blur", later);
     copyBtn.addEventListener("click", function () {
       function done(msg) {
         clearTimeout(copyTimer); copyBtn.textContent = msg; copyBtn.classList.add("done"); box.classList.add("rest");
