@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="theme-color" content="#d82f8a">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Cecily Lowe is a Ph.D. student in physics at Yale University building levitated optomechanical sensors to study the interaction between dark matter and ordinary matter.">
+<link rel="canonical" href="https://cecilylowe.com/about">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Cecily Lowe">
+<meta property="og:title" content="About — Cecily Lowe">
+<meta property="og:description" content="Cecily Lowe is a Ph.D. student in physics at Yale University building levitated optomechanical sensors to study the interaction between dark matter and ordinary matter.">
+<meta property="og:url" content="https://cecilylowe.com/about">
+<meta property="og:image" content="https://cecilylowe.com/assets/icon-512.png">
+<meta name="twitter:card" content="summary">
+<title>About — Cecily Lowe</title>
+<link rel="preload" href="assets/fonts/LoweSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="style.css?v=1792005794">
+<script src="site.js?v=1792005794" defer></script>
+<link rel="icon" type="image/png" sizes="48x48" href="assets/icon-48.png?v=jupiter">
+<link rel="icon" type="image/png" sizes="96x96" href="assets/icon-96.png?v=jupiter">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/icon-192.png?v=jupiter">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/icon-32.png?v=jupiter">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=jupiter">
+<script>(function(){var V="1792005794";try{var u=new URL(location.href);if(u.searchParams.has("fresh")){u.searchParams.delete("fresh");history.replaceState(null,"",u.pathname+(u.search||"")+u.hash)}}catch(e){}function check(){fetch("/version.txt?"+Date.now(),{cache:"no-store"}).then(function(r){return r.ok?r.text():""}).then(function(v){v=(v||"").trim();if(!v||v===V)return;var k="cl-fresh-"+v+location.pathname;try{var t=+sessionStorage.getItem(k)||0;if(Date.now()-t<15000)return;sessionStorage.setItem(k,Date.now())}catch(e){}if(window.clLoading)window.clLoading();fetch(location.pathname,{cache:"reload"}).catch(function(){}).then(function(){location.reload()})}).catch(function(){})}function warm(){var k="cl-warm-"+V;try{if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,"1")}catch(e){}fetch("/version.txt?"+Date.now(),{cache:"no-store"}).then(function(r){return r.ok?r.text():""}).then(function(v){if((v||"").trim()!==V)return;["/", "/about", "/art", "/news", "/newsletter", "/question", "/thoughts", "/work"].forEach(function(p){if(p!==location.pathname)fetch(p,{cache:"reload"}).catch(function(){})})}).catch(function(){})}check();addEventListener("load",function(){setTimeout(warm,300)});addEventListener("pageshow",function(e){if(e.persisted)check()})})();</script>
+</head>
+<body class="plain about3">
+
+<header class="bar">
+  <a class="who" href="/" data-edit="site.name">Cecily Lowe</a>
+  <!-- the email, centred: click to write, or hover for a Copy button to its right -->
+  <div class="mail">
+    <a href="mailto:cecily.lowe@yale.edu" id="mail">cecily.lowe@yale.edu</a>
+    <button class="copy" type="button" id="copy">Copy</button>
+  </div>
+  <button class="menubtn" type="button" aria-expanded="false" aria-controls="sitenav">Menu</button>
+  <nav id="sitenav">
+    <a href="/about" aria-current="page">About</a>
+    <a href="/work">Work</a>
+    <a href="/art">Art</a>
+    <a href="/question">?</a>
+  </nav>
+</header>
+
+<!-- About v15 (2026-10-12): Jupiter turning slowly in the middle, the bio on a ring just outside its edge
+     (starting at the far left, running clockwise). Hover: Jupiter grows over the words and turns the pink
+     duotone. Click: the newsletter slides up. Earlier versions in _unused/about-*.html. -->
+<main class="stage">
+  <h1 class="sr">Cecily Lowe</h1>
+  <a class="orb" href="#newsletter" aria-label="Cecily Lowe is a Ph.D. student at Yale University building levitated optomechanical sensors to study the interaction between dark matter and ordinary matter. Open the newsletter sign-up.">
+    <span class="disc"><img src="assets/jupiter.webp?v=1792005794" srcset="assets/jupiter-800.webp 800w, assets/jupiter.webp 1600w" sizes="(max-width: 720px) 80vw, 66svh" alt=""></span>
+    <svg viewBox="0 0 1000 1000" aria-hidden="true">
+      <defs><path id="ring" d="M 72 500 A 428 428 0 1 1 72 500.01"/></defs>
+      <text><textPath href="#ring" id="ringtext" lengthAdjust="spacing" data-edit="about.bio">Cecily Lowe is a Ph.D. student at Yale University building levitated optomechanical sensors to study the interaction between dark matter and ordinary matter.</textPath></text>
+    </svg>
+  </a>
+</main>
+
+<div class="pinkline" aria-hidden="true"></div>
+
+<!-- the sign-up, sliding up from the bottom with a pink line along its top like the Work lists.
+     Sign-ups go to Cecily's own Google Apps Script (signups/Code.js), which adds them to the Google
+     Sheet "cecilylowe.com newsletter" and emails her from newsletter@cecilylowe.com. -->
+<section class="nlpanel" id="newsletter" role="dialog" aria-modal="true" aria-label="Newsletter" hidden>
+  <button class="close" type="button">Close</button>
+  <h1>Newsletter</h1>
+  <div class="art"><img src="assets/calabi-yau.jpg?v=1792005794" alt="A Calabi–Yau manifold etched in a glass cube." loading="lazy"></div>
+  <div class="signup">
+    <form class="news bare" name="newsletter" method="POST" novalidate autocomplete="off">
+      <p class="sr"><label>Leave this empty <input name="company" tabindex="-1" autocomplete="off"></label></p>
+      <input id="email" name="email" type="email" placeholder="Email" aria-label="Email address, then press Enter" autocomplete="off" required>
+      <button type="submit" class="go" aria-label="Sign up"><svg viewBox="0 0 12 20" aria-hidden="true"><polyline points="1.5,1.5 10,10 1.5,18.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square"/></svg></button>
+    </form>
+    <p class="done" hidden>You&rsquo;re in.</p>
+    <p class="note" aria-live="polite"></p>
+  </div>
+</section>
+
+<script>
+  var SIGNUPS = "https://script.google.com/macros/s/AKfycby7s0fRSxo36XJLCaGEm_sIB0D9JA1B5tILmcGSNA5L21HjQaaic8HagWgCz2CincqKUg/exec";
+  (function () {
+    var form = document.querySelector("form.news"), note = document.querySelector(".nlpanel .note");
+    var done = document.querySelector(".nlpanel .done");
+    form.reset();                                        // a fresh, empty box on every load
+    form.email.addEventListener("keydown", function (e) {  // Enter signs up, whatever the browser does by default
+      if (e.key === "Enter" && !e.isComposing) { e.preventDefault(); form.requestSubmit ? form.requestSubmit() : form.dispatchEvent(new Event("submit", { cancelable: true })); }
+    });
+    var busy = false;
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      if (busy) return;
+      var email = form.email.value.trim();
+      if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { note.textContent = "Please enter an email address."; return; }
+      busy = true; note.textContent = "";
+      var body = new URLSearchParams(new FormData(form));
+      // "You're in." at once: Google's sign-up service can take a few seconds to answer, and a box that sits
+      // there looks as if Enter did nothing. If the request fails, the box comes back with a message.
+      form.hidden = true;
+      done.hidden = false;
+      fetch(SIGNUPS, {
+        method: "POST",
+        mode: "no-cors",
+        body: body
+      }).catch(function () {                        // no-cors: the reply is opaque; only a network error throws
+        done.hidden = true;
+        form.hidden = false;
+        note.textContent = "Something went wrong. Please try again.";
+      }).then(function () { busy = false; });
+    });
+    window.addEventListener("pageshow", function (e) {  // coming back with the browser's Back button
+      if (e.persisted) { form.reset(); form.hidden = false; done.hidden = true; note.textContent = ""; }
+    });
+  })();
+
+
+  // the ring: fit the sentence to exactly one turn, leaving a small gap where it starts and ends
+  (function () {
+    var tp = document.getElementById("ringtext"), C = 2 * Math.PI * 428;
+    function fit() { tp.setAttribute("textLength", (C - 34).toFixed(1)); }
+    fit(); if (document.fonts) document.fonts.ready.then(fit);
+  })();
+
+  // Copy: puts the address on the clipboard ("Copied" for a moment, then the button goes until the pointer
+  // leaves the email and comes back); if the browser refuses, selects the address so Cmd+C works
+  (function () {
+    var copyBtn = document.getElementById("copy"), mail = document.getElementById("mail"), box = mail.parentNode, copyTimer = 0;
+    // shown while the pointer is on the email or on Copy, and for a full second after it leaves either,
+    // so there is always time to reach the button (does not rely on the browser's hover alone)
+    var hideTimer = 0;
+    function keep() { clearTimeout(hideTimer); box.classList.add("show"); }
+    function later() { clearTimeout(hideTimer); hideTimer = setTimeout(function () { box.classList.remove("show"); box.classList.remove("rest"); }, 1000); }
+    [mail, copyBtn].forEach(function (el) { el.addEventListener("pointerenter", keep); el.addEventListener("pointerleave", later); });
+    mail.addEventListener("focus", keep); copyBtn.addEventListener("focus", keep); copyBtn.addEventListener("blur", later);
+    copyBtn.addEventListener("click", function () {
+      function done(msg) {
+        clearTimeout(copyTimer); copyBtn.textContent = msg; copyBtn.classList.add("done"); box.classList.add("rest");
+        copyTimer = setTimeout(function () { copyBtn.classList.remove("done"); copyBtn.blur(); copyBtn.textContent = "Copy"; }, 1200);
+      }
+      function select() { var r = document.createRange(); r.selectNodeContents(mail); var sel = getSelection(); sel.removeAllRanges(); sel.addRange(r); done("Press \u2318C"); }
+      try { navigator.clipboard.writeText("cecily.lowe@yale.edu").then(function () { done("Copied"); }, select); } catch (e) { select(); }
+    });
+  })();
+
+  // the panel: the address carries #newsletter, so Back closes it and old /thoughts links open it
+  (function () {
+    var p = document.getElementById("newsletter"), btn = document.querySelector(".orb"), opened = false;
+    function show() {
+      if (!p.hidden && p.classList.contains("up")) return;
+      p.hidden = false;
+      document.documentElement.classList.add("panel-open");
+      p.getBoundingClientRect();                      // start from below the screen
+      requestAnimationFrame(function () { p.classList.add("up"); });
+      setTimeout(function () { p.querySelector(".close").focus({ preventScroll: true }); }, 450);   // the email box waits for a click
+    }
+    function hide() {
+      p.classList.remove("up");
+      document.documentElement.classList.remove("panel-open");
+      setTimeout(function () { if (!p.classList.contains("up")) p.hidden = true; }, 450);
+    }
+    function route() { location.hash === "#newsletter" ? show() : (p.hidden || hide()); }
+    btn.addEventListener("click", function (e) { e.preventDefault(); opened = true; history.pushState(null, "", "#newsletter"); route(); });
+    function close() {
+      if (opened) { opened = false; history.back(); }
+      else { history.replaceState(null, "", location.pathname + location.search); route(); }
+    }
+    p.querySelector(".close").addEventListener("click", close);
+    addEventListener("keydown", function (e) { if (e.key === "Escape" && !p.hidden) close(); });
+    addEventListener("popstate", function () { opened = false; route(); });
+    addEventListener("hashchange", route);
+    route();
+  })();
+</script>
+</body>
+</html>

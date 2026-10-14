@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#d82f8a">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>? — Cecily Lowe</title>
+<link rel="preload" href="assets/fonts/LoweSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="style.css?v=1792005794">
+<script src="site.js?v=1792005794" defer></script>
+<link rel="icon" type="image/png" sizes="48x48" href="assets/icon-48.png?v=jupiter">
+<link rel="icon" type="image/png" sizes="96x96" href="assets/icon-96.png?v=jupiter">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/icon-192.png?v=jupiter">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/icon-32.png?v=jupiter">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=jupiter">
+<script>(function(){var V="1792005794";try{var u=new URL(location.href);if(u.searchParams.has("fresh")){u.searchParams.delete("fresh");history.replaceState(null,"",u.pathname+(u.search||"")+u.hash)}}catch(e){}function check(){fetch("/version.txt?"+Date.now(),{cache:"no-store"}).then(function(r){return r.ok?r.text():""}).then(function(v){v=(v||"").trim();if(!v||v===V)return;var k="cl-fresh-"+v+location.pathname;try{var t=+sessionStorage.getItem(k)||0;if(Date.now()-t<15000)return;sessionStorage.setItem(k,Date.now())}catch(e){}if(window.clLoading)window.clLoading();fetch(location.pathname,{cache:"reload"}).catch(function(){}).then(function(){location.reload()})}).catch(function(){})}function warm(){var k="cl-warm-"+V;try{if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,"1")}catch(e){}fetch("/version.txt?"+Date.now(),{cache:"no-store"}).then(function(r){return r.ok?r.text():""}).then(function(v){if((v||"").trim()!==V)return;["/", "/about", "/art", "/news", "/newsletter", "/question", "/thoughts", "/work"].forEach(function(p){if(p!==location.pathname)fetch(p,{cache:"reload"}).catch(function(){})})}).catch(function(){})}check();addEventListener("load",function(){setTimeout(warm,300)});addEventListener("pageshow",function(e){if(e.persisted)check()})})();</script>
+</head>
+<body class="plain locked qpage">
+
+<header class="bar">
+  <a class="who" href="/" data-edit="site.name">Cecily Lowe</a>
+  <button class="menubtn" type="button" aria-expanded="false" aria-controls="sitenav">Menu</button>
+  <nav id="sitenav">
+    <a href="/about">About</a>
+    <a href="/work">Work</a>
+    <a href="/art">Art</a>
+    <a href="/question" aria-current="page">?</a>
+  </nav>
+</header>
+
+<!-- ?: a password screen, dead centre, nothing else. The page behind it is ENCRYPTED with the
+     password (tools/lock_question.py); only the right password can decrypt it in the browser.
+     The readable source is _private/question-inside.html, which is not published. -->
+<main class="page gate">
+  <form class="news boxed" id="gate" novalidate>
+    <label for="pw" class="sr">Password</label>
+    <input id="pw" name="password" type="password" placeholder="Password" aria-label="Password, then press Enter" autocomplete="current-password" autocapitalize="none" spellcheck="false" required>
+    <button type="submit" class="go" aria-label="Enter"><svg viewBox="0 0 12 20" aria-hidden="true"><polyline points="1.5,1.5 10,10 1.5,18.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square"/></svg></button>
+  </form>
+  <p class="note" aria-live="polite"></p>
+</main>
+
+<main class="page inside-wrap" id="inside" hidden></main>
+
+<!--LOCKED-->
+<script type="application/json" id="locked">{"salt": "+fQSr3GafNYVsAQqoUMgHw==", "iv": "SbIMQ6DU8ND445nL3qipvQ==", "ct": "TtuQdW3+5QW1XwcQFEx9LwHBT6/sKn1fkM5mZBsAHTwICHv21wefDRjOdEbIu0KCxUgyDOetz/3up/D0RRMnygalocw9Q7mLnRpo/PygEoEyBS9Qhg7O1OvQ10hVjnpTLH2l7OskzU212VP2NdtJdxU3ro6CGvIGEy5AGXCLZa9dhbUC/u5zYiUsyrpV6RluP85t66fPoZkwjt65ZWwIZLYhyWBM/IfTlFGg+7tZz78n1R20ua3rGsLhZUXjtOC3tOy6fy3g2j+6TE7mvbepxRnnABPwKqny8LTzYKMpbrDc82Y/d0+N2nacmTb6v+FHadzGxQPT6v5g5l0ljUU7P7cI2WC1VCHkLkFO3WkcE4IWqItsxTnrjTsNBUGrgu0nYsYZqGM0N0CfX0fEaQUmDcV0R8qzWFqqafkLZqFMRVxchfEEKFV2KKNXg5l3oFwWlCz82EJ5qsOhuDZKNgOgC+hxHejuWOBIp6X0MNzqSWHimibUH+HrIr0aI/RwNj3DLf0oho+GgHtqaM04PsT6Lk2Yg9bjduC2ZwiEO6O0u2aGqZgNjqGZauDfOXCfndLnyP8CVyUUWWBFJVNNG0tsd0E5MAyhHIvnHgxjBU7JDCVitADa4PGhm6JM/E1DgiYZTzXoXyyBjjQc7X0qPTbYrUpPm4Ofcbw5RM6KW086QGgOjyVcUnUNteRAuocAF0G/lGj16RlYyApM7SdI6bdykVcci3R63q/1rHOuhBusMEjSmquFzNxfR/5QMVE/6cB22JLthzoIBvwvLM7KrrYrRXUGAGNmIHUUfxHpVf4dR09CMNIWBxVklxEF10FT3zAhL3DNNkMWlh6c+PUJ4nykYz7vic26SBodUEZkgwYxZJy3e2C2Sopub30WU1jxxMt1OkKaw9s3j5NDYowDu45wCarEn9pE3J4U7j9x71phebAs1mwfevKIfEd1lCacABJJ6CoJycCgA8clB82lPQgKEOKsNTMatdOnmQ1LTnTGEZ8Ur6ntJkDP1MLQzeSa7bEQHEPhJz5PptVmRzl0nFZVgOB3EvhuUxSLB34k6cvZRQuJLKtYAeINJ356d1sVBKfs7ltNmBePuBkhhLNQbvGGJaBPmd9FlJtgbQR9rLukxZJ1RmJoqt3z/nY96uxTbt6Esaov2maRYp2tb+PDMSuPj/kkv/BpiUt7ABlfQd3vWAoLOsvmKIB/g85aeiQPlDLorDD0vUYzUK9RcGNN3LH3Wv5TU4MYReDnpHaCCHKoA8SzJQEHEtcln7yq+iAkhuJbZz637S4+HCd56ZpzSc7UF+nZTRVSJiOci7muZW1G2bQvlmy+CvxPBH5y49saDU92BLM7pA7MBQrRrL/8Ots3RPictxSsXhGu9PlM5qVpzfGFd6e4j23htxPLc/C38yUu0nRZ9QI/kqsOXOkIdOc+diDuuC1uv0pthpOqN9Mn0jOn1mWcx278lk2pTLLNaGVeKbRbjR8ZGY4t+iyhfO6zeg==", "mac": "S0UG/0/AcHzrAcoLZHxPdAAHi7T2HNo2ceJmF5KVtAk=", "iter": 30000}</script>
+<!--/LOCKED-->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js" integrity="sha512-a+SUDuwNzXDvz4XrIcXHuCf089/iJAoN4lmrXJg18XnduKK6YlDHNRalv4yd1N40OKI80tFidF+rqTFKGPoWFQ==" crossorigin="anonymous"></script>
+<script>
+  (function () {
+    var C = window.CryptoJS;
+    var blob = JSON.parse(document.getElementById("locked").textContent);
+    var form = document.getElementById("gate"), note = document.querySelector(".gate .note");
+    var gate = document.querySelector(".gate"), inside = document.getElementById("inside");
+    var KEY = "cl-question";
+
+    // The calendar starts downloading now, while the password is being typed, so it is ready on unlock.
+    // The script answers this request in ciphertext; only the unlocked block holds the key.
+    var CAL = "https://script.google.com/macros/s/AKfycbzlDFvbXK4QEoh0jZ3stYLPDD7YATT6eC_cXUgt6dzfsk0YNnbsTRAKnuVox3tcjFhYzg/exec";
+    function calRange(y, mo) {
+      function d(x) { return x.getFullYear() + "-" + ("0" + (x.getMonth() + 1)).slice(-2) + "-" + ("0" + x.getDate()).slice(-2); }
+      return { from: d(new Date(y - 1, mo, 1)), to: d(new Date(y + 2, mo, 1)) };
+    }
+    function calFetch(r) {
+      return fetch(CAL + "?enc=1&from=" + r.from + "&to=" + r.to).then(function (x) { return x.json(); })
+        .then(function (j) { if (!j || !j.c) throw new Error("calendar"); return { from: r.from, to: r.to, sealed: j }; });
+    }
+    var calNow = new Date(), calFirst = calFetch(calRange(calNow.getFullYear(), calNow.getMonth()));
+    calFirst.catch(function () {});
+
+    function b64(s) { return C.enc.Base64.parse(s); }
+    function sameBytes(a, b) {               // constant-time compare of two hex strings
+      if (a.length !== b.length) return false;
+      var d = 0; for (var i = 0; i < a.length; i++) d |= a.charCodeAt(i) ^ b.charCodeAt(i); return d === 0;
+    }
+    function open(pw) {
+      var key = C.PBKDF2(pw, b64(blob.salt), { keySize: 16, iterations: blob.iter, hasher: C.algo.SHA256 });
+      var enc = C.lib.WordArray.create(key.words.slice(0, 8), 32);
+      var mac = C.lib.WordArray.create(key.words.slice(8, 16), 32);
+      var iv = b64(blob.iv), ct = b64(blob.ct);
+      var check = C.HmacSHA256(iv.clone().concat(ct), mac).toString();
+      if (!sameBytes(check, b64(blob.mac).toString())) return null;
+      var out = C.AES.decrypt({ ciphertext: ct }, enc, { iv: iv, mode: C.mode.CBC, padding: C.pad.Pkcs7 }).toString(C.enc.Utf8);
+      return out.indexOf("CL1:") === 0 ? out.slice(4) : null;
+    }
+    function show(html) {
+      inside.innerHTML = html;
+      gate.hidden = true;
+      inside.hidden = false;
+      document.body.classList.remove("locked");
+      var m = inside.querySelector("[data-cal]");
+      if (m) renderCal(m);
+    }
+
+    // Month view of the ? calendar. The script's address and token come from the unlocked block;
+    // events arrive as {title, location, description, allDay, startDay, endDay, time, endTime}
+    // in New York days. Events spanning days run across them as one bar, as in Google Calendar,
+    // each event in its own colour; clicking one opens its details.
+    function renderCal(el) {
+      var MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+      var DAYS = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
+      var WEEKDAYS = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+      // Cecily's order (2026-10-12): Aqua, Rose, Lime, Lilac, Coral, Apricot, Mint, Periwinkle, Peach, Sage, Sky, Butter
+      var PALETTE = ["#a8dbe2", "#f4b6c8", "#dfe5a6", "#d6c5ef", "#f7a8a0", "#f6d6a0", "#bfe2c8", "#b8c6e8", "#f4c1a3", "#c9d6b4", "#a9cdf2", "#f7ecaa"];
+      var now = new Date(), y = now.getFullYear(), mo = now.getMonth(), seq = 0, events = [];
+      function iso(d) { return d.getFullYear() + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" + ("0" + d.getDate()).slice(-2); }
+      function day(s) { return new Date(s + "T12:00:00"); }
+      function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+      function colour(list) {                 // the script gives each event a saved place in the colour order
+        list.forEach(function (ev) { ev.colour = PALETTE[(ev.rank || 0) % PALETTE.length]; });
+      }
+      function longDate(d, withMonth) { return WEEKDAYS[d.getDay()] + " " + d.getDate() + (withMonth ? " " + MONTHS[d.getMonth()] : ""); }
+      function when(ev) {
+        var a = day(ev.startDay), b = day(ev.endDay), same = ev.startDay === ev.endDay;
+        if (ev.allDay) return same ? longDate(a, true) : longDate(a, a.getMonth() !== b.getMonth()) + " – " + longDate(b, true);
+        if (same) return longDate(a, true) + ", " + ev.time + (ev.endTime ? " – " + ev.endTime : "");
+        return longDate(a, true) + ", " + ev.time + " – " + longDate(b, true) + ", " + ev.endTime;
+      }
+      function mins(t) {                      // "10:30am" -> minutes after midnight, for ordering a day's events
+        var m = /^(\d+)(?::(\d+))?(am|pm)$/.exec(t || ""); if (!m) return -1;
+        return (+m[1] % 12 + (m[3] === "pm" ? 12 : 0)) * 60 + (+m[2] || 0);
+      }
+      function linkify(s) { return esc(s).replace(/https?:\/\/[^\s<]+/g, function (u) { return '<a href="' + u + '" target="_blank" rel="noopener">' + u + "</a>"; }); }
+
+      function draw(note) {
+        var first = new Date(y, mo, 1), start = new Date(y, mo, 1 - (first.getDay() + 6) % 7);
+        var weeks = Math.ceil(((first.getDay() + 6) % 7 + new Date(y, mo + 1, 0).getDate()) / 7);
+        var last = new Date(start); last.setDate(start.getDate() + 7 * weeks - 1);
+        colour(events.filter(function (ev) { return ev.endDay >= iso(start) && ev.startDay <= iso(last); }));
+        var spot = el.getAttribute("data-spotify");
+        var h = '<div class="mhead"><span class="mtitle">' + MONTHS[mo] + " " + y + '</span><span class="mnav">' +
+          (spot ? '<a class="spotify" href="' + esc(spot) + '" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#1ed760"/><path d="M6 9.2c4-1.2 8.6-.8 12 1.1M6.8 12.5c3.3-.9 7-.6 9.9 1M7.5 15.6c2.6-.7 5.4-.5 7.7.8" fill="none" stroke="#111" stroke-width="1.6" stroke-linecap="round"/></svg><span>Spotify</span></a>' : "") +
+          '<button type="button" data-step="-1" aria-label="Previous month">&lt;</button>' +
+          '<button type="button" data-step="0">Today</button>' +
+          '<button type="button" data-step="1" aria-label="Next month">&gt;</button></span></div>' +
+          '<div class="mgrid" style="--weeks:' + weeks + '"><div class="dows">';
+        DAYS.forEach(function (d) { h += '<div class="dow">' + d + "</div>"; });
+        h += "</div>";
+        for (var w = 0; w < weeks; w++) {
+          var ws = new Date(start); ws.setDate(start.getDate() + 7 * w);
+          var we = new Date(ws); we.setDate(ws.getDate() + 6);
+          var a = iso(ws), z = iso(we), bg = "", nums = "";
+          for (var i = 0; i < 7; i++) {
+            var d = new Date(ws); d.setDate(ws.getDate() + i);
+            var cls = (d.getMonth() !== mo ? " out" : "") + (iso(d) === iso(now) ? " today" : "");
+            bg += '<div class="bg' + cls + '"></div>';
+            nums += '<span class="n' + cls + '" style="grid-column:' + (i + 1) + '">' + d.getDate() + "</span>";
+          }
+          // this week's pieces of each event, laid into lanes so overlapping ones stack
+          var segs = [];
+          events.forEach(function (ev, k) {
+            if (ev.endDay < a || ev.startDay > z) return;
+            var s = Math.round((day(ev.startDay < a ? a : ev.startDay) - day(a)) / 864e5);
+            var e = Math.round((day(ev.endDay > z ? z : ev.endDay) - day(a)) / 864e5);
+            segs.push({ k: k, s: s, e: e, l: ev.startDay < a, r: ev.endDay > z, bar: ev.allDay || ev.startDay !== ev.endDay });
+          });
+          segs.sort(function (p, q) { return p.s - q.s || (q.e - q.s) - (p.e - p.s) || (q.bar - p.bar) || mins(events[p.k].time) - mins(events[q.k].time); });
+          var lanes = [];
+          segs.forEach(function (g) {
+            for (var L = 0; L < lanes.length && lanes[L] >= g.s; L++);
+            lanes[L] = g.e; g.lane = L;
+          });
+          var evs = "";
+          segs.forEach(function (g) {
+            var ev = events[g.k];
+            evs += '<button type="button" class="ev' + (g.bar ? " span" : " dot") + (g.l ? " cl" : "") + (g.r ? " cr" : "") +
+              '" data-k="' + g.k + '" data-lane="' + g.lane + '" data-s="' + g.s + '" data-e="' + g.e + '" style="--c:' + ev.colour +
+              ";grid-column:" + (g.s + 1) + " / " + (g.e + 2) + ";grid-row:" + (g.lane + 2) + '">' +
+              '<span class="ttl">' + (!g.bar && ev.time ? '<span class="t">' + esc(ev.time) + "</span> " : "") + esc(ev.title) + "</span>" +
+              (ev.location ? '<span class="loc"><i class="pin" aria-hidden="true"></i>' + esc(ev.location) + "</span>" : "") + "</button>";
+          });
+          h += '<div class="wk"><div class="bgs">' + bg + '</div><div class="lanes">' + nums + evs + "</div></div>";
+        }
+        el.innerHTML = h + "</div>" + (note ? '<p class="mnote">' + note + "</p>" : "") +
+          '<div class="pop" hidden role="dialog" aria-modal="false"></div>';
+        fit(start);
+      }
+      // a week holds as many lanes as fit; the rest become "+N" on the days they cover
+      function fit(start) {
+        Array.prototype.forEach.call(el.querySelectorAll(".wk"), function (wk, w) {
+          var all = wk.querySelectorAll(".ev"); if (!all.length) return;
+          var room = wk.clientHeight - 2, hidden = [0, 0, 0, 0, 0, 0, 0], over = false;
+          Array.prototype.forEach.call(all, function (b) { if (b.offsetTop + b.offsetHeight > room) over = true; });
+          if (!over) return;
+          room -= 20;                          // leave a line at the bottom for "+N more"
+          Array.prototype.forEach.call(all, function (b) {
+            if (b.offsetTop + b.offsetHeight > room) b.dataset.cut = "1";
+          });
+          Array.prototype.forEach.call(wk.querySelectorAll('.ev[data-cut="1"]'), function (b) {
+            for (var i = +b.dataset.s; i <= +b.dataset.e; i++) hidden[i]++;
+            b.remove();
+          });
+          var row = document.createElement("div"); row.className = "mores";
+          hidden.forEach(function (c, i) {
+            if (!c) return;
+            var d = new Date(start); d.setDate(start.getDate() + 7 * w + i);
+            var m = document.createElement("button");
+            m.type = "button"; m.className = "more"; m.dataset.day = iso(d); m.textContent = "+" + c + " more";
+            m.style.gridColumn = i + 1;
+            row.appendChild(m);
+          });
+          wk.appendChild(row);
+        });
+      }
+      var pop, opener;
+      function openPop(html, from) {
+        pop = el.querySelector(".pop"); opener = from;
+        pop.innerHTML = '<button type="button" class="x" aria-label="Close">×</button>' + html;
+        pop.hidden = false;
+        var r = from.getBoundingClientRect(), pw = pop.offsetWidth, ph = pop.offsetHeight;
+        var left = Math.min(Math.max(8, r.left), innerWidth - pw - 8);
+        var top = r.bottom + 6 + ph > innerHeight - 8 ? Math.max(8, r.top - ph - 6) : r.bottom + 6;
+        pop.style.left = left + "px"; pop.style.top = top + "px";
+        pop.querySelector(".x").focus({ preventScroll: true });
+      }
+      function closePop() { if (pop && !pop.hidden) { pop.hidden = true; if (opener) opener.focus({ preventScroll: true }); } }
+      function eventHtml(ev) {
+        return '<span class="sw" style="--c:' + ev.colour + '"></span><h2>' + esc(ev.title || "(No title)") + "</h2>" +
+          (ev.allDay ? "" : '<p class="when">' + esc(ev.time + (ev.endTime ? " \u2013 " + ev.endTime : "")) + "</p>") +
+          (ev.location ? '<p class="where"><a href="https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(ev.location) +
+            '" target="_blank" rel="noopener"><i class="pin" aria-hidden="true"></i>' + esc(ev.location) + "</a></p>" : "") +
+          (ev.description ? '<p class="desc">' + linkify(ev.description) + "</p>" : "") +
+          (el.getAttribute("data-sms") ? '<a class="join" href="' + esc(joinLink(ev)) + '">Join this event</a>' : "");
+      }
+      // A text to Cecily, already written: "Hey, I want to join <title>!". The number lives only in the
+      // encrypted block. "?&body=" is the form both iPhone and Android Messages read.
+      // On a Windows (or other non-Apple, non-phone) computer there is no Messages app, so the same
+      // words go in an email instead; Macs, iPhones and Android phones get the text.
+      function isPC() {
+        var ua = navigator.userAgent, plat = (navigator.userAgentData && navigator.userAgentData.platform) || navigator.platform || "";
+        if (/Android|iPhone|iPad|iPod|Macintosh|Mac OS X/i.test(ua) || /Mac|iPhone|iPad|Android/i.test(plat)) return false;
+        return /Windows|Win32|Win64|Linux|X11|CrOS/i.test(ua + " " + plat);
+      }
+      function joinLink(ev) {
+        var title = ev.title || "this event";
+        if (isPC() && el.getAttribute("data-mail")) return "mailto:" + el.getAttribute("data-mail") +
+          "?subject=" + encodeURIComponent("I want to join " + title) + "&body=" + encodeURIComponent("Hey, I want to join " + title + "!");
+        return smsLink(ev);
+      }
+      function smsLink(ev) {
+        return "sms:" + el.getAttribute("data-sms") + "?&body=" + encodeURIComponent("Hey, I want to join " + (ev.title || "this event") + "!");
+      }
+      // Events for about three years around the month shown come in one request (started before the
+      // password, above), so moving between months is instant. The last encrypted answer is kept in this
+      // browser, so later visits draw at once and then quietly update.
+      var have = null, busy = null, STORE = "cl-cal-sealed";
+      var token = el.getAttribute("data-k"), K = C.HmacSHA256("cal-key", token);
+      var EK = C.HmacSHA256("enc", K), MK = C.HmacSHA256("mac", K);
+      function open_(sealed) {               // undo seal_() in the Apps Script; null if anything is off
+        var n = C.enc.Base64.parse(sealed.n), c = C.enc.Base64.parse(sealed.c);
+        if (C.HmacSHA256(n.clone().concat(c), MK).toString() !== C.enc.Base64.parse(sealed.t).toString()) return null;
+        var out = [], cw = c.words, total = c.sigBytes;
+        for (var blk = 0; blk * 32 < total; blk++) {
+          var ks = C.HmacSHA256(n.clone().concat(C.lib.WordArray.create([blk])), EK).words;
+          for (var w = 0; w < 8 && (blk * 8 + w) * 4 < total; w++) out.push((cw[blk * 8 + w] || 0) ^ ks[w]);
+        }
+        try { return JSON.parse(C.lib.WordArray.create(out, total).toString(C.enc.Utf8)); } catch (e) { return null; }
+      }
+      function covered() { var a = iso(new Date(y, mo, -6)), b = iso(new Date(y, mo + 1, 7)); return have && have.from <= a && have.to >= b; }
+      function take(got, quiet) {             // got = {from, to, sealed}
+        var j = open_(got.sealed);
+        if (!j) { if (!have) draw("Could not load the calendar."); return; }
+        var same = have && JSON.stringify(have.events) === JSON.stringify(j.events || []);
+        have = { from: got.from, to: got.to, events: j.events || [] };
+        try { localStorage.setItem(STORE, JSON.stringify(got)); } catch (e) {}
+        events = have.events;
+        if (!(quiet && same)) draw("");       // unchanged: leave the screen (and any open popup) alone
+      }
+      function fetchAround() {
+        if (busy) return;
+        var me = ++seq; busy = me;
+        calFetch(calRange(y, mo)).then(function (got) { if (busy === me) busy = null; if (me === seq) take(got, true); })
+          .catch(function () { if (busy === me) busy = null; if (!have) draw("Could not load the calendar."); });
+      }
+      function load() {
+        if (covered()) { events = have.events; draw(""); return; }
+        events = have ? have.events : [];
+        draw(have ? "" : "Loading\u2026");
+        fetchAround();
+      }
+      try { var kept = JSON.parse(localStorage.getItem(STORE) || "null"); if (kept) take(kept, false); } catch (e) {}
+      if (!have) draw("Loading\u2026");
+      busy = -1;
+      calFirst.then(function (got) { busy = null; take(got, true); if (!covered()) load(); })
+        .catch(function () { busy = null; if (!have) draw("Could not load the calendar."); else if (!covered()) load(); });
+      el.addEventListener("click", function (e) {
+        var b = e.target.closest("button[data-step]");
+        if (b) {
+          var s = +b.getAttribute("data-step");
+          if (s === 0) { y = now.getFullYear(); mo = now.getMonth(); }
+          else { mo += s; if (mo < 0) { mo = 11; y--; } if (mo > 11) { mo = 0; y++; } }
+          load(); return;
+        }
+        var ev = e.target.closest(".ev[data-k]");
+        if (ev) { openPop(eventHtml(events[+ev.dataset.k]), ev); return; }
+        var more = e.target.closest(".more");
+        if (more) {
+          var k = more.dataset.day, list = "";
+          events.map(function (x, i) { return i; }).sort(function (i, j) { return mins(events[i].time) - mins(events[j].time); }).forEach(function (i) {
+            var x = events[i];
+            if (x.startDay <= k && x.endDay >= k) list += '<button type="button" class="ev span" data-k="' + i + '" style="--c:' + x.colour + '">' +
+              '<span class="ttl">' + (x.allDay ? "" : '<span class="t">' + esc(x.time) + "</span> ") + esc(x.title) + "</span>" +
+              (x.location ? '<span class="loc"><i class="pin" aria-hidden="true"></i>' + esc(x.location) + "</span>" : "") + "</button>";
+          });
+          openPop("<h2>" + esc(longDate(day(k), true)) + '</h2><div class="list">' + list + "</div>", more); return;
+        }
+        if (e.target.closest(".x") || !e.target.closest(".pop")) closePop();
+      });
+      document.addEventListener("click", function (e) { if (!el.contains(e.target)) closePop(); });
+      document.addEventListener("keydown", function (e) { if (e.key === "Escape") closePop(); });
+      addEventListener("resize", function () { closePop(); draw(""); });
+    }
+    function remembered() { try { return sessionStorage.getItem(KEY); } catch (e) { return null; } }
+    function remember(pw) { try { sessionStorage.setItem(KEY, pw); } catch (e) {} }
+
+    if (!C) { note.textContent = "Could not load. Please check your connection and reload."; return; }
+
+    var saved = remembered();
+    if (saved) { var h = open(saved); if (h) { show(h); return; } }
+
+    var busy = false;
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      if (busy) return;
+      var pw = form.password.value;
+      if (!pw) { note.textContent = "Please enter the password."; return; }
+      busy = true; note.textContent = "";
+      setTimeout(function () {                // let the page repaint before the key is derived
+        var html = null;
+        try { html = open(pw); } catch (err) { html = null; }
+        busy = false;
+        if (html) { remember(pw); show(html); }
+        else { note.textContent = "Incorrect password."; form.password.value = ""; form.password.focus(); }
+      }, 30);
+    });
+  })();
+</script>
+
+</body>
+</html>
